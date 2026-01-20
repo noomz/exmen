@@ -84,6 +84,11 @@ struct MenuContentView: View {
 
         executingActionId = action.id
 
+        // Hide menu on click if enabled and not showing popup
+        if action.hideOnClick && action.outputConfig.handler != .popup {
+            NSApp.keyWindow?.close()
+        }
+
         Task {
             do {
                 let result = try await ScriptRunner.shared.run(scriptConfig)
