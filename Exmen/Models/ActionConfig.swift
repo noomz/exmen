@@ -49,9 +49,15 @@ struct ActionConfig: Codable {
     let script: ScriptConfig
     let output: OutputConfig?
     let hook: HookConfig?
+    let hide_on_click: Bool?
 
     /// Default output handler if not specified
     var resolvedOutput: OutputConfig {
         output ?? OutputConfig(handler: .clipboard)
+    }
+
+    /// Whether to hide menu on click (default: true)
+    var resolvedHideOnClick: Bool {
+        hide_on_click ?? true
     }
 }
