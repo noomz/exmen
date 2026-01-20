@@ -8,8 +8,11 @@ struct ExmenApp: App {
     }
 
     var body: some Scene {
-        MenuBarExtra("Exmen", systemImage: "terminal.fill") {
+        MenuBarExtra {
             MenuContentView()
+        } label: {
+            Image("MenuBarIcon")
+                .renderingMode(.template)
         }
         .menuBarExtraStyle(.window)
     }
