@@ -19,6 +19,7 @@ None
 - [x] **Phase 3: Script Execution** — Run scripts with output handling
 - [x] **Phase 4: Hook System** — Dynamic updates via script output and polling
 - [x] **Phase 5: Auto-Hide Menu** — Hide menu on action click with per-action override
+- [ ] **Phase 6: IPC Server** — External communication interface for tools like sketchybar
 
 ## Phase Details
 
@@ -73,10 +74,27 @@ Plans:
 Plans:
 - [x] 05-01: Add hide_on_click config and implement menu dismissal
 
+### Phase 6: IPC Server
+**Goal**: Expose Exmen functionality to external tools (sketchybar, scripts, etc.) via IPC
+**Depends on**: Phase 5
+**Research**: Likely (IPC mechanisms on macOS)
+**Research topics**: Unix domain sockets vs XPC vs HTTP localhost, CLI client pattern (like aerospace, yabai), message format (JSON-RPC, plain text)
+**Plans**: TBD
+
+Example use cases:
+- `exmen list-actions` — List available actions
+- `exmen run <action-name>` — Execute an action
+- `exmen status <action-name>` — Get action status
+- Integration with sketchybar for dynamic widgets
+
+Plans:
+- [ ] 06-01: Socket server + command handlers
+- [ ] 06-02: CLI client tool
+
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
+Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
@@ -85,3 +103,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 3. Script Execution | 2/2 | Complete | 2026-01-20 |
 | 4. Hook System | 2/2 | Complete | 2026-01-20 |
 | 5. Auto-Hide Menu | 1/1 | Complete | 2026-01-20 |
+| 6. IPC Server | 0/2 | Planned | — |
