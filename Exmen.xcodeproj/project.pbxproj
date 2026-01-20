@@ -1,0 +1,433 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A1000001233456780000001 /* ExmenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002233456780000001 /* ExmenApp.swift */; };
+		A1000001233456780000002 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002233456780000002 /* Action.swift */; };
+		A1000001233456780000003 /* MenuContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002233456780000003 /* MenuContentView.swift */; };
+		A1000001233456780000004 /* ActionConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002233456780000005 /* ActionConfig.swift */; };
+		A1000001233456780000005 /* ConfigLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002233456780000006 /* ConfigLoader.swift */; };
+		A1000001233456780000006 /* TOMLDecoder in Frameworks */ = {isa = PBXBuildFile; productRef = A100000C233456780000001 /* TOMLDecoder */; };
+		A1000001233456780000007 /* DirectoryWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002233456780000007 /* DirectoryWatcher.swift */; };
+		A1000001233456780000008 /* ActionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002233456780000008 /* ActionService.swift */; };
+		A1000001233456780000009 /* ScriptResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002233456780000009 /* ScriptResult.swift */; };
+		A1000001233456780000010 /* ScriptRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002233456780000010 /* ScriptRunner.swift */; };
+		A1000001233456780000011 /* OutputHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002233456780000011 /* OutputHandler.swift */; };
+		A1000001233456780000012 /* PopupResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002233456780000012 /* PopupResultView.swift */; };
+		A1000001233456780000013 /* HookUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002233456780000013 /* HookUpdate.swift */; };
+		A1000001233456780000014 /* HookParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002233456780000014 /* HookParser.swift */; };
+		A1000001233456780000015 /* StatusPoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002233456780000015 /* StatusPoller.swift */; };
+		A1000001233456780000016 /* ActionRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002233456780000016 /* ActionRowView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		A1000002233456780000001 /* ExmenApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExmenApp.swift; sourceTree = "<group>"; };
+		A1000002233456780000002 /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
+		A1000002233456780000003 /* MenuContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuContentView.swift; sourceTree = "<group>"; };
+		A1000002233456780000004 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A1000002233456780000005 /* ActionConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionConfig.swift; sourceTree = "<group>"; };
+		A1000002233456780000006 /* ConfigLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigLoader.swift; sourceTree = "<group>"; };
+		A1000002233456780000007 /* DirectoryWatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryWatcher.swift; sourceTree = "<group>"; };
+		A1000002233456780000008 /* ActionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionService.swift; sourceTree = "<group>"; };
+		A1000002233456780000009 /* ScriptResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptResult.swift; sourceTree = "<group>"; };
+		A1000002233456780000010 /* ScriptRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptRunner.swift; sourceTree = "<group>"; };
+		A1000002233456780000011 /* OutputHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputHandler.swift; sourceTree = "<group>"; };
+		A1000002233456780000012 /* PopupResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupResultView.swift; sourceTree = "<group>"; };
+		A1000002233456780000013 /* HookUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HookUpdate.swift; sourceTree = "<group>"; };
+		A1000002233456780000014 /* HookParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HookParser.swift; sourceTree = "<group>"; };
+		A1000002233456780000015 /* StatusPoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusPoller.swift; sourceTree = "<group>"; };
+		A1000002233456780000016 /* ActionRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionRowView.swift; sourceTree = "<group>"; };
+		A1000003233456780000001 /* Exmen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Exmen.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A1000004233456780000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1000001233456780000006 /* TOMLDecoder in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A1000005233456780000001 = {
+			isa = PBXGroup;
+			children = (
+				A1000005233456780000002 /* Exmen */,
+				A1000005233456780000005 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A1000005233456780000002 /* Exmen */ = {
+			isa = PBXGroup;
+			children = (
+				A1000002233456780000001 /* ExmenApp.swift */,
+				A1000005233456780000003 /* Models */,
+				A1000005233456780000004 /* Views */,
+				A1000005233456780000006 /* Services */,
+				A1000002233456780000004 /* Info.plist */,
+			);
+			path = Exmen;
+			sourceTree = "<group>";
+		};
+		A1000005233456780000003 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A1000002233456780000002 /* Action.swift */,
+				A1000002233456780000005 /* ActionConfig.swift */,
+				A1000002233456780000013 /* HookUpdate.swift */,
+				A1000002233456780000009 /* ScriptResult.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		A1000005233456780000004 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A1000002233456780000016 /* ActionRowView.swift */,
+				A1000002233456780000003 /* MenuContentView.swift */,
+				A1000002233456780000012 /* PopupResultView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		A1000005233456780000005 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A1000003233456780000001 /* Exmen.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A1000005233456780000006 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A1000002233456780000006 /* ConfigLoader.swift */,
+				A1000002233456780000007 /* DirectoryWatcher.swift */,
+				A1000002233456780000008 /* ActionService.swift */,
+				A1000002233456780000014 /* HookParser.swift */,
+				A1000002233456780000010 /* ScriptRunner.swift */,
+				A1000002233456780000011 /* OutputHandler.swift */,
+				A1000002233456780000015 /* StatusPoller.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A1000006233456780000001 /* Exmen */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A1000008233456780000001 /* Build configuration list for PBXNativeTarget "Exmen" */;
+			buildPhases = (
+				A1000007233456780000001 /* Sources */,
+				A1000004233456780000001 /* Frameworks */,
+				A1000007233456780000002 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Exmen;
+			packageProductDependencies = (
+				A100000C233456780000001 /* TOMLDecoder */,
+			);
+			productName = Exmen;
+			productReference = A1000003233456780000001 /* Exmen.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A1000009233456780000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					A1000006233456780000001 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = A1000008233456780000002 /* Build configuration list for PBXProject "Exmen" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A1000005233456780000001;
+			packageReferences = (
+				A100000D233456780000001 /* XCRemoteSwiftPackageReference "TOMLDecoder" */,
+			);
+			productRefGroup = A1000005233456780000005 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A1000006233456780000001 /* Exmen */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A1000007233456780000002 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A1000007233456780000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1000001233456780000001 /* ExmenApp.swift in Sources */,
+				A1000001233456780000002 /* Action.swift in Sources */,
+				A1000001233456780000003 /* MenuContentView.swift in Sources */,
+				A1000001233456780000004 /* ActionConfig.swift in Sources */,
+				A1000001233456780000005 /* ConfigLoader.swift in Sources */,
+				A1000001233456780000007 /* DirectoryWatcher.swift in Sources */,
+				A1000001233456780000008 /* ActionService.swift in Sources */,
+				A1000001233456780000009 /* ScriptResult.swift in Sources */,
+				A1000001233456780000010 /* ScriptRunner.swift in Sources */,
+				A1000001233456780000011 /* OutputHandler.swift in Sources */,
+				A1000001233456780000012 /* PopupResultView.swift in Sources */,
+				A1000001233456780000013 /* HookUpdate.swift in Sources */,
+				A1000001233456780000014 /* HookParser.swift in Sources */,
+				A1000001233456780000015 /* StatusPoller.swift in Sources */,
+				A1000001233456780000016 /* ActionRowView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		A100000A233456780000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		A100000A233456780000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		A100000B233456780000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Exmen/Info.plist;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.exmen.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		A100000B233456780000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Exmen/Info.plist;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.exmen.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A1000008233456780000001 /* Build configuration list for PBXNativeTarget "Exmen" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A100000B233456780000001 /* Debug */,
+				A100000B233456780000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A1000008233456780000002 /* Build configuration list for PBXProject "Exmen" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A100000A233456780000001 /* Debug */,
+				A100000A233456780000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A100000D233456780000001 /* XCRemoteSwiftPackageReference "TOMLDecoder" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dduan/TOMLDecoder";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.4.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A100000C233456780000001 /* TOMLDecoder */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A100000D233456780000001 /* XCRemoteSwiftPackageReference "TOMLDecoder" */;
+			productName = TOMLDecoder;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = A1000009233456780000001 /* Project object */;
+}

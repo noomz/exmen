@@ -14,10 +14,10 @@ None
 - Integer phases (1, 2, 3): Planned milestone work
 - Decimal phases (2.1, 2.2): Urgent insertions (marked with INSERTED)
 
-- [ ] **Phase 1: Foundation** — SwiftUI menu bar app scaffold with basic UI
-- [ ] **Phase 2: Config & Discovery** — TOML parsing and script folder discovery
-- [ ] **Phase 3: Script Execution** — Run scripts with output handling
-- [ ] **Phase 4: Hook System** — Dynamic updates via script output and polling
+- [x] **Phase 1: Foundation** — SwiftUI menu bar app scaffold with basic UI
+- [x] **Phase 2: Config & Discovery** — TOML parsing and script folder discovery
+- [x] **Phase 3: Script Execution** — Run scripts with output handling
+- [x] **Phase 4: Hook System** — Dynamic updates via script output and polling
 
 ## Phase Details
 
@@ -29,8 +29,8 @@ None
 **Plans**: TBD
 
 Plans:
-- [ ] 01-01: Xcode project setup and menu bar app scaffold
-- [ ] 01-02: Basic menu UI with static action list
+- [x] 01-01: Xcode project setup and menu bar app scaffold
+- [x] 01-02: Basic menu UI with static action list
 
 ### Phase 2: Config & Discovery
 **Goal**: Load actions from TOML config files and discover scripts in designated folder
@@ -40,8 +40,8 @@ Plans:
 **Plans**: TBD
 
 Plans:
-- [ ] 02-01: TOML config parsing and action model
-- [ ] 02-02: Script folder discovery and file watching
+- [x] 02-01: TOML config parsing and action model
+- [x] 02-02: Script folder discovery and file watching
 
 ### Phase 3: Script Execution
 **Goal**: Execute scripts and handle output (clipboard, notification, popup)
@@ -50,8 +50,8 @@ Plans:
 **Plans**: TBD
 
 Plans:
-- [ ] 03-01: Script execution engine
-- [ ] 03-02: Output handling (clipboard, notification, popup)
+- [x] 03-01: Script execution engine
+- [x] 03-02: Output handling (clipboard, notification, popup)
 
 ### Phase 4: Hook System
 **Goal**: Scripts can push updates (title, status, thumbnail) and optional polling fallback
@@ -60,8 +60,8 @@ Plans:
 **Plans**: TBD
 
 Plans:
-- [ ] 04-01: Script output parsing for dynamic updates
-- [ ] 04-02: Polling fallback for status refresh
+- [x] 04-01: Script output parsing for dynamic updates
+- [x] 04-02: Polling fallback for status refresh
 
 ## Progress
 
@@ -70,7 +70,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 0/2 | Not started | - |
-| 2. Config & Discovery | 0/2 | Not started | - |
-| 3. Script Execution | 0/2 | Not started | - |
-| 4. Hook System | 0/2 | Not started | - |
+| 1. Foundation | 2/2 | Complete | 2026-01-20 |
+| 2. Config & Discovery | 2/2 | Complete | 2026-01-20 |
+| 3. Script Execution | 2/2 | Complete | 2026-01-20 |
+| 4. Hook System | 2/2 | Complete | 2026-01-20 |
