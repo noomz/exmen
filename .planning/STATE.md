@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-01-20)
 
 ## Current Position
 
-Phase: 4 of 4 (Complete)
-Plan: All complete
-Status: v1 Roadmap finished
-Last activity: 2026-01-20 — Phase 4 Hook System complete
+Phase: 5 of 5 (Planned)
+Plan: 05-01 ready
+Status: Phase 5 planned
+Last activity: 2026-01-20 — Phase 5 Auto-Hide Menu planned
 
-Progress: ██████████ 100%
+Progress: ████████░░ 80%
 
 ## Performance Metrics
 

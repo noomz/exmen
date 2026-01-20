@@ -18,6 +18,7 @@ None
 - [x] **Phase 2: Config & Discovery** — TOML parsing and script folder discovery
 - [x] **Phase 3: Script Execution** — Run scripts with output handling
 - [x] **Phase 4: Hook System** — Dynamic updates via script output and polling
+- [ ] **Phase 5: Auto-Hide Menu** — Hide menu on action click with per-action override
 
 ## Phase Details
 
@@ -63,10 +64,19 @@ Plans:
 - [x] 04-01: Script output parsing for dynamic updates
 - [x] 04-02: Polling fallback for status refresh
 
+### Phase 5: Auto-Hide Menu
+**Goal**: Hide menu popup when action is clicked, with per-action override option
+**Depends on**: Phase 4
+**Research**: Unlikely (standard SwiftUI/AppKit patterns)
+**Plans**: TBD
+
+Plans:
+- [ ] 05-01: Add hide_on_click config and implement menu dismissal
+
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4
+Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
@@ -74,3 +84,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | 2. Config & Discovery | 2/2 | Complete | 2026-01-20 |
 | 3. Script Execution | 2/2 | Complete | 2026-01-20 |
 | 4. Hook System | 2/2 | Complete | 2026-01-20 |
+| 5. Auto-Hide Menu | 0/1 | Planned | — |
