@@ -26,6 +26,13 @@ Exmen lives in your menu bar and lets you run scripts without switching to Termi
 
 ## Installation
 
+### Download
+
+Download the latest release from [GitHub Releases](https://github.com/noomz/exmen/releases):
+
+- **DMG** — Open, drag Exmen to Applications
+- **ZIP** — Extract, move Exmen.app to Applications
+
 ### Build from Source
 
 ```bash
