@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-01-20)
 
 ## Current Position
 
-Phase: 5 of 5 (Planned)
-Plan: 05-01 ready
-Status: Phase 5 planned
-Last activity: 2026-01-20 — Phase 5 Auto-Hide Menu planned
+Phase: 5 of 5 (Complete)
+Plan: All complete
+Status: Phase 5 complete
+Last activity: 2026-01-20 — Completed 05-01-PLAN.md
 
-Progress: ████████░░ 80%
+Progress: ██████████ 100%
 
 ## Performance Metrics
 
@@ -53,6 +53,7 @@ All key decisions for v1:
 - OutputService for clipboard/notification/popup handling
 - Hook format: EXMEN:key=value in script output
 - StatusPoller with Timer for periodic status updates
+- Menu auto-hide on action click (default: true, configurable via hide_on_click)
 
 ### Deferred Issues
 

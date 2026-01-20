@@ -18,7 +18,7 @@ None
 - [x] **Phase 2: Config & Discovery** — TOML parsing and script folder discovery
 - [x] **Phase 3: Script Execution** — Run scripts with output handling
 - [x] **Phase 4: Hook System** — Dynamic updates via script output and polling
-- [ ] **Phase 5: Auto-Hide Menu** — Hide menu on action click with per-action override
+- [x] **Phase 5: Auto-Hide Menu** — Hide menu on action click with per-action override
 
 ## Phase Details
 
@@ -71,7 +71,7 @@ Plans:
 **Plans**: TBD
 
 Plans:
-- [ ] 05-01: Add hide_on_click config and implement menu dismissal
+- [x] 05-01: Add hide_on_click config and implement menu dismissal
 
 ## Progress
 
@@ -84,4 +84,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 2. Config & Discovery | 2/2 | Complete | 2026-01-20 |
 | 3. Script Execution | 2/2 | Complete | 2026-01-20 |
 | 4. Hook System | 2/2 | Complete | 2026-01-20 |
-| 5. Auto-Hide Menu | 0/1 | Planned | — |
+| 5. Auto-Hide Menu | 1/1 | Complete | 2026-01-20 |
