@@ -5,21 +5,21 @@
 See: .planning/PROJECT.md (updated 2026-01-20)
 
 **Core value:** Zero-friction execution — click menu, run action, done.
-**Current focus:** v1 Complete!
+**Current focus:** v1.1 Complete with IPC!
 
 ## Current Position
 
-Phase: 6 of 6 (Planned)
-Plan: 06-01 ready
-Status: Phase 6 planned (2 plans)
-Last activity: 2026-01-20 — Phase 6 IPC Server planned
+Phase: 6 of 6 (Complete)
+Plan: All complete
+Status: Phase 6 IPC Server complete (2 plans)
+Last activity: 2026-01-21 — Phase 6 IPC Server complete
 
-Progress: █████████░ 83%
+Progress: ██████████ 100%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 8
+- Total plans completed: 10
 - Average duration: —
 - Total execution time: —
 
@@ -31,9 +31,11 @@ Progress: █████████░ 83%
 | 2. Config & Discovery | 2 | — | — |
 | 3. Script Execution | 2 | — | — |
 | 4. Hook System | 2 | — | — |
+| 5. Auto-Hide Menu | 1 | — | — |
+| 6. IPC Server | 2 | — | — |
 
 **Recent Trend:**
-- Last 5 plans: 02-02, 03-01, 03-02, 04-01, 04-02
+- Last 5 plans: 04-02, 05-01, 06-01, 06-02
 - Trend: —
 
 ## Accumulated Context
@@ -54,6 +56,8 @@ All key decisions for v1:
 - Hook format: EXMEN:key=value in script output
 - StatusPoller with Timer for periodic status updates
 - Menu auto-hide on action click (default: true, configurable via hide_on_click)
+- Unix domain socket for IPC (~/.config/exmen/exmen.sock)
+- JSON protocol for CLI communication
 
 ### Deferred Issues
 
@@ -65,11 +69,11 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-01-20
-Stopped at: v1 complete
+Last session: 2026-01-21
+Stopped at: Phase 6 complete
 Resume file: None
 
-## v1 Features Complete
+## v1.1 Features Complete
 
 - [x] Menu bar icon with action list
 - [x] TOML config for actions (inline/file scripts)
@@ -80,3 +84,6 @@ Resume file: None
 - [x] Hook system: EXMEN:key=value parsing
 - [x] Status polling with configurable interval
 - [x] Dynamic UI updates (title, status, badge, icon)
+- [x] Menu auto-hide on action click (configurable)
+- [x] IPC via Unix domain socket
+- [x] CLI tool (exmen) for external integration
