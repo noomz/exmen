@@ -44,7 +44,7 @@ struct MenuContentView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else {
                 ScrollView {
-                    LazyVStack(spacing: 4) {
+                    LazyVStack(spacing: 2) {
                         ForEach(actionService.actions) { action in
                             ActionRowView(
                                 action: action,
@@ -53,8 +53,8 @@ struct MenuContentView: View {
                             )
                         }
                     }
-                    .padding(.vertical, 8)
-                    .padding(.horizontal, 12)
+                    .padding(.vertical, 4)
+                    .padding(.horizontal, 8)
                 }
             }
 
@@ -73,7 +73,7 @@ struct MenuContentView: View {
             }
             .padding(12)
         }
-        .frame(width: popupResult != nil ? 400 : 280, height: popupResult != nil ? 350 : 320)
+        .frame(width: popupResult != nil ? 450 : 280, height: popupResult != nil ? 400 : 400)
     }
 
     private func executeAction(_ action: Action) {
