@@ -12,8 +12,18 @@ enum ConfigError: Error {
 class ConfigLoader {
     static let shared = ConfigLoader()
 
-    /// Default config directory
+    /// Default config directory for actions
     let configDirectory: String
+
+    /// Parent config directory (~/.config/exmen/)
+    var parentConfigDirectory: String {
+        (configDirectory as NSString).deletingLastPathComponent
+    }
+
+    /// Path to global config.toml
+    var globalConfigPath: String {
+        (parentConfigDirectory as NSString).appendingPathComponent("config.toml")
+    }
 
     init(configDirectory: String = "~/.config/exmen/actions") {
         self.configDirectory = NSString(string: configDirectory).expandingTildeInPath
@@ -58,6 +68,22 @@ class ConfigLoader {
             return try decoder.decode(ActionConfig.self, from: content)
         } catch {
             print("Failed to parse TOML at \(path): \(error)")
+            return nil
+        }
+    }
+
+    /// Load global config from config.toml
+    func loadGlobalConfig() -> GlobalConfig? {
+        guard let data = FileManager.default.contents(atPath: globalConfigPath),
+              let content = String(data: data, encoding: .utf8) else {
+            return nil
+        }
+
+        do {
+            let decoder = TOMLDecoder()
+            return try decoder.decode(GlobalConfig.self, from: content)
+        } catch {
+            print("Failed to parse global config at \(globalConfigPath): \(error)")
             return nil
         }
     }
