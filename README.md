@@ -62,6 +62,20 @@ The built app will be in `~/Library/Developer/Xcode/DerivedData/Exmen-*/Build/Pr
 - macOS 13.0 (Ventura) or later
 - Xcode 15.0+ (for building)
 
+## Quick Start
+
+Copy the example configs to get started:
+
+```bash
+cp -r .config/exmen ~/.config/
+```
+
+This includes:
+- `config.toml` — Global configuration example
+- `actions/system-status.toml` — CPU monitoring with status polling
+- `actions/check-disk-space.toml` — Disk space notification
+- `actions/update-homebrew.toml` — Brew update with popup output
+
 ## Configuration
 
 Actions are defined in TOML files located at `~/.config/exmen/actions/`
