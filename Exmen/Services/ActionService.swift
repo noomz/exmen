@@ -12,7 +12,8 @@ class ActionService: ObservableObject {
     @Published var lastError: String?
 
     private let configLoader = ConfigLoader.shared
-    private var directoryWatcher: DirectoryWatcher?
+    private var actionsWatcher: DirectoryWatcher?
+    private var configWatcher: DirectoryWatcher?
 
     private init() {}
 
@@ -89,22 +90,37 @@ class ActionService: ObservableObject {
 
     /// Start watching the config directory for changes
     func startWatching() {
-        directoryWatcher = DirectoryWatcher(
+        // Watch actions directory
+        actionsWatcher = DirectoryWatcher(
             path: configLoader.configDirectory
+        ) { [weak self] in
+            print("ActionService: Actions directory changed, reloading...")
+            self?.loadActions()
+        }
+
+        if actionsWatcher?.start() == false {
+            print("ActionService: Could not start actions directory watcher")
+        }
+
+        // Watch parent directory for config.toml changes
+        configWatcher = DirectoryWatcher(
+            path: configLoader.parentConfigDirectory
         ) { [weak self] in
             print("ActionService: Config directory changed, reloading...")
             self?.loadActions()
         }
 
-        if directoryWatcher?.start() == false {
-            print("ActionService: Could not start directory watcher")
+        if configWatcher?.start() == false {
+            print("ActionService: Could not start config directory watcher")
         }
     }
 
     /// Stop watching for changes
     func stopWatching() {
-        directoryWatcher?.stop()
-        directoryWatcher = nil
+        actionsWatcher?.stop()
+        actionsWatcher = nil
+        configWatcher?.stop()
+        configWatcher = nil
         StatusPoller.shared.stopAll()
     }
 
