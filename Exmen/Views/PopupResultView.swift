@@ -14,31 +14,33 @@ struct PopupResultView: View {
                 Image(systemName: result.isSuccess ? "checkmark.circle.fill" : "xmark.circle.fill")
                     .foregroundColor(result.isSuccess ? .green : .red)
                 Text(actionName)
-                    .font(.headline)
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
                 Spacer()
                 Button(action: onDismiss) {
                     Image(systemName: "xmark")
+                        .font(.caption)
                         .foregroundColor(.secondary)
                 }
                 .buttonStyle(.plain)
             }
-            .padding()
+            .padding(10)
 
             Divider()
 
             // Output content
             ScrollView {
-                VStack(alignment: .leading, spacing: 8) {
+                VStack(alignment: .leading, spacing: 6) {
                     if !cleanOutput.isEmpty {
                         Text(cleanOutput)
-                            .font(.system(.body, design: .monospaced))
+                            .font(.system(.callout, design: .monospaced))
                             .textSelection(.enabled)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
 
                     if !result.error.isEmpty {
                         Text(result.error)
-                            .font(.system(.body, design: .monospaced))
+                            .font(.system(.callout, design: .monospaced))
                             .foregroundColor(.red)
                             .textSelection(.enabled)
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -46,36 +48,40 @@ struct PopupResultView: View {
 
                     if cleanOutput.isEmpty && result.error.isEmpty {
                         Text("No output")
+                            .font(.callout)
                             .foregroundColor(.secondary)
                             .italic()
                     }
                 }
-                .padding()
+                .padding(10)
             }
 
             Divider()
 
             // Footer
             HStack {
-                Text("Exit code: \(result.exitCode)")
-                    .font(.caption)
+                Text("Exit: \(result.exitCode)")
+                    .font(.caption2)
                     .foregroundColor(.secondary)
                 Text("•")
+                    .font(.caption2)
                     .foregroundColor(.secondary)
                 Text(String(format: "%.2fs", result.duration))
-                    .font(.caption)
+                    .font(.caption2)
                     .foregroundColor(.secondary)
                 Spacer()
                 Button("Copy") {
                     OutputService.shared.copyToClipboard(cleanOutput.trimmingCharacters(in: .whitespacesAndNewlines))
                 }
+                .font(.caption)
                 Button("Close") {
                     onDismiss()
                 }
+                .font(.caption)
                 .keyboardShortcut(.escape, modifiers: [])
             }
-            .padding(12)
+            .padding(8)
         }
-        .frame(width: 400, height: 300)
+        .frame(width: 450, height: 400)
     }
 }
