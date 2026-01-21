@@ -34,13 +34,27 @@ class ActionService: ObservableObject {
         lastError = nil
 
         let configs = configLoader.loadAllConfigs()
+        let globalConfig = configLoader.loadGlobalConfig()
 
         if configs.isEmpty {
             // Fall back to sample actions if no configs found
             actions = Action.samples
             print("ActionService: No configs found, using sample actions")
         } else {
-            actions = configs.map { Action(from: $0) }
+            // Filter out disabled actions
+            let disabled = Set(globalConfig?.disabled ?? [])
+            let enabledConfigs = configs.filter { !disabled.contains($0.name) }
+
+            // Apply ordering
+            let order = globalConfig?.order ?? []
+            let orderMap = Dictionary(uniqueKeysWithValues: order.enumerated().map { ($1, $0) })
+            let sortedConfigs = enabledConfigs.sorted {
+                let idx1 = orderMap[$0.name] ?? Int.max
+                let idx2 = orderMap[$1.name] ?? Int.max
+                return idx1 < idx2
+            }
+
+            actions = sortedConfigs.map { Action(from: $0) }
             print("ActionService: Loaded \(actions.count) actions from config")
         }
 
