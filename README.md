@@ -1,10 +1,22 @@
-# Exmen
+<p align="center">
+  <img src="assets/app-icon.png" width="128" height="128" alt="Exmen">
+</p>
 
-A macOS menu bar app for zero-friction script execution. Click, run, done.
+<h1 align="center">Exmen</h1>
 
-![macOS](https://img.shields.io/badge/macOS-13.0+-blue)
-![Swift](https://img.shields.io/badge/Swift-5.9+-orange)
-![License](https://img.shields.io/badge/License-MIT-green)
+<p align="center">
+  A macOS menu bar app for zero-friction script execution. Click, run, done.
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/macOS-13.0+-blue" alt="macOS">
+  <img src="https://img.shields.io/badge/Swift-5.9+-orange" alt="Swift">
+  <img src="https://img.shields.io/badge/License-MIT-green" alt="License">
+</p>
+
+<p align="center">
+  <img src="assets/screenshot-menu.png" width="400" alt="Exmen Menu">
+</p>
 
 ## What is Exmen?
 
@@ -23,6 +35,8 @@ Exmen lives in your menu bar and lets you run scripts without switching to Termi
   - `popup` — Display in a result window
 - **Hook System** — Scripts can update their display dynamically
 - **Status Polling** — Periodic status updates for monitoring actions
+- **CLI Tool** — Integrate with external tools via `exmen` command
+- **Global Config** — Control action ordering and enable/disable
 
 ## Installation
 
@@ -128,6 +142,49 @@ EXMEN:icon=star.fill
 
 These lines are parsed and removed from the output. The action's UI updates accordingly.
 
+## CLI Tool
+
+Exmen includes a command-line interface for integration with external tools (like sketchybar, scripts, etc.):
+
+```bash
+# List all actions
+exmen list-actions
+
+# Run an action by name
+exmen run "Generate Phone Number"
+
+# Get action status
+exmen status "System Status"
+```
+
+The CLI communicates with the running Exmen app via Unix domain socket at `~/.config/exmen/exmen.sock`.
+
+### Installation
+
+Copy the CLI to your PATH:
+
+```bash
+cp /Applications/Exmen.app/Contents/MacOS/exmen /usr/local/bin/
+```
+
+## Global Configuration
+
+Control action ordering and visibility in `~/.config/exmen/config.toml`:
+
+```toml
+# Display order (unlisted actions appear at the end)
+order = [
+    "Generate Thai ID",
+    "Generate Phone Number",
+    "System Status",
+]
+
+# Hide actions without deleting their config files
+disabled = [
+    "Update Homebrew",
+]
+```
+
 ## Configuration Reference
 
 ### Action Fields
@@ -137,6 +194,7 @@ These lines are parsed and removed from the output. The action's UI updates acco
 | `name` | string | Yes | Display name |
 | `icon` | string | No | SF Symbol name (default: "terminal") |
 | `description` | string | No | Shown below the name |
+| `hide_on_click` | bool | No | Close menu after clicking (default: true) |
 
 ### Script Configuration
 
@@ -168,6 +226,7 @@ Exmen/
 ├── Models/
 │   ├── Action.swift         # Action model
 │   ├── ActionConfig.swift   # TOML config models
+│   ├── GlobalConfig.swift   # Global settings model
 │   ├── HookUpdate.swift     # Hook system models
 │   └── ScriptResult.swift   # Execution result
 ├── Views/
@@ -181,7 +240,10 @@ Exmen/
 │   ├── ScriptRunner.swift    # Script execution
 │   ├── OutputService.swift   # Output handling
 │   ├── HookParser.swift
-│   └── StatusPoller.swift
+│   ├── StatusPoller.swift
+│   └── IPCServer.swift       # Unix socket server
+├── CLI/
+│   └── main.swift            # CLI tool entry point
 └── Assets.xcassets/
     └── AppIcon.appiconset/
 ```
