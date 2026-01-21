@@ -19,7 +19,8 @@ None
 - [x] **Phase 3: Script Execution** — Run scripts with output handling
 - [x] **Phase 4: Hook System** — Dynamic updates via script output and polling
 - [x] **Phase 5: Auto-Hide Menu** — Hide menu on action click with per-action override
-- [ ] **Phase 6: IPC Server** — External communication interface for tools like sketchybar
+- [x] **Phase 6: IPC Server** — External communication interface for tools like sketchybar
+- [x] **Phase 7: Global Config** — Central config.toml for action ordering and enable/disable
 
 ## Phase Details
 
@@ -88,13 +89,27 @@ Example use cases:
 - Integration with sketchybar for dynamic widgets
 
 Plans:
-- [ ] 06-01: Socket server + command handlers
-- [ ] 06-02: CLI client tool
+- [x] 06-01: Socket server + command handlers
+- [x] 06-02: CLI client tool
+
+### Phase 7: Global Config
+**Goal**: Add ~/.config/exmen/config.toml to control action ordering and enable/disable actions
+**Depends on**: Phase 6
+**Research**: Unlikely (TOML parsing already implemented)
+**Plans**: TBD
+
+Features:
+- `~/.config/exmen/config.toml` for global settings
+- Action ordering: specify display order of actions
+- Enable/disable: toggle actions without deleting config files
+
+Plans:
+- [x] 07-01: Global config loader and action ordering
 
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
+Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
@@ -103,4 +118,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | 3. Script Execution | 2/2 | Complete | 2026-01-20 |
 | 4. Hook System | 2/2 | Complete | 2026-01-20 |
 | 5. Auto-Hide Menu | 1/1 | Complete | 2026-01-20 |
-| 6. IPC Server | 0/2 | Planned | — |
+| 6. IPC Server | 2/2 | Complete | 2026-01-21 |
+| 7. Global Config | 1/1 | Complete | 2026-01-21 |

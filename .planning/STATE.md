@@ -9,12 +9,14 @@ See: .planning/PROJECT.md (updated 2026-01-20)
 
 ## Current Position
 
-Phase: 6 of 6 (Complete)
-Plan: All complete
-Status: Phase 6 IPC Server complete (2 plans)
-Last activity: 2026-01-21 — Phase 6 IPC Server complete
+Phase: 7 of 7 (Complete)
+Plan: 07-01 complete
+Status: Phase 7 Global Config complete
+Last activity: 2026-01-21 — Phase 7 complete
 
 Progress: ██████████ 100%
+
+**Next Phase:** All phases complete
 
 ## Performance Metrics
 
@@ -33,9 +35,10 @@ Progress: ██████████ 100%
 | 4. Hook System | 2 | — | — |
 | 5. Auto-Hide Menu | 1 | — | — |
 | 6. IPC Server | 2 | — | — |
+| 7. Global Config | 1 | — | — |
 
 **Recent Trend:**
-- Last 5 plans: 04-02, 05-01, 06-01, 06-02
+- Last 5 plans: 05-01, 06-01, 06-02, 07-01
 - Trend: —
 
 ## Accumulated Context
@@ -59,6 +62,10 @@ All key decisions for v1:
 - Unix domain socket for IPC (~/.config/exmen/exmen.sock)
 - JSON protocol for CLI communication
 
+### Roadmap Evolution
+
+- Phase 7 added: Global config for action ordering and enable/disable
+
 ### Deferred Issues
 
 None.
@@ -70,7 +77,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-01-21
-Stopped at: Phase 6 complete
+Stopped at: Phase 7 complete
 Resume file: None
 
 ## v1.1 Features Complete
@@ -87,3 +94,4 @@ Resume file: None
 - [x] Menu auto-hide on action click (configurable)
 - [x] IPC via Unix domain socket
 - [x] CLI tool (exmen) for external integration
+- [x] Global config.toml for action ordering and enable/disable
