@@ -9,14 +9,14 @@ See: .planning/PROJECT.md (updated 2026-01-20)
 
 ## Current Position
 
-Phase: 7 of 7 (Complete)
-Plan: 07-01 complete
-Status: Phase 7 Global Config complete
-Last activity: 2026-01-21 — Phase 7 complete
+Phase: 7.1 (Inserted)
+Plan: 07.1-01 not started
+Status: Phase 7.1 UI Improvements inserted
+Last activity: 2026-01-21 — Phase 7.1 inserted
 
-Progress: ██████████ 100%
+Progress: █████████░ 93%
 
-**Next Phase:** All phases complete
+**Next Phase:** Phase 7.1: UI Improvements
 
 ## Performance Metrics
 
@@ -65,6 +65,7 @@ All key decisions for v1:
 ### Roadmap Evolution
 
 - Phase 7 added: Global config for action ordering and enable/disable
+- Phase 7.1 inserted after Phase 7: UI Improvements (URGENT) — compact action list, better popup layout
 
 ### Deferred Issues
 

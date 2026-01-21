@@ -21,6 +21,7 @@ None
 - [x] **Phase 5: Auto-Hide Menu** — Hide menu on action click with per-action override
 - [x] **Phase 6: IPC Server** — External communication interface for tools like sketchybar
 - [x] **Phase 7: Global Config** — Central config.toml for action ordering and enable/disable
+- [ ] **Phase 7.1: UI Improvements** — More compact action list and better popup layout (INSERTED)
 
 ## Phase Details
 
@@ -106,6 +107,20 @@ Features:
 Plans:
 - [x] 07-01: Global config loader and action ordering
 
+### Phase 7.1: UI Improvements (INSERTED)
+**Goal**: Make action list more compact to show more items, improve popup to show full content
+**Depends on**: Phase 7
+**Research**: Unlikely (SwiftUI layout adjustments)
+**Plans**: TBD
+
+Issues identified:
+- Action rows have excessive padding/spacing, only ~4 items visible
+- Popup has wasted space, content area could be larger
+- Need more compact row design while maintaining readability
+
+Plans:
+- [ ] 07.1-01: Compact action rows and improved popup layout
+
 ## Progress
 
 **Execution Order:**
@@ -120,3 +135,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | 5. Auto-Hide Menu | 1/1 | Complete | 2026-01-20 |
 | 6. IPC Server | 2/2 | Complete | 2026-01-21 |
 | 7. Global Config | 1/1 | Complete | 2026-01-21 |
+| 7.1 UI Improvements | 0/1 | Inserted | — |
