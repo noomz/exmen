@@ -39,12 +39,12 @@ struct ActionRowView: View {
                         }
                     }
 
-                    // Status always shows, description only on hover
+                    // Status or description
                     if let status = action.dynamicStatus {
                         Text(status)
                             .font(.caption2)
                             .foregroundColor(.accentColor)
-                    } else if isHovered && !action.description.isEmpty {
+                    } else if !action.description.isEmpty {
                         Text(action.description)
                             .font(.caption2)
                             .foregroundColor(.secondary)
