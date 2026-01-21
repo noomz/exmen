@@ -1,4 +1,5 @@
 import SwiftUI
+import AppKit
 
 struct ActionRowView: View {
     let action: Action
@@ -69,6 +70,11 @@ struct ActionRowView: View {
         .disabled(isExecuting)
         .onHover { hovering in
             isHovered = hovering
+            if hovering {
+                NSCursor.pointingHand.push()
+            } else {
+                NSCursor.pop()
+            }
         }
     }
 }
