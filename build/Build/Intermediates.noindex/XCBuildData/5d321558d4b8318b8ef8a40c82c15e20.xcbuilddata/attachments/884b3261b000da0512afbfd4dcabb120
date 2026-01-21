@@ -1,0 +1,106 @@
+{
+  "" : {
+    "const-values" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/Exmen-primary.swiftconstvalues",
+    "dependencies" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/Exmen-primary.d",
+    "diagnostics" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/Exmen-primary.dia",
+    "emit-module-dependencies" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/Exmen-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/Exmen-primary-emit-module.dia",
+    "pch" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/Exmen-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/Exmen-primary.swiftdeps"
+  },
+  "/Users/noomz/Projects/Opensources/exmen/Exmen/ExmenApp.swift" : {
+    "index-unit-output-path" : "/Exmen.build/Release/Exmen.build/Objects-normal/arm64/ExmenApp.o",
+    "llvm-bc" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/ExmenApp.bc",
+    "object" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/ExmenApp.o"
+  },
+  "/Users/noomz/Projects/Opensources/exmen/Exmen/Models/Action.swift" : {
+    "index-unit-output-path" : "/Exmen.build/Release/Exmen.build/Objects-normal/arm64/Action.o",
+    "llvm-bc" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/Action.bc",
+    "object" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/Action.o"
+  },
+  "/Users/noomz/Projects/Opensources/exmen/Exmen/Models/ActionConfig.swift" : {
+    "index-unit-output-path" : "/Exmen.build/Release/Exmen.build/Objects-normal/arm64/ActionConfig.o",
+    "llvm-bc" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/ActionConfig.bc",
+    "object" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/ActionConfig.o"
+  },
+  "/Users/noomz/Projects/Opensources/exmen/Exmen/Models/GlobalConfig.swift" : {
+    "index-unit-output-path" : "/Exmen.build/Release/Exmen.build/Objects-normal/arm64/GlobalConfig.o",
+    "llvm-bc" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/GlobalConfig.bc",
+    "object" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/GlobalConfig.o"
+  },
+  "/Users/noomz/Projects/Opensources/exmen/Exmen/Models/HookUpdate.swift" : {
+    "index-unit-output-path" : "/Exmen.build/Release/Exmen.build/Objects-normal/arm64/HookUpdate.o",
+    "llvm-bc" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/HookUpdate.bc",
+    "object" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/HookUpdate.o"
+  },
+  "/Users/noomz/Projects/Opensources/exmen/Exmen/Models/ScriptResult.swift" : {
+    "index-unit-output-path" : "/Exmen.build/Release/Exmen.build/Objects-normal/arm64/ScriptResult.o",
+    "llvm-bc" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/ScriptResult.bc",
+    "object" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/ScriptResult.o"
+  },
+  "/Users/noomz/Projects/Opensources/exmen/Exmen/Services/ActionService.swift" : {
+    "index-unit-output-path" : "/Exmen.build/Release/Exmen.build/Objects-normal/arm64/ActionService.o",
+    "llvm-bc" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/ActionService.bc",
+    "object" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/ActionService.o"
+  },
+  "/Users/noomz/Projects/Opensources/exmen/Exmen/Services/CommandHandler.swift" : {
+    "index-unit-output-path" : "/Exmen.build/Release/Exmen.build/Objects-normal/arm64/CommandHandler.o",
+    "llvm-bc" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/CommandHandler.bc",
+    "object" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/CommandHandler.o"
+  },
+  "/Users/noomz/Projects/Opensources/exmen/Exmen/Services/ConfigLoader.swift" : {
+    "index-unit-output-path" : "/Exmen.build/Release/Exmen.build/Objects-normal/arm64/ConfigLoader.o",
+    "llvm-bc" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/ConfigLoader.bc",
+    "object" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/ConfigLoader.o"
+  },
+  "/Users/noomz/Projects/Opensources/exmen/Exmen/Services/DirectoryWatcher.swift" : {
+    "index-unit-output-path" : "/Exmen.build/Release/Exmen.build/Objects-normal/arm64/DirectoryWatcher.o",
+    "llvm-bc" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/DirectoryWatcher.bc",
+    "object" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/DirectoryWatcher.o"
+  },
+  "/Users/noomz/Projects/Opensources/exmen/Exmen/Services/HookParser.swift" : {
+    "index-unit-output-path" : "/Exmen.build/Release/Exmen.build/Objects-normal/arm64/HookParser.o",
+    "llvm-bc" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/HookParser.bc",
+    "object" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/HookParser.o"
+  },
+  "/Users/noomz/Projects/Opensources/exmen/Exmen/Services/OutputHandler.swift" : {
+    "index-unit-output-path" : "/Exmen.build/Release/Exmen.build/Objects-normal/arm64/OutputHandler.o",
+    "llvm-bc" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/OutputHandler.bc",
+    "object" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/OutputHandler.o"
+  },
+  "/Users/noomz/Projects/Opensources/exmen/Exmen/Services/ScriptRunner.swift" : {
+    "index-unit-output-path" : "/Exmen.build/Release/Exmen.build/Objects-normal/arm64/ScriptRunner.o",
+    "llvm-bc" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/ScriptRunner.bc",
+    "object" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/ScriptRunner.o"
+  },
+  "/Users/noomz/Projects/Opensources/exmen/Exmen/Services/SocketServer.swift" : {
+    "index-unit-output-path" : "/Exmen.build/Release/Exmen.build/Objects-normal/arm64/SocketServer.o",
+    "llvm-bc" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/SocketServer.bc",
+    "object" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/SocketServer.o"
+  },
+  "/Users/noomz/Projects/Opensources/exmen/Exmen/Services/StatusPoller.swift" : {
+    "index-unit-output-path" : "/Exmen.build/Release/Exmen.build/Objects-normal/arm64/StatusPoller.o",
+    "llvm-bc" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/StatusPoller.bc",
+    "object" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/StatusPoller.o"
+  },
+  "/Users/noomz/Projects/Opensources/exmen/Exmen/Views/ActionRowView.swift" : {
+    "index-unit-output-path" : "/Exmen.build/Release/Exmen.build/Objects-normal/arm64/ActionRowView.o",
+    "llvm-bc" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/ActionRowView.bc",
+    "object" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/ActionRowView.o"
+  },
+  "/Users/noomz/Projects/Opensources/exmen/Exmen/Views/MenuContentView.swift" : {
+    "index-unit-output-path" : "/Exmen.build/Release/Exmen.build/Objects-normal/arm64/MenuContentView.o",
+    "llvm-bc" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/MenuContentView.bc",
+    "object" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/MenuContentView.o"
+  },
+  "/Users/noomz/Projects/Opensources/exmen/Exmen/Views/PopupResultView.swift" : {
+    "index-unit-output-path" : "/Exmen.build/Release/Exmen.build/Objects-normal/arm64/PopupResultView.o",
+    "llvm-bc" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/PopupResultView.bc",
+    "object" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/PopupResultView.o"
+  },
+  "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/DerivedSources/GeneratedAssetSymbols.swift" : {
+    "index-unit-output-path" : "/Exmen.build/Release/Exmen.build/Objects-normal/arm64/GeneratedAssetSymbols.o",
+    "llvm-bc" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/GeneratedAssetSymbols.bc",
+    "object" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/GeneratedAssetSymbols.o"
+  }
+}

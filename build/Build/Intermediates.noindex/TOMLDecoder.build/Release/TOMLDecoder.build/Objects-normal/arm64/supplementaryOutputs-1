@@ -1,0 +1,12 @@
+{
+  "/Users/noomz/Projects/Opensources/exmen/build/SourcePackages/checkouts/TOMLDecoder/Sources/TOMLDecoder/DateTime.swift" : {
+    "abi-baseline-json" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/TOMLDecoder.abi.json",
+    "const-values" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/TOMLDecoder-primary.swiftconstvalues",
+    "dependencies" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/TOMLDecoder-primary.d",
+    "diagnostics" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/TOMLDecoder-primary.dia",
+    "objc-header" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/TOMLDecoder-Swift.h",
+    "swiftdoc" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/TOMLDecoder.swiftdoc",
+    "swiftmodule" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/TOMLDecoder.swiftmodule",
+    "swiftsourceinfo" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/TOMLDecoder.swiftsourceinfo"
+  }
+}

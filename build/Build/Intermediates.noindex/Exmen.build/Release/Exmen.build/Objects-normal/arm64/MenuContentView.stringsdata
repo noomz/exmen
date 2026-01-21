@@ -1,0 +1,48 @@
+{
+  "source": "/Users/noomz/Projects/Opensources/exmen/Exmen/Views/MenuContentView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "No actions configured",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 42
+        }
+      },
+      {
+        "comment": "",
+        "key": "Exmen",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 14
+        }
+      },
+      {
+        "comment": "",
+        "key": "Reload actions",
+        "location": {
+          "startingColumn": 23,
+          "startingLine": 24
+        }
+      },
+      {
+        "comment": "",
+        "key": "v1.0",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 65
+        }
+      },
+      {
+        "comment": "",
+        "key": "Quit",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 69
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -1,0 +1,81 @@
+{
+  "" : {
+    "const-values" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/TOMLDecoder-primary.swiftconstvalues",
+    "dependencies" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/TOMLDecoder-primary.d",
+    "diagnostics" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/TOMLDecoder-primary.dia",
+    "emit-module-dependencies" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/TOMLDecoder-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/TOMLDecoder-primary-emit-module.dia",
+    "pch" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/TOMLDecoder-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/TOMLDecoder-primary.swiftdeps"
+  },
+  "/Users/noomz/Projects/Opensources/exmen/build/SourcePackages/checkouts/TOMLDecoder/Sources/TOMLDecoder/DateTime.swift" : {
+    "index-unit-output-path" : "/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/DateTime.o",
+    "llvm-bc" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/DateTime.bc",
+    "object" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/DateTime.o"
+  },
+  "/Users/noomz/Projects/Opensources/exmen/build/SourcePackages/checkouts/TOMLDecoder/Sources/TOMLDecoder/Parsing/Constants.swift" : {
+    "index-unit-output-path" : "/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/Constants.o",
+    "llvm-bc" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/Constants.bc",
+    "object" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/Constants.o"
+  },
+  "/Users/noomz/Projects/Opensources/exmen/build/SourcePackages/checkouts/TOMLDecoder/Sources/TOMLDecoder/Parsing/Parser.swift" : {
+    "index-unit-output-path" : "/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/Parser.o",
+    "llvm-bc" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/Parser.bc",
+    "object" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/Parser.o"
+  },
+  "/Users/noomz/Projects/Opensources/exmen/build/SourcePackages/checkouts/TOMLDecoder/Sources/TOMLDecoder/Parsing/TOMLDocument.swift" : {
+    "index-unit-output-path" : "/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/TOMLDocument.o",
+    "llvm-bc" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/TOMLDocument.bc",
+    "object" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/TOMLDocument.o"
+  },
+  "/Users/noomz/Projects/Opensources/exmen/build/SourcePackages/checkouts/TOMLDecoder/Sources/TOMLDecoder/Parsing/Token.swift" : {
+    "index-unit-output-path" : "/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/Token.o",
+    "llvm-bc" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/Token.bc",
+    "object" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/Token.o"
+  },
+  "/Users/noomz/Projects/Opensources/exmen/build/SourcePackages/checkouts/TOMLDecoder/Sources/TOMLDecoder/TOMLArray.swift" : {
+    "index-unit-output-path" : "/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/TOMLArray.o",
+    "llvm-bc" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/TOMLArray.bc",
+    "object" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/TOMLArray.o"
+  },
+  "/Users/noomz/Projects/Opensources/exmen/build/SourcePackages/checkouts/TOMLDecoder/Sources/TOMLDecoder/TOMLDecoder.swift" : {
+    "index-unit-output-path" : "/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/TOMLDecoder-a73c055e6d75a225a4fbf5c7cc07f1b6.o",
+    "llvm-bc" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/TOMLDecoder-a73c055e6d75a225a4fbf5c7cc07f1b6.bc",
+    "object" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/TOMLDecoder-a73c055e6d75a225a4fbf5c7cc07f1b6.o"
+  },
+  "/Users/noomz/Projects/Opensources/exmen/build/SourcePackages/checkouts/TOMLDecoder/Sources/TOMLDecoder/TOMLError.swift" : {
+    "index-unit-output-path" : "/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/TOMLError.o",
+    "llvm-bc" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/TOMLError.bc",
+    "object" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/TOMLError.o"
+  },
+  "/Users/noomz/Projects/Opensources/exmen/build/SourcePackages/checkouts/TOMLDecoder/Sources/TOMLDecoder/TOMLKey.swift" : {
+    "index-unit-output-path" : "/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/TOMLKey.o",
+    "llvm-bc" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/TOMLKey.bc",
+    "object" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/TOMLKey.o"
+  },
+  "/Users/noomz/Projects/Opensources/exmen/build/SourcePackages/checkouts/TOMLDecoder/Sources/TOMLDecoder/TOMLKeyedDecodingContainer.swift" : {
+    "index-unit-output-path" : "/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/TOMLKeyedDecodingContainer.o",
+    "llvm-bc" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/TOMLKeyedDecodingContainer.bc",
+    "object" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/TOMLKeyedDecodingContainer.o"
+  },
+  "/Users/noomz/Projects/Opensources/exmen/build/SourcePackages/checkouts/TOMLDecoder/Sources/TOMLDecoder/TOMLSingleValueDecodingContainer.Generated.swift" : {
+    "index-unit-output-path" : "/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/TOMLSingleValueDecodingContainer.Generated.o",
+    "llvm-bc" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/TOMLSingleValueDecodingContainer.Generated.bc",
+    "object" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/TOMLSingleValueDecodingContainer.Generated.o"
+  },
+  "/Users/noomz/Projects/Opensources/exmen/build/SourcePackages/checkouts/TOMLDecoder/Sources/TOMLDecoder/TOMLTable.swift" : {
+    "index-unit-output-path" : "/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/TOMLTable.o",
+    "llvm-bc" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/TOMLTable.bc",
+    "object" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/TOMLTable.o"
+  },
+  "/Users/noomz/Projects/Opensources/exmen/build/SourcePackages/checkouts/TOMLDecoder/Sources/TOMLDecoder/TOMLUnkeyedDecodingContainer.swift" : {
+    "index-unit-output-path" : "/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/TOMLUnkeyedDecodingContainer.o",
+    "llvm-bc" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/TOMLUnkeyedDecodingContainer.bc",
+    "object" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/TOMLUnkeyedDecodingContainer.o"
+  },
+  "/Users/noomz/Projects/Opensources/exmen/build/SourcePackages/checkouts/TOMLDecoder/Sources/TOMLDecoder/_TOMLDecoder.swift" : {
+    "index-unit-output-path" : "/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/_TOMLDecoder.o",
+    "llvm-bc" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/_TOMLDecoder.bc",
+    "object" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/TOMLDecoder.build/Release/TOMLDecoder.build/Objects-normal/arm64/_TOMLDecoder.o"
+  }
+}

@@ -1,0 +1,6 @@
+Target dependency graph (3 targets)
+Target 'Exmen' in project 'Exmen'
+➜ Explicit dependency on target 'TOMLDecoder' in project 'TOMLDecoder'
+Target 'TOMLDecoder' in project 'TOMLDecoder'
+➜ Explicit dependency on target 'TOMLDecoder' in project 'TOMLDecoder'
+Target 'TOMLDecoder' in project 'TOMLDecoder' (no dependencies)

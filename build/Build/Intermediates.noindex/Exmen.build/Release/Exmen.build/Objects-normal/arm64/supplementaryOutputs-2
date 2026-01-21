@@ -1,0 +1,12 @@
+{
+  "/Users/noomz/Projects/Opensources/exmen/Exmen/ExmenApp.swift" : {
+    "abi-baseline-json" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/Exmen.abi.json",
+    "const-values" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/Exmen-primary.swiftconstvalues",
+    "dependencies" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/Exmen-primary.d",
+    "diagnostics" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/Exmen-primary.dia",
+    "objc-header" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/Exmen-Swift.h",
+    "swiftdoc" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/Exmen.swiftdoc",
+    "swiftmodule" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/Exmen.swiftmodule",
+    "swiftsourceinfo" : "/Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/Objects-normal/arm64/Exmen.swiftsourceinfo"
+  }
+}

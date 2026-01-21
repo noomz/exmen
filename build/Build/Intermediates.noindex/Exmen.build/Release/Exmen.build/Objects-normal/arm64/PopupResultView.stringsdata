@@ -1,0 +1,48 @@
+{
+  "source": "/Users/noomz/Projects/Opensources/exmen/Exmen/Views/PopupResultView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "No output",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 50
+        }
+      },
+      {
+        "comment": "",
+        "key": "Exit: %d",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 63
+        }
+      },
+      {
+        "comment": "",
+        "key": "•",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 66
+        }
+      },
+      {
+        "comment": "",
+        "key": "Copy",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 73
+        }
+      },
+      {
+        "comment": "",
+        "key": "Close",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 77
+        }
+      }
+    ]
+  },
+  "version": 1
+}
