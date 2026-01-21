@@ -1,0 +1,26 @@
+name = "System Status"
+icon = "cpu"
+description = "Monitor CPU usage"
+
+[script]
+type = "inline"
+content = """
+#!/bin/bash
+cpu=$(top -l 1 | grep "CPU usage" | awk '{print $3}')
+echo "CPU: $cpu"
+"""
+
+[output]
+handler = "notification"
+
+[hook]
+poll_interval = 30
+parse_output = true
+
+[hook.status_script]
+type = "inline"
+content = """
+#!/bin/bash
+cpu=$(top -l 1 | grep "CPU usage" | awk '{print $3}')
+echo "EXMEN:status=CPU: $cpu"
+"""

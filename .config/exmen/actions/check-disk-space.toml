@@ -1,0 +1,13 @@
+name = "Check Disk Space"
+icon = "internaldrive"
+description = "Show available disk space"
+
+[script]
+type = "inline"
+content = """
+#!/bin/bash
+df -h / | awk 'NR==2 {printf "Disk: %s used of %s (%s available)\\n", $3, $2, $4}'
+"""
+
+[output]
+handler = "notification"

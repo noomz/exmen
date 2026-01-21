@@ -1,0 +1,14 @@
+# Exmen global configuration
+# Copy to ~/.config/exmen/config.toml
+
+# Display order (unlisted actions appear at the end)
+order = [
+    "System Status",
+    "Check Disk Space",
+    "Update Homebrew",
+]
+
+# Hide actions without deleting their config files
+# disabled = [
+#     "Update Homebrew",
+# ]

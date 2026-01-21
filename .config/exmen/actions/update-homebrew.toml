@@ -1,0 +1,14 @@
+name = "Update Homebrew"
+icon = "arrow.clockwise"
+description = "Run brew update && upgrade"
+hide_on_click = false
+
+[script]
+type = "inline"
+content = """
+#!/bin/bash
+brew update && brew upgrade
+"""
+
+[output]
+handler = "popup"
