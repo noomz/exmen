@@ -21,7 +21,7 @@ None
 - [x] **Phase 5: Auto-Hide Menu** — Hide menu on action click with per-action override
 - [x] **Phase 6: IPC Server** — External communication interface for tools like sketchybar
 - [x] **Phase 7: Global Config** — Central config.toml for action ordering and enable/disable
-- [ ] **Phase 7.1: UI Improvements** — More compact action list and better popup layout (INSERTED)
+- [x] **Phase 7.1: UI Improvements** — More compact action list and better popup layout (INSERTED)
 
 ## Phase Details
 
@@ -119,7 +119,7 @@ Issues identified:
 - Need more compact row design while maintaining readability
 
 Plans:
-- [ ] 07.1-01: Compact action rows and improved popup layout
+- [x] 07.1-01: Compact action rows and improved popup layout
 
 ## Progress
 
@@ -135,4 +135,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | 5. Auto-Hide Menu | 1/1 | Complete | 2026-01-20 |
 | 6. IPC Server | 2/2 | Complete | 2026-01-21 |
 | 7. Global Config | 1/1 | Complete | 2026-01-21 |
-| 7.1 UI Improvements | 0/1 | Inserted | — |
+| 7.1 UI Improvements | 1/1 | Complete | 2026-01-21 |
