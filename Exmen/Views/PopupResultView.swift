@@ -73,10 +73,12 @@ struct PopupResultView: View {
                 Button("Copy") {
                     OutputService.shared.copyToClipboard(cleanOutput.trimmingCharacters(in: .whitespacesAndNewlines))
                 }
+                .buttonStyle(.bordered)
                 .font(.caption)
                 Button("Close") {
                     onDismiss()
                 }
+                .buttonStyle(.bordered)
                 .font(.caption)
                 .keyboardShortcut(.escape, modifiers: [])
             }
