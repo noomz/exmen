@@ -31,6 +31,13 @@ class ScriptRunner {
             let outputPipe = Pipe()
             let errorPipe = Pipe()
 
+            // Guard against resuming the continuation more than once.
+            // The timeout handler and terminationHandler can race when a
+            // script is terminated due to timeout, causing a double-resume
+            // crash (EXC_BREAKPOINT in CheckedContinuation).
+            let lock = NSLock()
+            var hasResumed = false
+
             process.executableURL = URL(fileURLWithPath: "/bin/bash")
             process.arguments = ["-c", script]
             process.standardOutput = outputPipe
@@ -45,6 +52,10 @@ class ScriptRunner {
             let timeoutWorkItem = DispatchWorkItem {
                 if process.isRunning {
                     process.terminate()
+                    lock.lock()
+                    defer { lock.unlock() }
+                    guard !hasResumed else { return }
+                    hasResumed = true
                     continuation.resume(throwing: ScriptError.timeout)
                 }
             }
@@ -71,6 +82,10 @@ class ScriptRunner {
                     duration: duration
                 )
 
+                lock.lock()
+                defer { lock.unlock() }
+                guard !hasResumed else { return }
+                hasResumed = true
                 continuation.resume(returning: result)
             }
 
@@ -78,6 +93,10 @@ class ScriptRunner {
                 try process.run()
             } catch {
                 timeoutWorkItem.cancel()
+                lock.lock()
+                defer { lock.unlock() }
+                guard !hasResumed else { return }
+                hasResumed = true
                 continuation.resume(throwing: ScriptError.executionFailed(error.localizedDescription))
             }
         }
