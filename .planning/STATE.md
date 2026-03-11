@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Completed 08-01-PLAN.md
-last_updated: "2026-03-11T09:02:42.491Z"
+stopped_at: Completed 08-02-PLAN.md
+last_updated: "2026-03-11T09:08:35.136Z"
 last_activity: 2026-01-21 — Completed 07.1-01-PLAN.md
 progress:
   total_phases: 9
   completed_phases: 8
   total_plans: 16
-  completed_plans: 14
+  completed_plans: 15
   percent: 100
 ---
 
@@ -56,6 +56,7 @@ Progress: ██████████ 100%
 **Recent Trend:**
 - Last 5 plans: 05-01, 06-01, 06-02, 07-01
 - Trend: —
+| Phase 08 P02 | 8min | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -80,6 +81,9 @@ All key decisions for v1:
 - [Phase 08]: SwiftTerm 1.11.2 added as SPM dependency (libghostty C API not yet embeddable as of 2026)
 - [Phase 08]: ActionConfig.script made optional to support service TOMLs (backward compatible)
 - [Phase 08]: RestartPolicy uses String raw values (on-failure) matching TOML spec directly
+- [Phase 08]: LocalProcessTerminalViewDelegate used for PTY process exit — processTerminated(source: TerminalView, exitCode:) dispatched to @MainActor
+- [Phase 08]: ServiceManager.register() matches by action.name to preserve running services on config reload
+- [Phase 08]: ServiceOutputWindow uses NSWindowDelegate (not NSWindowController override) for windowWillClose
 
 ### Roadmap Evolution
 
@@ -97,8 +101,8 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-11T09:02:37.118Z
-Stopped at: Completed 08-01-PLAN.md
+Last session: 2026-03-11T09:08:35.132Z
+Stopped at: Completed 08-02-PLAN.md
 Resume file: None
 
 ## v1.1 Features Complete
