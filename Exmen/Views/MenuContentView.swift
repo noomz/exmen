@@ -2,6 +2,7 @@ import SwiftUI
 
 struct MenuContentView: View {
     @ObservedObject private var actionService = ActionService.shared
+    @ObservedObject private var serviceManager = ServiceManager.shared
     @State private var executingActionId: UUID?
     @State private var popupResult: (action: Action, result: ScriptResult, cleanOutput: String)?
 
@@ -38,19 +39,39 @@ struct MenuContentView: View {
             } else if actionService.isLoading {
                 ProgressView()
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-            } else if actionService.actions.isEmpty {
+            } else if actionService.actions.isEmpty && serviceManager.services.isEmpty {
                 Text("No actions configured")
                     .foregroundColor(.secondary)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else {
                 ScrollView {
                     LazyVStack(spacing: 2) {
+                        // Actions section — regular (non-service) actions
                         ForEach(actionService.actions) { action in
                             ActionRowView(
                                 action: action,
                                 isExecuting: executingActionId == action.id,
                                 onExecute: { executeAction(action) }
                             )
+                        }
+
+                        // Services section — shown below actions when services are configured
+                        if !serviceManager.services.isEmpty {
+                            Divider()
+                                .padding(.vertical, 4)
+
+                            HStack {
+                                Text("Services")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                                Spacer()
+                            }
+                            .padding(.horizontal, 8)
+                            .padding(.top, 4)
+
+                            ForEach(serviceManager.services) { service in
+                                ServiceRowView(service: service)
+                            }
                         }
                     }
                     .padding(.vertical, 4)
