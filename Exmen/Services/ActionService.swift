@@ -55,8 +55,13 @@ class ActionService: ObservableObject {
                 return idx1 < idx2
             }
 
-            actions = sortedConfigs.map { Action(from: $0) }
-            print("ActionService: Loaded \(actions.count) actions from config")
+            let allActions = sortedConfigs.map { Action(from: $0) }
+            let regularActions = allActions.filter { !$0.isService }
+            let serviceActions = allActions.filter { $0.isService }
+
+            actions = regularActions
+            ServiceManager.shared.register(serviceActions)
+            print("ActionService: Loaded \(regularActions.count) actions and \(serviceActions.count) services from config")
         }
 
         isLoading = false
