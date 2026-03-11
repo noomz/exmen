@@ -46,10 +46,21 @@ struct ActionConfig: Codable {
     let name: String
     let icon: String?
     let description: String?
-    let script: ScriptConfig
+    /// Optional — regular actions have [script], services use [service].command instead
+    let script: ScriptConfig?
     let output: OutputConfig?
     let hook: HookConfig?
     let hide_on_click: Bool?
+    /// Discriminator: nil defaults to .action for full backward compatibility
+    let type: ActionType?
+    /// Service configuration — only present when type == "service"
+    let service: ServiceConfig?
+
+    /// Resolved action type (default: .action)
+    var resolvedType: ActionType { type ?? .action }
+
+    /// Whether this config describes a managed long-running service
+    var isService: Bool { resolvedType == .service }
 
     /// Default output handler if not specified
     var resolvedOutput: OutputConfig {

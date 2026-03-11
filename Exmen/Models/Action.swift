@@ -9,6 +9,8 @@ struct Action: Identifiable {
     let outputConfig: OutputConfig
     let hookConfig: HookConfig?
     let hideOnClick: Bool
+    let serviceConfig: ServiceConfig?
+    let isService: Bool
 
     // Dynamic state (can be updated by hooks)
     var dynamicTitle: String?
@@ -34,7 +36,9 @@ struct Action: Identifiable {
         scriptConfig: ScriptConfig? = nil,
         outputConfig: OutputConfig = OutputConfig(handler: .clipboard),
         hookConfig: HookConfig? = nil,
-        hideOnClick: Bool = true
+        hideOnClick: Bool = true,
+        serviceConfig: ServiceConfig? = nil,
+        isService: Bool = false
     ) {
         self.id = id
         self.name = name
@@ -44,6 +48,8 @@ struct Action: Identifiable {
         self.outputConfig = outputConfig
         self.hookConfig = hookConfig
         self.hideOnClick = hideOnClick
+        self.serviceConfig = serviceConfig
+        self.isService = isService
     }
 
     /// Initialize from ActionConfig (loaded from TOML)
@@ -56,6 +62,8 @@ struct Action: Identifiable {
         self.outputConfig = config.resolvedOutput
         self.hookConfig = config.hook
         self.hideOnClick = config.resolvedHideOnClick
+        self.serviceConfig = config.service
+        self.isService = config.isService
     }
 
     /// Apply hook updates to this action
