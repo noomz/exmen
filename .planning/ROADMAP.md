@@ -22,6 +22,7 @@ None
 - [x] **Phase 6: IPC Server** — External communication interface for tools like sketchybar
 - [x] **Phase 7: Global Config** — Central config.toml for action ordering and enable/disable
 - [x] **Phase 7.1: UI Improvements** — More compact action list and better popup layout (INSERTED)
+- [ ] **Phase 8: Long-Running CLI Services** — Managed service lifecycle with start/stop, output viewing, and TTY interaction
 
 ## Phase Details
 
@@ -136,3 +137,23 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | 6. IPC Server | 2/2 | Complete | 2026-01-21 |
 | 7. Global Config | 1/1 | Complete | 2026-01-21 |
 | 7.1 UI Improvements | 1/1 | Complete | 2026-01-21 |
+
+### Phase 8: Long-Running CLI Services
+
+**Goal:** Support long-life arbitrary CLI programs as managed services with start/stop control, output viewing, and full PTY terminal interaction via SwiftTerm
+**Requirements**: SVC-MODEL, SVC-CONFIG, SVC-LIFECYCLE, SVC-PTY, SVC-OUTPUT, SVC-UI, SVC-MENU, SVC-APPLIFECYCLE
+**Depends on:** Phase 7.1
+**Plans:** 3 plans
+
+Features:
+- Service TOML config with `type = "service"` and `[service]` section
+- Menu shows services in separate section with colored status dots
+- Right-click context menu: Start, Stop, Restart, View Output
+- Full PTY terminal emulation via SwiftTerm in standalone window
+- Restart policies: never, on-failure, always (with exponential backoff)
+- keep_alive option for services that persist after app quit
+
+Plans:
+- [ ] 08-01-PLAN.md — SwiftTerm dependency + config models + type contracts
+- [ ] 08-02-PLAN.md — ServiceManager + ManagedService PTY lifecycle + output window
+- [ ] 08-03-PLAN.md — UI views + app lifecycle wiring + end-to-end verification
