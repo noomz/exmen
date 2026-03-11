@@ -1,3 +1,19 @@
+---
+gsd_state_version: 1.0
+milestone: v1.0
+milestone_name: milestone
+status: planning
+stopped_at: Phase 8 context gathered
+last_updated: "2026-03-11T08:34:27.603Z"
+last_activity: 2026-01-21 — Completed 07.1-01-PLAN.md
+progress:
+  total_phases: 9
+  completed_phases: 8
+  total_plans: 13
+  completed_plans: 13
+  percent: 100
+---
+
 # Project State
 
 ## Project Reference
@@ -9,9 +25,9 @@ See: .planning/PROJECT.md (updated 2026-01-20)
 
 ## Current Position
 
-Phase: 7.1 of 7.1 (Complete)
-Plan: 07.1-01 complete
-Status: All phases complete
+Phase: 8 of 8 (Not planned)
+Plan: None yet
+Status: Phase 8 needs planning
 Last activity: 2026-01-21 — Completed 07.1-01-PLAN.md
 
 Progress: ██████████ 100%
@@ -66,6 +82,7 @@ All key decisions for v1:
 
 - Phase 7 added: Global config for action ordering and enable/disable
 - Phase 7.1 inserted after Phase 7: UI Improvements (URGENT) — compact action list, better popup layout
+- Phase 8 added: Long-running CLI services with start/stop, output viewing, and TTY interaction
 
 ### Deferred Issues
 
@@ -77,9 +94,9 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-01-21
-Stopped at: Phase 7.1 complete (all phases done)
-Resume file: None
+Last session: 2026-03-11T08:34:27.599Z
+Stopped at: Phase 8 context gathered
+Resume file: .planning/phases/08-new-feature-to-support-long-life-arbitrary-cli-programs-as-service/08-CONTEXT.md
 
 ## v1.1 Features Complete
 
