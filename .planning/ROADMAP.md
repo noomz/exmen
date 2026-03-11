@@ -22,7 +22,7 @@ None
 - [x] **Phase 6: IPC Server** — External communication interface for tools like sketchybar
 - [x] **Phase 7: Global Config** — Central config.toml for action ordering and enable/disable
 - [x] **Phase 7.1: UI Improvements** — More compact action list and better popup layout (INSERTED)
-- [ ] **Phase 8: Long-Running CLI Services** — Managed service lifecycle with start/stop, output viewing, and TTY interaction
+- [x] **Phase 8: Long-Running CLI Services** — Managed service lifecycle with start/stop, output viewing, and TTY interaction (completed 2026-03-11)
 
 ## Phase Details
 
@@ -143,7 +143,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 **Goal:** Support long-life arbitrary CLI programs as managed services with start/stop control, output viewing, and full PTY terminal interaction via SwiftTerm
 **Requirements**: SVC-MODEL, SVC-CONFIG, SVC-LIFECYCLE, SVC-PTY, SVC-OUTPUT, SVC-UI, SVC-MENU, SVC-APPLIFECYCLE
 **Depends on:** Phase 7.1
-**Plans:** 2/3 plans executed
+**Plans:** 3/3 plans complete
 
 Features:
 - Service TOML config with `type = "service"` and `[service]` section
