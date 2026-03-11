@@ -31,6 +31,8 @@
 		A1000001233456780000022 /* ServiceState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002233456780000022 /* ServiceState.swift */; };
 		A1000001233456780000023 /* SwiftTerm in Frameworks */ = {isa = PBXBuildFile; productRef = A100000E233456780000001 /* SwiftTerm */; };
 		A1000001233456780000024 /* ManagedService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002233456780000024 /* ManagedService.swift */; };
+		A1000001233456780000025 /* ServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002233456780000025 /* ServiceManager.swift */; };
+		A1000001233456780000026 /* ServiceOutputWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002233456780000026 /* ServiceOutputWindow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +59,8 @@
 		A1000002233456780000021 /* ServiceConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceConfig.swift; sourceTree = "<group>"; };
 		A1000002233456780000022 /* ServiceState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceState.swift; sourceTree = "<group>"; };
 		A1000002233456780000024 /* ManagedService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedService.swift; sourceTree = "<group>"; };
+		A1000002233456780000025 /* ServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceManager.swift; sourceTree = "<group>"; };
+		A1000002233456780000026 /* ServiceOutputWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceOutputWindow.swift; sourceTree = "<group>"; };
 		A1000003233456780000001 /* Exmen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Exmen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -114,6 +118,7 @@
 				A1000002233456780000016 /* ActionRowView.swift */,
 				A1000002233456780000003 /* MenuContentView.swift */,
 				A1000002233456780000012 /* PopupResultView.swift */,
+				A1000002233456780000026 /* ServiceOutputWindow.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -139,6 +144,7 @@
 				A1000002233456780000018 /* SocketServer.swift */,
 				A1000002233456780000019 /* CommandHandler.swift */,
 				A1000002233456780000024 /* ManagedService.swift */,
+				A1000002233456780000025 /* ServiceManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -241,6 +247,8 @@
 				A1000001233456780000021 /* ServiceConfig.swift in Sources */,
 				A1000001233456780000022 /* ServiceState.swift in Sources */,
 				A1000001233456780000024 /* ManagedService.swift in Sources */,
+				A1000001233456780000025 /* ServiceManager.swift in Sources */,
+				A1000001233456780000026 /* ServiceOutputWindow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
