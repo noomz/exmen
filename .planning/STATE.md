@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: planning
-stopped_at: Phase 8 context gathered
-last_updated: "2026-03-11T08:34:27.603Z"
+stopped_at: Completed 08-01-PLAN.md
+last_updated: "2026-03-11T09:02:42.491Z"
 last_activity: 2026-01-21 — Completed 07.1-01-PLAN.md
 progress:
   total_phases: 9
   completed_phases: 8
-  total_plans: 13
-  completed_plans: 13
+  total_plans: 16
+  completed_plans: 14
   percent: 100
 ---
 
@@ -77,6 +77,9 @@ All key decisions for v1:
 - Menu auto-hide on action click (default: true, configurable via hide_on_click)
 - Unix domain socket for IPC (~/.config/exmen/exmen.sock)
 - JSON protocol for CLI communication
+- [Phase 08]: SwiftTerm 1.11.2 added as SPM dependency (libghostty C API not yet embeddable as of 2026)
+- [Phase 08]: ActionConfig.script made optional to support service TOMLs (backward compatible)
+- [Phase 08]: RestartPolicy uses String raw values (on-failure) matching TOML spec directly
 
 ### Roadmap Evolution
 
@@ -94,9 +97,9 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-11T08:34:27.599Z
-Stopped at: Phase 8 context gathered
-Resume file: .planning/phases/08-new-feature-to-support-long-life-arbitrary-cli-programs-as-service/08-CONTEXT.md
+Last session: 2026-03-11T09:02:37.118Z
+Stopped at: Completed 08-01-PLAN.md
+Resume file: None
 
 ## v1.1 Features Complete
 

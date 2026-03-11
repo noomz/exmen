@@ -143,7 +143,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 **Goal:** Support long-life arbitrary CLI programs as managed services with start/stop control, output viewing, and full PTY terminal interaction via SwiftTerm
 **Requirements**: SVC-MODEL, SVC-CONFIG, SVC-LIFECYCLE, SVC-PTY, SVC-OUTPUT, SVC-UI, SVC-MENU, SVC-APPLIFECYCLE
 **Depends on:** Phase 7.1
-**Plans:** 3 plans
+**Plans:** 1/3 plans executed
 
 Features:
 - Service TOML config with `type = "service"` and `[service]` section
