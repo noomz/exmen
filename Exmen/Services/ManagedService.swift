@@ -67,7 +67,7 @@ class ManagedService: ObservableObject, Identifiable {
     }
 
     private func checkLiveness() {
-        guard state == .running || state == .starting else {
+        guard state == .running || state == .starting || state == .restarting else {
             stopLivenessMonitor()
             return
         }
@@ -93,6 +93,13 @@ class ManagedService: ObservableObject, Identifiable {
         if isDead {
             stopLivenessMonitor()
             self.pid = nil
+
+            // If we were restarting, start the new process
+            if state == .restarting && !manuallyStoppping {
+                start()
+                return
+            }
+
             if !manuallyStoppping {
                 attemptRestart(exitCode: nil)
             } else {
@@ -203,22 +210,19 @@ class ManagedService: ObservableObject, Identifiable {
             restartCount = 0
             start()
         case .running, .starting, .restarting:
+            stopLivenessMonitor()
             state = .restarting
+            // Keep manuallyStoppping = false so processTerminated and
+            // checkLiveness see .restarting state and trigger start().
             manuallyStoppping = false
 
-            let tv = terminalView
-            // Stop current process (without triggering restart logic)
-            let tempManual = manuallyStoppping
-            manuallyStoppping = true
-
-            if let tv {
+            if let tv = terminalView {
                 tv.terminate()
-            } else {
-                // No process running, start directly
-                manuallyStoppping = tempManual
-                start()
             }
-            // processTerminated will fire; we detect .restarting state there to trigger start()
+
+            // Start liveness monitor to detect process exit as a safety
+            // net in case processTerminated never fires (Subprocess path).
+            startLivenessMonitor()
         }
     }
 
