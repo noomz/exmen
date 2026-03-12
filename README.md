@@ -33,6 +33,7 @@ Exmen lives in your menu bar and lets you run scripts without switching to Termi
   - `clipboard` — Copy output to clipboard
   - `notification` — Show macOS notification
   - `popup` — Display in a result window
+- **Managed Services** — Run long-lived processes (servers, daemons) with start/stop/restart
 - **Hook System** — Scripts can update their display dynamically
 - **Status Polling** — Periodic status updates for monitoring actions
 - **CLI Tool** — Integrate with external tools via `exmen` command
@@ -156,6 +157,53 @@ EXMEN:icon=star.fill
 
 These lines are parsed and removed from the output. The action's UI updates accordingly.
 
+## Services
+
+Exmen can manage long-running processes (dev servers, proxies, daemons) directly from the menu bar. Services appear in a dedicated "Services" section with a live status indicator and uptime.
+
+### Defining a Service
+
+Create a TOML file in `~/.config/exmen/actions/` with `type = "service"` and a `[service]` block instead of `[script]`:
+
+```toml
+name = "Playwright Proxy"
+icon = "network"
+description = "MCP proxy server for Playwright"
+type = "service"
+
+[service]
+command = "playwright_mcp_proxy"
+args = ["--port", "3100"]
+working_dir = "~/Projects/playwright-proxy"
+restart = "on-failure"
+max_restarts = 5
+keep_alive = false
+
+[service.env]
+NODE_ENV = "development"
+```
+
+### Service Controls
+
+Right-click a service row in the menu to access:
+
+- **Start** / **Stop** / **Restart** — Manage the process lifecycle
+- **View Output** — Open a terminal window showing the service's live stdout/stderr
+
+### Restart Policies
+
+| Policy | Behavior |
+|--------|----------|
+| `"never"` | Do not restart after exit (default) |
+| `"on-failure"` | Restart only on non-zero exit code |
+| `"always"` | Restart on any exit |
+
+Restarts use exponential backoff (1s, 2s, 4s, ... up to 30s) and stop after `max_restarts` attempts (default: 3), transitioning to a "crashed" state.
+
+### Keep Alive
+
+When `keep_alive = true`, the service process continues running after Exmen quits. On next launch, Exmen reconnects to the running process and resumes monitoring its status.
+
 ## CLI Tool
 
 Exmen includes a command-line interface for integration with external tools (like sketchybar, scripts, etc.):
@@ -232,6 +280,19 @@ disabled = [
 | `hook.parse_output` | bool | No | Parse EXMEN: lines from output (default: true) |
 | `hook.status_script` | object | No | Script config for status updates |
 
+### Service Configuration
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `type` | string | Yes | Must be `"service"` |
+| `service.command` | string | Yes | Command to run (absolute path or name resolved via `$PATH`) |
+| `service.args` | string[] | No | Arguments passed to the command |
+| `service.working_dir` | string | No | Working directory (supports `~` expansion) |
+| `service.env` | table | No | Extra environment variables (merged with system env) |
+| `service.restart` | string | No | `"never"`, `"on-failure"`, or `"always"` (default: `"never"`) |
+| `service.max_restarts` | int | No | Max restart attempts before "crashed" state (default: 3) |
+| `service.keep_alive` | bool | No | Keep process running after Exmen quits (default: false) |
+
 ## Project Structure
 
 ```
@@ -240,18 +301,24 @@ Exmen/
 ├── Models/
 │   ├── Action.swift         # Action model
 │   ├── ActionConfig.swift   # TOML config models
+│   ├── ServiceConfig.swift  # Service config models
+│   ├── ServiceState.swift   # Service lifecycle states
 │   ├── GlobalConfig.swift   # Global settings model
 │   ├── HookUpdate.swift     # Hook system models
 │   └── ScriptResult.swift   # Execution result
 ├── Views/
 │   ├── MenuContentView.swift
 │   ├── ActionRowView.swift
+│   ├── ServiceRowView.swift  # Service status row
+│   ├── ServiceOutputWindow.swift  # Terminal output window
 │   └── PopupResultView.swift
 ├── Services/
 │   ├── ActionService.swift   # Action management
 │   ├── ConfigLoader.swift    # TOML loading
 │   ├── DirectoryWatcher.swift
 │   ├── ScriptRunner.swift    # Script execution
+│   ├── ManagedService.swift  # Service lifecycle manager
+│   ├── ServiceManager.swift  # Service registry
 │   ├── OutputService.swift   # Output handling
 │   ├── HookParser.swift
 │   ├── StatusPoller.swift
