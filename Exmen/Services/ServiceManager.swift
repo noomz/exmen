@@ -118,7 +118,10 @@ class ServiceManager: ObservableObject {
                     service.pid = pid
                     service.state = .running
                     service.startedAt = Date() // approximate; real start time not persisted
-                    // terminalView is nil — output unavailable until restart
+                    // terminalView is nil — output unavailable until restart.
+                    // Start liveness monitor since there is no PTY delegate
+                    // to deliver processTerminated when the process exits.
+                    service.startLivenessMonitor()
                 }
                 // If no matching service found, the config may have been deleted; leave PID file
             } else {

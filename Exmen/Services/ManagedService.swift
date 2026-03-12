@@ -31,9 +31,75 @@ class ManagedService: ObservableObject, Identifiable {
     /// Flag set before calling stop() to suppress restart logic in the delegate.
     private var manuallyStoppping: Bool = false
 
+    /// Periodic liveness check for reconnected services (no PTY delegate).
+    /// When a service is reconnected via PID file, terminalView is nil so
+    /// processTerminated never fires. This timer polls kill(pid, 0) to detect
+    /// when the external process dies and updates state accordingly.
+    private var livenessTimer: Timer?
+
     init(action: Action) {
         self.id = action.id
         self.action = action
+    }
+
+    // MARK: - Liveness monitoring
+
+    /// Start polling to detect when a service process exits.
+    ///
+    /// The SwiftTerm Subprocess path has a known issue: `processTerminated`
+    /// may never fire because (1) `shellPid` is never set (stays 0), and
+    /// (2) the DispatchIO EOF handler in `childProcessRead` has the
+    /// `processTerminated` call commented out. This monitor acts as a
+    /// universal safety net by checking both the PTY `running` flag and
+    /// the PID liveness via `kill(pid, 0)`.
+    func startLivenessMonitor() {
+        stopLivenessMonitor()
+        livenessTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { [weak self] _ in
+            Task { @MainActor in
+                self?.checkLiveness()
+            }
+        }
+    }
+
+    private func stopLivenessMonitor() {
+        livenessTimer?.invalidate()
+        livenessTimer = nil
+    }
+
+    private func checkLiveness() {
+        guard state == .running || state == .starting else {
+            stopLivenessMonitor()
+            return
+        }
+
+        var isDead = false
+
+        // Check 1: PTY process running flag (set to false by childStopped() on EOF)
+        if let tv = terminalView, !tv.process.running {
+            isDead = true
+        }
+
+        // Check 2: PID-based liveness (for reconnected services without terminalView,
+        // or when the PID is valid and non-zero)
+        if let pid = self.pid, pid > 0 {
+            if kill(pid, 0) != 0 {
+                isDead = true
+            }
+        } else if terminalView == nil {
+            // No terminalView and no valid PID — nothing to monitor
+            isDead = true
+        }
+
+        if isDead {
+            stopLivenessMonitor()
+            self.pid = nil
+            if !manuallyStoppping {
+                attemptRestart(exitCode: nil)
+            } else {
+                state = .stopped
+                manuallyStoppping = false
+            }
+        }
     }
 
     // MARK: - Lifecycle
@@ -42,6 +108,7 @@ class ManagedService: ObservableObject, Identifiable {
         guard state != .running && state != .starting else { return }
         guard let serviceConfig = action.serviceConfig else { return }
 
+        stopLivenessMonitor()
         state = .starting
         restartCount = 0
         manuallyStoppping = false
@@ -82,11 +149,17 @@ class ManagedService: ObservableObject, Identifiable {
 
         // If output window is already open, swap in the new terminal view
         outputWindow?.updateTerminalView(tv)
+
+        // Start liveness monitor as a safety net. The SwiftTerm Subprocess
+        // path may not reliably deliver processTerminated, so we poll to
+        // detect when the process exits.
+        startLivenessMonitor()
     }
 
     func stop() {
         guard state == .running || state == .starting else { return }
 
+        stopLivenessMonitor()
         manuallyStoppping = true
         restartBackoffTask?.cancel()
         restartBackoffTask = nil
@@ -94,7 +167,7 @@ class ManagedService: ObservableObject, Identifiable {
         if let tv = terminalView {
             let currentPid = tv.process.shellPid
 
-            // Send SIGTERM first
+            // Send SIGTERM first (also closes PTY master fd → SIGHUP to child)
             tv.terminate()
 
             // Schedule SIGKILL after 5 seconds if still alive
@@ -107,11 +180,18 @@ class ManagedService: ObservableObject, Identifiable {
                     }
                 }
             }
-        }
 
-        // State is set to .stopped via processTerminated delegate; set it here too
-        // in case the terminal view was already nil
-        if terminalView == nil {
+            // Safety net: if processTerminated delegate never fires (Subprocess
+            // path issue), force state to .stopped after a timeout.
+            Task {
+                try? await Task.sleep(nanoseconds: 3_000_000_000)
+                if self.state != .stopped && self.manuallyStoppping {
+                    self.pid = nil
+                    self.state = .stopped
+                    self.manuallyStoppping = false
+                }
+            }
+        } else {
             state = .stopped
         }
     }
@@ -206,6 +286,7 @@ extension ManagedService: LocalProcessTerminalViewDelegate {
 
     nonisolated func processTerminated(source: TerminalView, exitCode: Int32?) {
         Task { @MainActor in
+            self.stopLivenessMonitor()
             self.pid = nil
 
             if self.state == .restarting && !self.manuallyStoppping {
