@@ -157,3 +157,21 @@ Plans:
 - [ ] 08-01-PLAN.md — SwiftTerm dependency + config models + type contracts
 - [ ] 08-02-PLAN.md — ServiceManager + ManagedService PTY lifecycle + output window
 - [ ] 08-03-PLAN.md — UI views + app lifecycle wiring + end-to-end verification
+
+### Phase 9: Add context menu for service to reload config. But to restart let it be user action.
+
+**Goal:** Service context menu with Start/Stop/Restart/View Output; config reload preserves running services without auto-restart
+**Requirements**: Already satisfied by Phase 8 implementation
+**Depends on:** Phase 8
+**Status:** Complete (implemented as part of Phase 8)
+**Plans:** 0 plans needed — functionality delivered in 08-02 (ServiceManager) and 08-03 (ServiceRowView context menu)
+
+### Phase 10: Add CLI to Support Service Manipulation
+
+**Goal:** Extend the exmen CLI tool with five new commands (list-services, start-service, stop-service, restart-service, service-status) to enable scripting and automation of managed services
+**Requirements**: SVC-CLI-LIST, SVC-CLI-START, SVC-CLI-STOP, SVC-CLI-RESTART, SVC-CLI-STATUS, SVC-CLI-ERR
+**Depends on:** Phase 9
+**Plans:** 1 plan
+
+Plans:
+- [ ] 10-01-PLAN.md — Server-side command handlers + CLI client service commands
