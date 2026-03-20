@@ -115,13 +115,20 @@ func printUsage() {
     let usage = """
     Usage: exmen <command> [options]
 
-    Commands:
+    Action Commands:
       list-actions          List all available actions
       run <name>            Run an action by name
       status <name>         Get status of an action
 
+    Service Commands:
+      list-services         List all managed services
+      start-service <name>  Start a stopped service
+      stop-service <name>   Stop a running service
+      restart-service <name> Restart a service
+      service-status <name> Get detailed status of a service
+
     Options:
-      --json                Output raw JSON (for list-actions)
+      --json                Output raw JSON (for list commands)
       --help, -h            Show this help message
 
     Examples:
@@ -129,6 +136,12 @@ func printUsage() {
       exmen list-actions --json
       exmen run "Generate Phone Number"
       exmen status "System Status"
+      exmen list-services
+      exmen list-services --json
+      exmen start-service "my-server"
+      exmen stop-service "my-server"
+      exmen restart-service "my-server"
+      exmen service-status "my-server"
     """
     print(usage)
 }
@@ -241,6 +254,147 @@ func handleStatus(name: String) {
     }
 }
 
+func handleListServices(json: Bool) {
+    let client = SocketClient()
+    let result = client.send(["command": "list-services"])
+
+    switch result {
+    case .success(let response):
+        if json {
+            if let data = try? JSONSerialization.data(withJSONObject: response, options: .prettyPrinted),
+               let jsonString = String(data: data, encoding: .utf8) {
+                print(jsonString)
+            }
+            return
+        }
+
+        guard let success = response["success"] as? Bool, success else {
+            if let error = response["error"] as? String {
+                fputs("Error: \(error)\n", stderr)
+            }
+            exit(1)
+        }
+
+        if let services = response["data"] as? [[String: Any]] {
+            if services.isEmpty {
+                print("No services configured.")
+                return
+            }
+            for svc in services {
+                let name = svc["name"] as? String ?? "Unknown"
+                let state = svc["state"] as? String ?? "unknown"
+                let statusText = svc["statusText"] as? String ?? state
+                let pid = svc["pid"] as? Int
+                var line = "\(name)  \(statusText)"
+                if let pid = pid {
+                    line += "  (pid: \(pid))"
+                }
+                print(line)
+            }
+        }
+
+    case .failure(let error):
+        fputs("Error: \(error.message)\n", stderr)
+        exit(1)
+    }
+}
+
+func handleStartService(name: String) {
+    let client = SocketClient()
+    let result = client.send(["command": "start-service", "name": name])
+
+    switch result {
+    case .success(let response):
+        guard let success = response["success"] as? Bool, success else {
+            if let error = response["error"] as? String {
+                fputs("Error: \(error)\n", stderr)
+            }
+            exit(1)
+        }
+        print("Service '\(name)' started.")
+
+    case .failure(let error):
+        fputs("Error: \(error.message)\n", stderr)
+        exit(1)
+    }
+}
+
+func handleStopService(name: String) {
+    let client = SocketClient()
+    let result = client.send(["command": "stop-service", "name": name])
+
+    switch result {
+    case .success(let response):
+        guard let success = response["success"] as? Bool, success else {
+            if let error = response["error"] as? String {
+                fputs("Error: \(error)\n", stderr)
+            }
+            exit(1)
+        }
+        print("Service '\(name)' stopped.")
+
+    case .failure(let error):
+        fputs("Error: \(error.message)\n", stderr)
+        exit(1)
+    }
+}
+
+func handleRestartService(name: String) {
+    let client = SocketClient()
+    let result = client.send(["command": "restart-service", "name": name])
+
+    switch result {
+    case .success(let response):
+        guard let success = response["success"] as? Bool, success else {
+            if let error = response["error"] as? String {
+                fputs("Error: \(error)\n", stderr)
+            }
+            exit(1)
+        }
+        print("Service '\(name)' restarted.")
+
+    case .failure(let error):
+        fputs("Error: \(error.message)\n", stderr)
+        exit(1)
+    }
+}
+
+func handleServiceStatus(name: String) {
+    let client = SocketClient()
+    let result = client.send(["command": "service-status", "name": name])
+
+    switch result {
+    case .success(let response):
+        guard let success = response["success"] as? Bool, success else {
+            if let error = response["error"] as? String {
+                fputs("Error: \(error)\n", stderr)
+            }
+            exit(1)
+        }
+
+        if let status = response["data"] as? [String: Any] {
+            let name = status["name"] as? String ?? "Unknown"
+            let state = status["state"] as? String ?? "unknown"
+            let statusText = status["statusText"] as? String ?? state
+            let pid = status["pid"] as? Int
+            let restartPolicy = status["restartPolicy"] as? String ?? "never"
+            let keepAlive = status["keepAlive"] as? Bool ?? false
+
+            print("Service: \(name)")
+            print("State: \(statusText)")
+            if let pid = pid {
+                print("PID: \(pid)")
+            }
+            print("Restart policy: \(restartPolicy)")
+            print("Keep alive: \(keepAlive)")
+        }
+
+    case .failure(let error):
+        fputs("Error: \(error.message)\n", stderr)
+        exit(1)
+    }
+}
+
 // MARK: - Main
 
 let args = Array(CommandLine.arguments.dropFirst())
@@ -272,6 +426,38 @@ case "status":
     }
     let name = args[1]
     handleStatus(name: name)
+
+case "list-services":
+    let json = args.contains("--json")
+    handleListServices(json: json)
+
+case "start-service":
+    guard args.count >= 2 else {
+        fputs("Error: Missing service name\nUsage: exmen start-service <name>\n", stderr)
+        exit(1)
+    }
+    handleStartService(name: args[1])
+
+case "stop-service":
+    guard args.count >= 2 else {
+        fputs("Error: Missing service name\nUsage: exmen stop-service <name>\n", stderr)
+        exit(1)
+    }
+    handleStopService(name: args[1])
+
+case "restart-service":
+    guard args.count >= 2 else {
+        fputs("Error: Missing service name\nUsage: exmen restart-service <name>\n", stderr)
+        exit(1)
+    }
+    handleRestartService(name: args[1])
+
+case "service-status":
+    guard args.count >= 2 else {
+        fputs("Error: Missing service name\nUsage: exmen service-status <name>\n", stderr)
+        exit(1)
+    }
+    handleServiceStatus(name: args[1])
 
 default:
     fputs("Unknown command: \(command)\n", stderr)
