@@ -2,16 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: planning
-stopped_at: "Completed 08-03-PLAN.md (checkpoint:human-verify Task 3 pending)"
-last_updated: "2026-03-11T09:14:28.047Z"
-last_activity: 2026-01-21 — Completed 07.1-01-PLAN.md
+status: unknown
+stopped_at: Completed 10-01-PLAN.md
+last_updated: "2026-03-20T06:34:55.150Z"
 progress:
-  total_phases: 9
-  completed_phases: 9
-  total_plans: 16
-  completed_plans: 16
-  percent: 100
+  total_phases: 11
+  completed_phases: 10
+  total_plans: 17
+  completed_plans: 17
 ---
 
 # Project State
@@ -21,22 +19,17 @@ progress:
 See: .planning/PROJECT.md (updated 2026-01-20)
 
 **Core value:** Zero-friction execution — click menu, run action, done.
-**Current focus:** v1.1 Complete with IPC!
+**Current focus:** Phase 10 — add-cli-to-support-service-manipulation
 
 ## Current Position
 
-Phase: 8 of 8 (Not planned)
-Plan: None yet
-Status: Phase 8 needs planning
-Last activity: 2026-01-21 — Completed 07.1-01-PLAN.md
-
-Progress: ██████████ 100%
-
-**Next Phase:** Milestone complete
+Phase: 10 (add-cli-to-support-service-manipulation) — EXECUTING
+Plan: 1 of 1
 
 ## Performance Metrics
 
 **Velocity:**
+
 - Total plans completed: 10
 - Average duration: —
 - Total execution time: —
@@ -54,10 +47,13 @@ Progress: ██████████ 100%
 | 7. Global Config | 1 | — | — |
 
 **Recent Trend:**
+
 - Last 5 plans: 05-01, 06-01, 06-02, 07-01
 - Trend: —
+
 | Phase 08 P02 | 8min | 2 tasks | 4 files |
 | Phase 08 P03 | 10min | 2 tasks | 5 files |
+| Phase 10 P01 | 8min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -87,12 +83,15 @@ All key decisions for v1:
 - [Phase 08]: ServiceOutputWindow uses NSWindowDelegate (not NSWindowController override) for windowWillClose
 - [Phase 08]: Services shown below actions in MenuContentView (actions are primary use case, services are secondary)
 - [Phase 08]: ServiceRowView: left-click does not toggle service — context menu only for Start/Stop/Restart/View Output
+- [Phase 10]: ResponseData decode order: ServiceStatusInfo before ActionStatus (unique restartPolicy key); [ServiceInfo] before [ActionInfo] (pid field distinguishes them)
 
 ### Roadmap Evolution
 
 - Phase 7 added: Global config for action ordering and enable/disable
 - Phase 7.1 inserted after Phase 7: UI Improvements (URGENT) — compact action list, better popup layout
 - Phase 8 added: Long-running CLI services with start/stop, output viewing, and TTY interaction
+- Phase 9 added: Add context menu for service to reload config. But to restart let it be user action.
+- Phase 10 added: Add CLI to support service manipulation
 
 ### Deferred Issues
 
@@ -104,8 +103,8 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-03-11T09:14:28.044Z
-Stopped at: Completed 08-03-PLAN.md (checkpoint:human-verify Task 3 pending)
+Last session: 2026-03-20T06:34:55.147Z
+Stopped at: Completed 10-01-PLAN.md
 Resume file: None
 
 ## v1.1 Features Complete

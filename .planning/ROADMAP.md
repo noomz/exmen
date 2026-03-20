@@ -171,7 +171,7 @@ Plans:
 **Goal:** Extend the exmen CLI tool with five new commands (list-services, start-service, stop-service, restart-service, service-status) to enable scripting and automation of managed services
 **Requirements**: SVC-CLI-LIST, SVC-CLI-START, SVC-CLI-STOP, SVC-CLI-RESTART, SVC-CLI-STATUS, SVC-CLI-ERR
 **Depends on:** Phase 9
-**Plans:** 1 plan
+**Plans:** 1/1 plans complete
 
 Plans:
 - [ ] 10-01-PLAN.md — Server-side command handlers + CLI client service commands
