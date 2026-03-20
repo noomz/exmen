@@ -1,5 +1,19 @@
 import Foundation
 
+// MARK: - ServiceState extension
+
+extension ServiceState {
+    var rawStringValue: String {
+        switch self {
+        case .stopped:    return "stopped"
+        case .starting:   return "starting"
+        case .running:    return "running"
+        case .restarting: return "restarting"
+        case .crashed:    return "crashed"
+        }
+    }
+}
+
 /// Handles IPC commands from socket clients
 @MainActor
 class CommandHandler {
@@ -30,6 +44,8 @@ class CommandHandler {
         case actions([ActionInfo])
         case output(String)
         case status(ActionStatus)
+        case services([ServiceInfo])
+        case serviceStatus(ServiceStatusInfo)
 
         func encode(to encoder: Encoder) throws {
             var container = encoder.singleValueContainer()
@@ -40,17 +56,25 @@ class CommandHandler {
                 try container.encode(output)
             case .status(let status):
                 try container.encode(status)
+            case .services(let services):
+                try container.encode(services)
+            case .serviceStatus(let status):
+                try container.encode(status)
             }
         }
 
         init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
-            if let actions = try? container.decode([ActionInfo].self) {
+            if let serviceStatus = try? container.decode(ServiceStatusInfo.self) {
+                self = .serviceStatus(serviceStatus)
+            } else if let status = try? container.decode(ActionStatus.self) {
+                self = .status(status)
+            } else if let services = try? container.decode([ServiceInfo].self) {
+                self = .services(services)
+            } else if let actions = try? container.decode([ActionInfo].self) {
                 self = .actions(actions)
             } else if let output = try? container.decode(String.self) {
                 self = .output(output)
-            } else if let status = try? container.decode(ActionStatus.self) {
-                self = .status(status)
             } else {
                 throw DecodingError.dataCorruptedError(in: container, debugDescription: "Unknown response data type")
             }
@@ -70,6 +94,22 @@ class CommandHandler {
         let dynamicStatus: String?
         let dynamicBadge: String?
         let dynamicIcon: String?
+    }
+
+    struct ServiceInfo: Codable {
+        let name: String
+        let state: String
+        let pid: Int32?
+        let statusText: String
+    }
+
+    struct ServiceStatusInfo: Codable {
+        let name: String
+        let state: String
+        let pid: Int32?
+        let statusText: String
+        let restartPolicy: String
+        let keepAlive: Bool
     }
 
     // MARK: - Command Handling
@@ -101,6 +141,28 @@ class CommandHandler {
                 return Response(success: false, error: "Missing 'name' parameter")
             }
             return getStatus(name: name)
+        case "list-services":
+            return listServices()
+        case "start-service":
+            guard let name = request.name else {
+                return Response(success: false, error: "Missing 'name' parameter")
+            }
+            return startService(name: name)
+        case "stop-service":
+            guard let name = request.name else {
+                return Response(success: false, error: "Missing 'name' parameter")
+            }
+            return stopService(name: name)
+        case "restart-service":
+            guard let name = request.name else {
+                return Response(success: false, error: "Missing 'name' parameter")
+            }
+            return restartService(name: name)
+        case "service-status":
+            guard let name = request.name else {
+                return Response(success: false, error: "Missing 'name' parameter")
+            }
+            return getServiceStatus(name: name)
         default:
             return Response(success: false, error: "Unknown command: \(request.command)")
         }
@@ -183,5 +245,70 @@ class CommandHandler {
     /// Find action by name (case-insensitive)
     private func findAction(name: String) -> Action? {
         ActionService.shared.actions.first { $0.name.lowercased() == name.lowercased() }
+    }
+
+    /// Find service by name (case-insensitive)
+    private func findService(name: String) -> ManagedService? {
+        ServiceManager.shared.services.first { $0.action.name.lowercased() == name.lowercased() }
+    }
+
+    // MARK: - Service Command Implementations
+
+    private func listServices() -> Response {
+        let infos = ServiceManager.shared.services.map { svc in
+            ServiceInfo(
+                name: svc.action.name,
+                state: svc.state.rawStringValue,
+                pid: svc.pid,
+                statusText: ServiceState.displayText(state: svc.state, startedAt: svc.startedAt)
+            )
+        }
+        return Response(success: true, data: .services(infos))
+    }
+
+    private func startService(name: String) -> Response {
+        guard let service = findService(name: name) else {
+            return Response(success: false, error: "Service not found: \(name)")
+        }
+        guard !service.state.isActive else {
+            return Response(success: false, error: "Service '\(name)' is already running")
+        }
+        ServiceManager.shared.start(service)
+        return Response(success: true)
+    }
+
+    private func stopService(name: String) -> Response {
+        guard let service = findService(name: name) else {
+            return Response(success: false, error: "Service not found: \(name)")
+        }
+        guard service.state == .running || service.state == .starting else {
+            return Response(success: false, error: "Service '\(name)' is not running")
+        }
+        ServiceManager.shared.stop(service)
+        return Response(success: true)
+    }
+
+    private func restartService(name: String) -> Response {
+        guard let service = findService(name: name) else {
+            return Response(success: false, error: "Service not found: \(name)")
+        }
+        ServiceManager.shared.restart(service)
+        return Response(success: true)
+    }
+
+    private func getServiceStatus(name: String) -> Response {
+        guard let service = findService(name: name) else {
+            return Response(success: false, error: "Service not found: \(name)")
+        }
+        let config = service.action.serviceConfig
+        let info = ServiceStatusInfo(
+            name: service.action.name,
+            state: service.state.rawStringValue,
+            pid: service.pid,
+            statusText: ServiceState.displayText(state: service.state, startedAt: service.startedAt),
+            restartPolicy: config?.resolvedRestart.rawValue ?? "never",
+            keepAlive: config?.resolvedKeepAlive ?? false
+        )
+        return Response(success: true, data: .serviceStatus(info))
     }
 }
