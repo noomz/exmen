@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A1000011233456780000001 /* SubtaskConfigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000012233456780000001 /* SubtaskConfigTests.swift */; };
+		A1000011233456780000002 /* WaveSchedulerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000012233456780000002 /* WaveSchedulerTests.swift */; };
+		A1000011233456780000003 /* SubtaskStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000012233456780000003 /* SubtaskStateTests.swift */; };
+		A1000011233456780000004 /* DynamicSpawnTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000012233456780000004 /* DynamicSpawnTests.swift */; };
+		A1000011233456780000005 /* SummaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000012233456780000005 /* SummaryTests.swift */; };
+		A1000011233456780000006 /* CascadeSkipTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000012233456780000006 /* CascadeSkipTests.swift */; };
+		A1000011233456780000007 /* ConcurrencyCapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000012233456780000007 /* ConcurrencyCapTests.swift */; };
+		A1000011233456780000008 /* TimeoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000012233456780000008 /* TimeoutTests.swift */; };
+		A1000011233456780000009 /* ProgressModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000012233456780000009 /* ProgressModelTests.swift */; };
 		A1000001233456780000001 /* ExmenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002233456780000001 /* ExmenApp.swift */; };
 		A1000001233456780000002 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002233456780000002 /* Action.swift */; };
 		A1000001233456780000003 /* MenuContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002233456780000003 /* MenuContentView.swift */; };
@@ -64,7 +73,27 @@
 		A1000002233456780000026 /* ServiceOutputWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceOutputWindow.swift; sourceTree = "<group>"; };
 		A1000002233456780000027 /* ServiceRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceRowView.swift; sourceTree = "<group>"; };
 		A1000003233456780000001 /* Exmen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Exmen.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1000012233456780000001 /* SubtaskConfigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtaskConfigTests.swift; sourceTree = "<group>"; };
+		A1000012233456780000002 /* WaveSchedulerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveSchedulerTests.swift; sourceTree = "<group>"; };
+		A1000012233456780000003 /* SubtaskStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtaskStateTests.swift; sourceTree = "<group>"; };
+		A1000012233456780000004 /* DynamicSpawnTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicSpawnTests.swift; sourceTree = "<group>"; };
+		A1000012233456780000005 /* SummaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryTests.swift; sourceTree = "<group>"; };
+		A1000012233456780000006 /* CascadeSkipTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CascadeSkipTests.swift; sourceTree = "<group>"; };
+		A1000012233456780000007 /* ConcurrencyCapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcurrencyCapTests.swift; sourceTree = "<group>"; };
+		A1000012233456780000008 /* TimeoutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeoutTests.swift; sourceTree = "<group>"; };
+		A1000012233456780000009 /* ProgressModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressModelTests.swift; sourceTree = "<group>"; };
+		A1000012233456780000010 /* ExmenTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExmenTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXContainerItemProxy section */
+		A1000013233456780000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A1000009233456780000001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A1000006233456780000001;
+			remoteInfo = Exmen;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		A1000004233456780000001 /* Frameworks */ = {
@@ -83,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				A1000005233456780000002 /* Exmen */,
+				A1000019233456780000001 /* ExmenTests */,
 				A1000005233456780000005 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -130,8 +160,25 @@
 			isa = PBXGroup;
 			children = (
 				A1000003233456780000001 /* Exmen.app */,
+				A1000012233456780000010 /* ExmenTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		A1000019233456780000001 /* ExmenTests */ = {
+			isa = PBXGroup;
+			children = (
+				A1000012233456780000001 /* SubtaskConfigTests.swift */,
+				A1000012233456780000002 /* WaveSchedulerTests.swift */,
+				A1000012233456780000003 /* SubtaskStateTests.swift */,
+				A1000012233456780000004 /* DynamicSpawnTests.swift */,
+				A1000012233456780000005 /* SummaryTests.swift */,
+				A1000012233456780000006 /* CascadeSkipTests.swift */,
+				A1000012233456780000007 /* ConcurrencyCapTests.swift */,
+				A1000012233456780000008 /* TimeoutTests.swift */,
+				A1000012233456780000009 /* ProgressModelTests.swift */,
+			);
+			path = ExmenTests;
 			sourceTree = "<group>";
 		};
 		A1000005233456780000006 /* Services */ = {
@@ -176,6 +223,22 @@
 			productReference = A1000003233456780000001 /* Exmen.app */;
 			productType = "com.apple.product-type.application";
 		};
+		A1000016233456780000001 /* ExmenTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A1000018233456780000001 /* Build configuration list for PBXNativeTarget "ExmenTests" */;
+			buildPhases = (
+				A1000015233456780000001 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A1000014233456780000001 /* PBXTargetDependency */,
+			);
+			name = ExmenTests;
+			productName = ExmenTests;
+			productReference = A1000012233456780000010 /* ExmenTests.xctest */;
+			productType = "com.apple.product-type.unit-test-bundle";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -188,6 +251,10 @@
 				TargetAttributes = {
 					A1000006233456780000001 = {
 						CreatedOnToolsVersion = 15.0;
+					};
+					A1000016233456780000001 = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = A1000006233456780000001;
 					};
 				};
 			};
@@ -209,6 +276,7 @@
 			projectRoot = "";
 			targets = (
 				A1000006233456780000001 /* Exmen */,
+				A1000016233456780000001 /* ExmenTests */,
 			);
 		};
 /* End PBXProject section */
@@ -256,7 +324,31 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A1000015233456780000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1000011233456780000001 /* SubtaskConfigTests.swift in Sources */,
+				A1000011233456780000002 /* WaveSchedulerTests.swift in Sources */,
+				A1000011233456780000003 /* SubtaskStateTests.swift in Sources */,
+				A1000011233456780000004 /* DynamicSpawnTests.swift in Sources */,
+				A1000011233456780000005 /* SummaryTests.swift in Sources */,
+				A1000011233456780000006 /* CascadeSkipTests.swift in Sources */,
+				A1000011233456780000007 /* ConcurrencyCapTests.swift in Sources */,
+				A1000011233456780000008 /* TimeoutTests.swift in Sources */,
+				A1000011233456780000009 /* ProgressModelTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A1000014233456780000001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A1000006233456780000001 /* Exmen */;
+			targetProxy = A1000013233456780000001 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		A100000A233456780000001 /* Debug */ = {
@@ -431,9 +523,50 @@
 			};
 			name = Release;
 		};
+		A1000017233456780000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.exmen.ExmenTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Exmen.app/Contents/MacOS/Exmen";
+			};
+			name = Debug;
+		};
+		A1000017233456780000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.exmen.ExmenTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Exmen.app/Contents/MacOS/Exmen";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		A1000018233456780000001 /* Build configuration list for PBXNativeTarget "ExmenTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1000017233456780000001 /* Debug */,
+				A1000017233456780000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		A1000008233456780000001 /* Build configuration list for PBXNativeTarget "Exmen" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
