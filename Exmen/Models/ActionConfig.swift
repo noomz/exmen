@@ -1,7 +1,7 @@
 import Foundation
 
 /// Script execution type
-enum ScriptType: String, Codable {
+enum ScriptType: String, Codable, Equatable {
     case inline  // Script content embedded in TOML
     case file    // Path to external script file
 }
@@ -55,6 +55,8 @@ struct ActionConfig: Codable {
     let type: ActionType?
     /// Service configuration — only present when type == "service"
     let service: ServiceConfig?
+    /// Optional subtasks for orchestrated multi-step actions (Phase 11, D-01)
+    let subtasks: [SubtaskConfig]?
 
     /// Resolved action type (default: .action)
     var resolvedType: ActionType { type ?? .action }
