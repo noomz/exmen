@@ -26,8 +26,18 @@ user-facing HOW decisions, not the technical implementation.
 - **D-01:** Subtasks declared as a `[[subtasks]]` array on the action.
 - **D-02:** A subtask's command reuses the existing `ScriptConfig` model
   (inline content OR file path) — same inline-or-file pattern as actions, so
-  subtasks can point at script files. Do NOT invent a separate inline-only
-  `cmd` string.
+  subtasks can point at script files. **At rest there is exactly one command
+  representation: an embedded `ScriptConfig`.**
+  - **D-02a (refined 2026-06-05, resolves D-02↔D-05 conflict):** `cmd` is a
+    *decode-time convenience alias only*, not a separate stored field. When the
+    TOML provides `cmd = "make"`, the decoder normalizes it into
+    `ScriptConfig(type: .inline, content: "make")`. The struct stores only the
+    `ScriptConfig` — there is no `cmd: String?` property. Both static
+    `[[subtasks]]` and dynamic `EXMEN:subtask=` accept either the `cmd`
+    shorthand OR a full `script = { type = …, … }` table; both decode through
+    the single shared `SubtaskConfig` path (D-06). This keeps the terse user
+    syntax from D-05 while honoring D-02's "one command model at rest".
+    Providing both `cmd` and `script` on one subtask → decode error.
 - **D-03:** Required fields: `id` (used for `depends_on` references) and the
   command (via `ScriptConfig`). Optional: `name` (defaults to `id`), `timeout`
   (falls back to a default), `depends_on`.
