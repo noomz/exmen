@@ -112,9 +112,17 @@
 			isa = PBXGroup;
 			children = (
 				A1000005233456780000002 /* Exmen */,
-				A1000019233456780000001 /* ExmenTests */,
+				A100001A233456780000001 /* Tests */,
 				A1000005233456780000005 /* Products */,
 			);
+			sourceTree = "<group>";
+		};
+		A100001A233456780000001 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				A1000019233456780000001 /* ExmenTests */,
+			);
+			path = Tests;
 			sourceTree = "<group>";
 		};
 		A1000005233456780000002 /* Exmen */ = {
@@ -237,7 +245,7 @@
 			name = ExmenTests;
 			productName = ExmenTests;
 			productReference = A1000012233456780000010 /* ExmenTests.xctest */;
-			productType = "com.apple.product-type.unit-test-bundle";
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
