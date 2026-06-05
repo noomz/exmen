@@ -51,10 +51,10 @@ struct OrchestrationSummary: CustomStringConvertible {
 
 // MARK: - SubtaskOrchestrator
 
-/// Stub implementation — full logic lands in Phase 11 Plans 03–06.
-/// Exposes the published interface required by ProgressModelTests and the
-/// static helpers required by WaveSchedulerTests / CascadeSkipTests /
-/// ConcurrencyCapTests / TimeoutTests so ExmenTests compiles in Plan 02.
+/// Wave topo-sort scheduler (ORCH-02) + bounded-concurrency execution (ORCH-06)
+/// driving live `@Published` progress (ORCH-03) through `SubtaskRunner`, with
+/// runtime dynamic spawn + per-subtask progress from `HookParser.parseLine`
+/// (ORCH-04) and cascade-skip on dependency failure (D-13/D-14).
 ///
 /// Not marked @MainActor at the class level so that @Published properties can
 /// be read synchronously from nonisolated test contexts (e.g. XCTUnwrap in
@@ -153,7 +153,7 @@ final class SubtaskOrchestrator: ObservableObject, @unchecked Sendable {
         }
     }
 
-    // MARK: - Run (ORCH-03 / ORCH-06 stub — real implementation in Plan 03)
+    // MARK: - Run (ORCH-03 / ORCH-06)
 
     /// Execute subtasks respecting dependency waves and the concurrency cap.
     /// The optional `eventHandler` receives lifecycle events for testing.
@@ -249,11 +249,74 @@ final class SubtaskOrchestrator: ObservableObject, @unchecked Sendable {
         await updateState(id: sub.id, status: .running, startedAt: Date())
         eventHandler?(.started(id: sub.id))
 
-        let result = await runScript(sub.resolvedScript, timeout: timeout)
+        var exitCode: Int32 = 0
+        var timedOut = false
 
-        let finalStatus: SubtaskStatus = result == 0 ? .succeeded : .failed(exitCode: result)
+        // Stream the subtask live via SubtaskRunner: process-group kill on timeout
+        // (ORCH-06), and EXMEN: hook lines dispatched for progress (D-12) and
+        // dynamic spawn (ORCH-04) as they arrive (ORCH-03).
+        for await event in SubtaskRunner.shared.run(script: sub.resolvedScript, timeout: timeout) {
+            switch event {
+            case .hookLine(let line):
+                await handleHookLine(line, subtaskId: sub.id, eventHandler: eventHandler)
+            case .exited(let code):
+                exitCode = code
+            case .timedOut:
+                timedOut = true
+                exitCode = 124   // conventional timeout exit code
+            case .launchFailed:
+                exitCode = 1
+            case .stdoutLine, .stderrLine:
+                break            // raw output not required by the progress model
+            }
+        }
+
+        let finalStatus: SubtaskStatus = (!timedOut && exitCode == 0)
+            ? .succeeded
+            : .failed(exitCode: exitCode)
         await updateState(id: sub.id, status: finalStatus, endedAt: Date())
         eventHandler?(.finished(id: sub.id, status: finalStatus))
+    }
+
+    /// Dispatch a single `EXMEN:` hook line emitted by a running subtask.
+    /// `progress` updates the per-subtask bar (D-12); `subtask` spawns a new
+    /// subtask at runtime (ORCH-04, D-05). Malformed/legacy/unknown lines are ignored.
+    private func handleHookLine(
+        _ line: String,
+        subtaskId: String,
+        eventHandler: ((SubtaskEvent) -> Void)?
+    ) async {
+        guard let event = HookParser.parseLine(line) else { return }
+        switch event {
+        case .progress(let percent):
+            await updateProgress(id: subtaskId, percent: percent)
+        case .subtask(let rawValue):
+            await spawnDynamicSubtask(rawValue, eventHandler: eventHandler)
+        case .invalidProgress, .legacyHook, .unknown:
+            break
+        }
+    }
+
+    /// Dynamically decode and run a subtask requested via `EXMEN:subtask=` (ORCH-04).
+    /// Idempotent on id (D-08): a duplicate id is ignored. Honors the global
+    /// `maxSubtaskCount` cap and ignores malformed inline tables (D-07).
+    /// v1 limitation: dynamic subtasks run outside the wave concurrency cap and
+    /// do not participate in dependency ordering.
+    private func spawnDynamicSubtask(
+        _ rawValue: String,
+        eventHandler: ((SubtaskEvent) -> Void)?
+    ) async {
+        guard let config = try? SubtaskConfig.decodeInlineTable(rawValue) else { return }
+
+        let shouldRun: Bool = await MainActor.run {
+            if self.subtaskStates.contains(where: { $0.id == config.id }) { return false }       // D-08 idempotent
+            if self.subtaskStates.count >= SubtaskOrchestrator.maxSubtaskCount { return false }   // hard cap
+            self.subtaskStates.append(SubtaskState(id: config.id, name: config.resolvedName))
+            return true
+        }
+        guard shouldRun else { return }
+
+        await executeSubtask(config, timeout: config.resolvedTimeout, eventHandler: eventHandler)
     }
 
     @MainActor
@@ -264,36 +327,10 @@ final class SubtaskOrchestrator: ObservableObject, @unchecked Sendable {
         if let e = endedAt   { subtaskStates[idx].endedAt = e }
     }
 
-    /// Run a shell script with a timeout. Returns exit code (or 255 on timeout/error).
-    private func runScript(_ script: String, timeout: TimeInterval) async -> Int32 {
-        return await withCheckedContinuation { continuation in
-            let process = Process()
-            process.executableURL = URL(fileURLWithPath: "/bin/sh")
-            process.arguments = ["-c", script]
-
-            do {
-                try process.run()
-            } catch {
-                continuation.resume(returning: 1)
-                return
-            }
-
-            let deadline = Date().addingTimeInterval(timeout)
-
-            Task {
-                while process.isRunning {
-                    if Date() > deadline {
-                        process.terminate()
-                        // Brief grace period then SIGKILL
-                        try? await Task.sleep(nanoseconds: 200_000_000)
-                        if process.isRunning { kill(process.processIdentifier, SIGKILL) }
-                        continuation.resume(returning: 255)
-                        return
-                    }
-                    try? await Task.sleep(nanoseconds: 50_000_000) // 50ms poll
-                }
-                continuation.resume(returning: process.terminationStatus)
-            }
-        }
+    /// Update a subtask's opt-in progress percentage from an `EXMEN:progress=` hook (D-12).
+    @MainActor
+    private func updateProgress(id: String, percent: Int) {
+        guard let idx = subtaskStates.firstIndex(where: { $0.id == id }) else { return }
+        subtaskStates[idx].progressPercent = max(0, min(100, percent))
     }
 }
