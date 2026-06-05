@@ -17,6 +17,22 @@ Zero-friction execution — click menu, run action, done. As fast as possible wi
 
 Codebase: ~2,991 LOC Swift across Exmen app + exmen-cli. Tech stack: Swift/SwiftUI, AppKit, SwiftTerm 1.11.2 (PTY), TOMLDecoder, Unix domain sockets.
 
+## Current Milestone: v1.2 Polish & Power
+
+**Goal:** Make Exmen faster to reach and more capable per task — parallel subtask orchestration with live feedback, instant on-screen summon, Raycast integration, and a refreshed menu UI.
+
+**Target features:**
+- Parallel subtask orchestration — declarative (`[[subtasks]]` TOML with run mode + `depends_on`) and dynamic (parent script spawns subtasks via hook protocol), with async per-subtask progress and result aggregation
+- On-screen summon — global hotkey opens a Spotlight-style command palette plus a HUD progress overlay
+- Raycast integration — TS extension listing/running actions and services via the existing `exmen` CLI / socket IPC
+- Menu bar UI/UX overhaul — search/filter, grouping/sections, inline live progress, visual refresh
+
+**Milestone tech decisions (from research):**
+- Subtasks: app-spawned streaming runner (`AsyncStream`), wave topo-sort scheduler, `@MainActor` orchestrator
+- Hotkey: `sindresorhus/KeyboardShortcuts` v2.4.0 (no Accessibility permission, sandbox-safe)
+- Palette/HUD: non-activating borderless `NSPanel` (palette becomes key; HUD non-key, click-through)
+- Raycast: full extension (`@raycast/api` 1.104.x), `useExec`/`execa`, parse `--json` envelope, bundle local-first
+
 ## Requirements
 
 ### Validated
@@ -32,9 +48,12 @@ Codebase: ~2,991 LOC Swift across Exmen app + exmen-cli. Tech stack: Swift/Swift
 - ✓ Service lifecycle (start/stop/restart, restart policies, keep-alive) — v1.1
 - ✓ CLI service control (list/start/stop/restart/status) — v1.1
 
-### Active
+### Active (v1.2)
 
-(None — planning next milestone)
+- [ ] Parallel subtask orchestration (declarative + dynamic) with live feedback — ORCH-*
+- [ ] On-screen summon: global hotkey + command palette + HUD overlay — SUMMON-*
+- [ ] Raycast integration via CLI — RAYCAST-*
+- [ ] Menu bar UI/UX overhaul (search, grouping, inline progress, visuals) — UIUX-*
 
 ### Out of Scope
 
@@ -73,5 +92,22 @@ Example services (v1.1):
 | Services below actions in menu | Actions primary use case, services secondary | ✓ Good |
 | ResponseData ordered decode disambiguation | Distinguish service vs action IPC responses without a type tag | ⚠️ Revisit (a type discriminator would be cleaner) |
 
+## Evolution
+
+This document evolves at phase transitions and milestone boundaries.
+
+**After each phase transition** (via `/gsd-transition`):
+1. Requirements invalidated? → Move to Out of Scope with reason
+2. Requirements validated? → Move to Validated with phase reference
+3. New requirements emerged? → Add to Active
+4. Decisions to log? → Add to Key Decisions
+5. "What This Is" still accurate? → Update if drifted
+
+**After each milestone** (via `/gsd-complete-milestone`):
+1. Full review of all sections
+2. Core Value check — still the right priority?
+3. Audit Out of Scope — reasons still valid?
+4. Update Context with current state
+
 ---
-*Last updated: 2026-03-20 after v1.1 milestone*
+*Last updated: 2026-06-05 — started milestone v1.2 Polish & Power*

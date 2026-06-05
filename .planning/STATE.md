@@ -1,15 +1,16 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.1
-milestone_name: Services & CLI
-status: shipped
-stopped_at: v1.1 milestone complete
-last_updated: "2026-03-20T00:00:00.000Z"
+milestone: v1.2
+milestone_name: Polish & Power
+status: planning
+last_updated: "2026-06-05T07:34:54.573Z"
+last_activity: 2026-06-05
 progress:
-  total_phases: 11
-  completed_phases: 11
-  total_plans: 17
-  completed_plans: 17
+  total_phases: 4
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # Project State
@@ -23,8 +24,10 @@ See: .planning/PROJECT.md (updated 2026-03-20)
 
 ## Current Position
 
-Milestone v1.1 (Services & CLI) shipped 2026-03-20. No active phase.
-Run `/gsd-new-milestone` to start the next cycle.
+Phase: 11 (Subtask Orchestration) — not started
+Plan: —
+Status: Roadmap created (4 phases, 20 requirements). Ready to plan Phase 11.
+Last activity: 2026-06-05 — Milestone v1.2 roadmap created
 
 ## Shipped Milestones
 
