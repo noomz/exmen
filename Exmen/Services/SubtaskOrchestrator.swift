@@ -27,9 +27,15 @@ struct OrchestrationSummary: CustomStringConvertible {
     var totalCount: Int { succeededCount + failedCount + skippedCount }
     var isFailure: Bool { failedCount > 0 }
 
+    /// Overall verdict: failed when ≥1 subtask failed (D-15).
+    var verdictFailed: Bool { isFailure }
+
     var description: String {
         "\(succeededCount) succeeded, \(failedCount) failed, \(skippedCount) skipped"
     }
+
+    /// One-line summary for notifications/popups (D-15).
+    var summaryLine: String { description }
 
     init(subtaskStates: [SubtaskState]) {
         var succeeded = 0
@@ -70,6 +76,9 @@ final class SubtaskOrchestrator: ObservableObject, @unchecked Sendable {
 
     /// Set after a run completes (nil before first run).
     var completionSummary: OrchestrationSummary?
+
+    /// Shared instance used by the menu-bar UI (tests construct their own instances).
+    static let shared = SubtaskOrchestrator()
 
     init() {}
 

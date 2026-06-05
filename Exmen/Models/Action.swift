@@ -11,6 +11,9 @@ struct Action: Identifiable {
     let hideOnClick: Bool
     let serviceConfig: ServiceConfig?
     let isService: Bool
+    /// Optional orchestrated subtasks (Phase 11, D-01). Non-empty → executeAction
+    /// branches onto SubtaskOrchestrator instead of ScriptRunner.
+    let subtasks: [SubtaskConfig]?
 
     // Dynamic state (can be updated by hooks)
     var dynamicTitle: String?
@@ -38,7 +41,8 @@ struct Action: Identifiable {
         hookConfig: HookConfig? = nil,
         hideOnClick: Bool = true,
         serviceConfig: ServiceConfig? = nil,
-        isService: Bool = false
+        isService: Bool = false,
+        subtasks: [SubtaskConfig]? = nil
     ) {
         self.id = id
         self.name = name
@@ -50,6 +54,7 @@ struct Action: Identifiable {
         self.hideOnClick = hideOnClick
         self.serviceConfig = serviceConfig
         self.isService = isService
+        self.subtasks = subtasks
     }
 
     /// Initialize from ActionConfig (loaded from TOML)
@@ -64,6 +69,7 @@ struct Action: Identifiable {
         self.hideOnClick = config.resolvedHideOnClick
         self.serviceConfig = config.service
         self.isService = config.isService
+        self.subtasks = config.subtasks
     }
 
     /// Apply hook updates to this action

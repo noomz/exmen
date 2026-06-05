@@ -98,6 +98,13 @@ struct MenuContentView: View {
     }
 
     private func executeAction(_ action: Action) {
+        // Phase 11: actions declaring [[subtasks]] run through the orchestrator (D-01),
+        // not ScriptRunner. The single-action path below is unchanged.
+        if let subtasks = action.subtasks, !subtasks.isEmpty {
+            executeSubtaskAction(action, subtasks: subtasks)
+            return
+        }
+
         guard let scriptConfig = action.scriptConfig else {
             print("No script config for action: \(action.name)")
             return
@@ -131,6 +138,38 @@ struct MenuContentView: View {
                 }
             }
         }
+    }
+
+    /// Phase 11: open the live progress window and run the orchestrator (ORCH-03),
+    /// then deliver the aggregated summary on completion (ORCH-05/D-15).
+    private func executeSubtaskAction(_ action: Action, subtasks: [SubtaskConfig]) {
+        let orchestrator = SubtaskOrchestrator.shared
+        SubtaskProgressWindow.present(orchestrator: orchestrator, title: "\(action.name) — Subtasks")
+
+        Task {
+            try? await orchestrator.run(subtasks: subtasks)
+            await MainActor.run { deliverSummary(for: action) }
+        }
+    }
+
+    /// Deliver the orchestration outcome as a popup + notification with error
+    /// severity when any subtask failed (ORCH-05/D-15).
+    private func deliverSummary(for action: Action) {
+        guard let summary = SubtaskOrchestrator.shared.completionSummary else { return }
+
+        OutputService.shared.showNotification(
+            title: action.name,
+            body: summary.summaryLine,
+            isError: summary.verdictFailed
+        )
+
+        let result = ScriptResult(
+            output: summary.summaryLine,
+            error: summary.verdictFailed ? "One or more subtasks failed" : "",
+            exitCode: summary.verdictFailed ? 1 : 0,
+            duration: 0
+        )
+        popupResult = (action, result, summary.summaryLine)
     }
 
     private func handleResult(_ result: ScriptResult, for action: Action) {
