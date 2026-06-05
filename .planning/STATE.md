@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: Polish & Power
-status: planning
+status: executing
 stopped_at: Phase 11 context gathered
-last_updated: "2026-06-05T08:02:32.328Z"
-last_activity: 2026-06-05 — Milestone v1.2 roadmap created
+last_updated: "2026-06-05T09:45:25.643Z"
+last_activity: 2026-06-05 -- Phase 11 execution started
 progress:
   total_phases: 4
   completed_phases: 0
-  total_plans: 0
+  total_plans: 6
   completed_plans: 0
   percent: 0
 ---
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-20)
 
 **Core value:** Zero-friction execution — click menu, run action, done.
-**Current focus:** Planning next milestone (v1.1 shipped)
+**Current focus:** Phase 11 — subtask-orchestration
 
 ## Current Position
 
-Phase: 11 (Subtask Orchestration) — not started
-Plan: —
-Status: Roadmap created (4 phases, 20 requirements). Ready to plan Phase 11.
-Last activity: 2026-06-05 — Milestone v1.2 roadmap created
+Phase: 11 (subtask-orchestration) — EXECUTING
+Plan: 1 of 6
+Status: Executing Phase 11
+Last activity: 2026-06-05 -- Phase 11 execution started
 
 ## Shipped Milestones
 
