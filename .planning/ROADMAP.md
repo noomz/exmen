@@ -17,7 +17,7 @@ services with full PTY interaction and CLI control.
 
 ### 🚧 v1.2 Polish & Power (Phases 11-14)
 
-- [ ] Phase 11: Subtask Orchestration (0 plans) — declarative + dynamic parallel subtasks with live feedback
+- [ ] Phase 11: Subtask Orchestration (6 plans) — declarative + dynamic parallel subtasks with live feedback
 - [ ] Phase 12: Global Summon — Palette + HUD (0 plans) — global hotkey, command palette, progress overlay
 - [ ] Phase 13: Menu Bar UI/UX Overhaul (0 plans) — search, grouping, inline progress, visual refresh
 - [ ] Phase 14: Raycast Integration (0 plans) — CLI `--json` + Raycast extension for actions/services
@@ -33,6 +33,14 @@ services with full PTY interaction and CLI control.
 3. A parent script emitting `EXMEN:subtask=…` spawns subtasks at runtime that run on the same engine.
 4. On completion a popup + notification show an aggregated pass/fail summary.
 5. Concurrency cap is honored; a timeout cancels the subtask and its child process with no zombie processes.
+
+Plans:
+- [ ] 11-01-PLAN.md — Wave 0: ExmenTests target, shared scheme, red test suites for ORCH-01..06
+- [ ] 11-02-PLAN.md — Models: SubtaskConfig (shared static/dynamic decode), SubtaskState/Status, ActionConfig.subtasks
+- [ ] 11-03-PLAN.md — Streaming SubtaskRunner + process-group kill (no zombies)
+- [ ] 11-04-PLAN.md — HookParser streaming parseLine + subtask/progress keys
+- [ ] 11-05-PLAN.md — SubtaskOrchestrator: wave scheduler, concurrency cap, cascade-skip, dynamic spawn, summary
+- [ ] 11-06-PLAN.md — SubtaskProgressWindow + MenuContentView wiring + aggregated popup/notification
 
 #### Phase 12: Global Summon — Palette + HUD
 **Goal**: Summon Exmen from anywhere with a configurable global shortcut that opens a Spotlight-style command palette, plus an on-screen HUD overlay showing live task/subtask progress.
@@ -110,7 +118,7 @@ Full details: `.planning/milestones/v1.1-ROADMAP.md`
 | 8. Long-Running Services | v1.1 | 3/3 | Complete | 2026-03-11 |
 | 9. Service Context Menu | v1.1 | 0/0 | Complete | 2026-03-20 |
 | 10. CLI Service Manipulation | v1.1 | 1/1 | Complete | 2026-03-20 |
-| 11. Subtask Orchestration | v1.2 | 0/0 | Not started | — |
+| 11. Subtask Orchestration | v1.2 | 0/6 | Planned | — |
 | 12. Global Summon — Palette + HUD | v1.2 | 0/0 | Not started | — |
 | 13. Menu Bar UI/UX Overhaul | v1.2 | 0/0 | Not started | — |
 | 14. Raycast Integration | v1.2 | 0/0 | Not started | — |
