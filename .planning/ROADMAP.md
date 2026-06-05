@@ -40,10 +40,10 @@ Plans:
 
 - [x] 11-01-PLAN.md — Wave 0: ExmenTests target, shared scheme, red test suites for ORCH-01..06
 - [x] 11-02-PLAN.md — Models: SubtaskConfig (shared static/dynamic decode), SubtaskState/Status, ActionConfig.subtasks
-- [ ] 11-03-PLAN.md — Streaming SubtaskRunner + process-group kill (no zombies)
-- [ ] 11-04-PLAN.md — HookParser streaming parseLine + subtask/progress keys
-- [ ] 11-05-PLAN.md — SubtaskOrchestrator: wave scheduler, concurrency cap, cascade-skip, dynamic spawn, summary
-- [ ] 11-06-PLAN.md — SubtaskProgressWindow + MenuContentView wiring + aggregated popup/notification
+- [x] 11-03-PLAN.md — Streaming SubtaskRunner + process-group kill (no zombies)
+- [x] 11-04-PLAN.md — HookParser streaming parseLine + subtask/progress keys
+- [x] 11-05-PLAN.md — SubtaskOrchestrator: wave scheduler, concurrency cap, cascade-skip, dynamic spawn, summary
+- [x] 11-06-PLAN.md — SubtaskProgressWindow + MenuContentView wiring + aggregated popup/notification
 
 #### Phase 12: Global Summon — Palette + HUD
 
@@ -127,7 +127,7 @@ Full details: `.planning/milestones/v1.1-ROADMAP.md`
 | 8. Long-Running Services | v1.1 | 3/3 | Complete | 2026-03-11 |
 | 9. Service Context Menu | v1.1 | 0/0 | Complete | 2026-03-20 |
 | 10. CLI Service Manipulation | v1.1 | 1/1 | Complete | 2026-03-20 |
-| 11. Subtask Orchestration | v1.2 | 2/6 | In Progress|  |
+| 11. Subtask Orchestration | v1.2 | 6/6 | Complete   | 2026-06-05 |
 | 12. Global Summon — Palette + HUD | v1.2 | 0/0 | Not started | — |
 | 13. Menu Bar UI/UX Overhaul | v1.2 | 0/0 | Not started | — |
 | 14. Raycast Integration | v1.2 | 0/0 | Not started | — |
