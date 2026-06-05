@@ -10,6 +10,7 @@
 		A100001B233456780000001 /* SubtaskConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100001B233456780000002 /* SubtaskConfig.swift */; };
 		A100001C233456780000001 /* SubtaskState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100001C233456780000002 /* SubtaskState.swift */; };
 		A100001E233456780000001 /* SubtaskOrchestrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100001E233456780000002 /* SubtaskOrchestrator.swift */; };
+		A100002F233456780000001 /* SubtaskRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100002F233456780000002 /* SubtaskRunner.swift */; };
 		A100001E233456780000003 /* HookLineEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100001E233456780000004 /* HookLineEvent.swift */; };
 		A100001F233456780000001 /* TOMLDecoderReexport.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100001F233456780000002 /* TOMLDecoderReexport.swift */; };
 		A100001D233456780000003 /* TOMLDecoder in Frameworks (ExmenTests) */ = {isa = PBXBuildFile; productRef = A100001D233456780000002 /* TOMLDecoder */; };
@@ -82,6 +83,7 @@
 		A100001B233456780000002 /* SubtaskConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtaskConfig.swift; sourceTree = "<group>"; };
 		A100001C233456780000002 /* SubtaskState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtaskState.swift; sourceTree = "<group>"; };
 		A100001E233456780000002 /* SubtaskOrchestrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtaskOrchestrator.swift; sourceTree = "<group>"; };
+		A100002F233456780000002 /* SubtaskRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtaskRunner.swift; sourceTree = "<group>"; };
 		A100001E233456780000004 /* HookLineEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HookLineEvent.swift; sourceTree = "<group>"; };
 		A100001F233456780000002 /* TOMLDecoderReexport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOMLDecoderReexport.swift; sourceTree = "<group>"; };
 		A1000012233456780000001 /* SubtaskConfigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtaskConfigTests.swift; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 				A1000002233456780000024 /* ManagedService.swift */,
 				A1000002233456780000025 /* ServiceManager.swift */,
 				A100001E233456780000002 /* SubtaskOrchestrator.swift */,
+				A100002F233456780000002 /* SubtaskRunner.swift */,
 				A100001E233456780000004 /* HookLineEvent.swift */,
 			);
 			path = Services;
@@ -360,6 +363,7 @@
 				A100001B233456780000001 /* SubtaskConfig.swift in Sources */,
 				A100001C233456780000001 /* SubtaskState.swift in Sources */,
 				A100001E233456780000001 /* SubtaskOrchestrator.swift in Sources */,
+				A100002F233456780000001 /* SubtaskRunner.swift in Sources */,
 				A100001E233456780000003 /* HookLineEvent.swift in Sources */,
 				A100001F233456780000001 /* TOMLDecoderReexport.swift in Sources */,
 			);
