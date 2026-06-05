@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A100001B233456780000001 /* SubtaskConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100001B233456780000002 /* SubtaskConfig.swift */; };
+		A100001C233456780000001 /* SubtaskState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100001C233456780000002 /* SubtaskState.swift */; };
+		A100001E233456780000001 /* SubtaskOrchestrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100001E233456780000002 /* SubtaskOrchestrator.swift */; };
+		A100001E233456780000003 /* HookLineEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100001E233456780000004 /* HookLineEvent.swift */; };
+		A100001F233456780000001 /* TOMLDecoderReexport.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100001F233456780000002 /* TOMLDecoderReexport.swift */; };
+		A100001D233456780000003 /* TOMLDecoder in Frameworks (ExmenTests) */ = {isa = PBXBuildFile; productRef = A100001D233456780000002 /* TOMLDecoder */; };
 		A1000011233456780000001 /* SubtaskConfigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000012233456780000001 /* SubtaskConfigTests.swift */; };
 		A1000011233456780000002 /* WaveSchedulerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000012233456780000002 /* WaveSchedulerTests.swift */; };
 		A1000011233456780000003 /* SubtaskStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000012233456780000003 /* SubtaskStateTests.swift */; };
@@ -73,6 +79,11 @@
 		A1000002233456780000026 /* ServiceOutputWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceOutputWindow.swift; sourceTree = "<group>"; };
 		A1000002233456780000027 /* ServiceRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceRowView.swift; sourceTree = "<group>"; };
 		A1000003233456780000001 /* Exmen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Exmen.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A100001B233456780000002 /* SubtaskConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtaskConfig.swift; sourceTree = "<group>"; };
+		A100001C233456780000002 /* SubtaskState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtaskState.swift; sourceTree = "<group>"; };
+		A100001E233456780000002 /* SubtaskOrchestrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtaskOrchestrator.swift; sourceTree = "<group>"; };
+		A100001E233456780000004 /* HookLineEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HookLineEvent.swift; sourceTree = "<group>"; };
+		A100001F233456780000002 /* TOMLDecoderReexport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOMLDecoderReexport.swift; sourceTree = "<group>"; };
 		A1000012233456780000001 /* SubtaskConfigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtaskConfigTests.swift; sourceTree = "<group>"; };
 		A1000012233456780000002 /* WaveSchedulerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveSchedulerTests.swift; sourceTree = "<group>"; };
 		A1000012233456780000003 /* SubtaskStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtaskStateTests.swift; sourceTree = "<group>"; };
@@ -105,6 +116,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A100001D233456780000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A100001D233456780000003 /* TOMLDecoder in Frameworks (ExmenTests) */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -129,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				A1000002233456780000001 /* ExmenApp.swift */,
+				A100001F233456780000002 /* TOMLDecoderReexport.swift */,
 				A1000005233456780000003 /* Models */,
 				A1000005233456780000004 /* Views */,
 				A1000005233456780000006 /* Services */,
@@ -148,6 +168,8 @@
 				A1000002233456780000009 /* ScriptResult.swift */,
 				A1000002233456780000021 /* ServiceConfig.swift */,
 				A1000002233456780000022 /* ServiceState.swift */,
+				A100001B233456780000002 /* SubtaskConfig.swift */,
+				A100001C233456780000002 /* SubtaskState.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -203,6 +225,8 @@
 				A1000002233456780000019 /* CommandHandler.swift */,
 				A1000002233456780000024 /* ManagedService.swift */,
 				A1000002233456780000025 /* ServiceManager.swift */,
+				A100001E233456780000002 /* SubtaskOrchestrator.swift */,
+				A100001E233456780000004 /* HookLineEvent.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -236,6 +260,7 @@
 			buildConfigurationList = A1000018233456780000001 /* Build configuration list for PBXNativeTarget "ExmenTests" */;
 			buildPhases = (
 				A1000015233456780000001 /* Sources */,
+				A100001D233456780000001 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -243,6 +268,9 @@
 				A1000014233456780000001 /* PBXTargetDependency */,
 			);
 			name = ExmenTests;
+			packageProductDependencies = (
+				A100001D233456780000002 /* TOMLDecoder */,
+			);
 			productName = ExmenTests;
 			productReference = A1000012233456780000010 /* ExmenTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -329,6 +357,11 @@
 				A1000001233456780000025 /* ServiceManager.swift in Sources */,
 				A1000001233456780000026 /* ServiceOutputWindow.swift in Sources */,
 				A1000001233456780000027 /* ServiceRowView.swift in Sources */,
+				A100001B233456780000001 /* SubtaskConfig.swift in Sources */,
+				A100001C233456780000001 /* SubtaskState.swift in Sources */,
+				A100001E233456780000001 /* SubtaskOrchestrator.swift in Sources */,
+				A100001E233456780000003 /* HookLineEvent.swift in Sources */,
+				A100001F233456780000001 /* TOMLDecoderReexport.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -616,6 +649,11 @@
 
 /* Begin XCSwiftPackageProductDependency section */
 		A100000C233456780000001 /* TOMLDecoder */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A100000D233456780000001 /* XCRemoteSwiftPackageReference "TOMLDecoder" */;
+			productName = TOMLDecoder;
+		};
+		A100001D233456780000002 /* TOMLDecoder (ExmenTests) */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A100000D233456780000001 /* XCRemoteSwiftPackageReference "TOMLDecoder" */;
 			productName = TOMLDecoder;
