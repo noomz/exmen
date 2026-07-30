@@ -12,7 +12,7 @@ import SwiftTerm
 @MainActor
 class ManagedService: ObservableObject, Identifiable {
     let id: UUID
-    let action: Action
+    var action: Action
 
     @Published var state: ServiceState = .stopped
     @Published var pid: Int32?

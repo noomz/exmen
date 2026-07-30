@@ -21,6 +21,19 @@ class StatusPoller {
                 startPolling(for: action, script: statusScript, interval: hookConfig.resolvedPollInterval)
             }
         }
+
+        // Also poll service actions from ServiceManager
+        startPollingServices(ServiceManager.shared.services)
+    }
+
+    /// Start polling for service actions (those managed by ServiceManager)
+    func startPollingServices(_ services: [ManagedService]) {
+        for service in services {
+            if let hookConfig = service.action.hookConfig,
+               let statusScript = hookConfig.statusScript {
+                startPolling(for: service.action, script: statusScript, interval: hookConfig.resolvedPollInterval)
+            }
+        }
     }
 
     /// Start polling for a single action
@@ -57,6 +70,7 @@ class StatusPoller {
 
             if updates.hasUpdates {
                 actionService?.applyHookUpdate(updates, to: actionId)
+                ServiceManager.shared.applyHookUpdate(updates, to: actionId)
             }
         } catch {
             print("StatusPoller: Error running status script: \(error)")

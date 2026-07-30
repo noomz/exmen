@@ -54,6 +54,16 @@ class ServiceManager: ObservableObject {
         services = updated
     }
 
+    // MARK: - Hook updates
+
+    /// Apply a hook update to a service's action by ID (called from StatusPoller)
+    func applyHookUpdate(_ update: HookUpdate, to actionId: UUID) {
+        guard let index = services.firstIndex(where: { $0.id == actionId }) else {
+            return
+        }
+        services[index].action.applyHookUpdate(update)
+    }
+
     // MARK: - Lifecycle control
 
     func start(_ service: ManagedService) {

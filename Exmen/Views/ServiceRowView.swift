@@ -8,11 +8,24 @@ struct ServiceRowView: View {
 
     @State private var isHovered = false
 
+    /// Dot color that respects hook-driven dynamic status over the raw service state
+    private var effectiveDotColor: Color {
+        if let status = service.action.dynamicStatus {
+            if status.lowercased().contains("running") {
+                return .green
+            }
+            if status.lowercased().contains("crashed") || status.lowercased().contains("stop") {
+                return .red
+            }
+        }
+        return service.state.dotColor
+    }
+
     var body: some View {
         HStack(spacing: 8) {
             // Colored status dot
             Circle()
-                .fill(service.state.dotColor)
+                .fill(effectiveDotColor)
                 .frame(width: 8, height: 8)
 
             // Name and status
@@ -20,7 +33,7 @@ struct ServiceRowView: View {
                 Text(service.action.name)
                     .font(.callout)
 
-                Text(ServiceState.displayText(state: service.state, startedAt: service.startedAt))
+                Text(service.action.dynamicStatus ?? ServiceState.displayText(state: service.state, startedAt: service.startedAt))
                     .font(.caption2)
                     .foregroundColor(.secondary)
             }
