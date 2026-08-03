@@ -480,6 +480,9 @@ func handleServiceStatus(name: String) {
             }
             print("Restart policy: \(restartPolicy)")
             print("Keep alive: \(keepAlive)")
+            if let lastError = status["lastError"] as? String {
+                print("Last error: \(lastError)")
+            }
         }
 
     case .failure(let error):

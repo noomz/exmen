@@ -122,6 +122,9 @@ class CommandHandler {
         let statusText: String
         let restartPolicy: String
         let keepAlive: Bool
+        /// Why the service last failed, when it did. Optional so older clients
+        /// that predate this field still decode.
+        let lastError: String?
     }
 
     /// Live state of the shared SubtaskOrchestrator, so a CLI caller can poll a
@@ -423,8 +426,10 @@ class CommandHandler {
         guard let service = findService(name: name) else {
             return Response(success: false, error: "Service not found: \(name)")
         }
-        guard service.state == .running || service.state == .starting else {
-            return Response(success: false, error: "Service '\(name)' is not running")
+        // Stoppable from .restarting and .crashed too — stopping cancels a
+        // pending restart backoff, which is the whole point during a crash loop.
+        guard service.state != .stopped else {
+            return Response(success: false, error: "Service '\(name)' is already stopped")
         }
         ServiceManager.shared.stop(service)
         return Response(success: true)
@@ -449,7 +454,8 @@ class CommandHandler {
             pid: service.pid,
             statusText: ServiceState.displayText(state: service.state, startedAt: service.startedAt),
             restartPolicy: config?.resolvedRestart.rawValue ?? "never",
-            keepAlive: config?.resolvedKeepAlive ?? false
+            keepAlive: config?.resolvedKeepAlive ?? false,
+            lastError: service.lastError
         )
         return Response(success: true, data: .serviceStatus(info))
     }

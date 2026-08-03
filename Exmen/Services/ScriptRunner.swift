@@ -43,6 +43,11 @@ class ScriptRunner {
             process.standardOutput = outputPipe
             process.standardError = errorPipe
 
+            // Run from the user's home directory. A bundled .app has cwd `/`,
+            // so scripts using relative paths would silently resolve against
+            // the filesystem root.
+            process.currentDirectoryURL = URL(fileURLWithPath: NSHomeDirectory())
+
             // Set up environment with common paths including Homebrew on Apple Silicon
             var environment = ProcessInfo.processInfo.environment
             environment["PATH"] = "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin"

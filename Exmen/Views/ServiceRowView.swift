@@ -8,17 +8,11 @@ struct ServiceRowView: View {
 
     @State private var isHovered = false
 
-    /// Dot color that respects hook-driven dynamic status over the raw service state
+    /// Dot color that respects hook-driven dynamic status over the raw service state.
+    /// Phrase matching lives in `ServiceState.dotColor` so it can be tested and
+    /// so negatives ("not running") are matched before positives ("running").
     private var effectiveDotColor: Color {
-        if let status = service.action.dynamicStatus {
-            if status.lowercased().contains("running") {
-                return .green
-            }
-            if status.lowercased().contains("crashed") || status.lowercased().contains("stop") {
-                return .red
-            }
-        }
-        return service.state.dotColor
+        ServiceState.dotColor(state: service.state, hookStatus: service.action.dynamicStatus)
     }
 
     var body: some View {
@@ -36,6 +30,17 @@ struct ServiceRowView: View {
                 Text(service.action.dynamicStatus ?? ServiceState.displayText(state: service.state, startedAt: service.startedAt))
                     .font(.caption2)
                     .foregroundColor(.secondary)
+
+                // Surface failures in the menu itself — a notification is easy
+                // to miss, and a red dot alone does not say what went wrong.
+                if let error = service.lastError {
+                    Text(error)
+                        .font(.caption2)
+                        .foregroundColor(.red)
+                        .lineLimit(3)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .help(error)
+                }
             }
 
             Spacer()
@@ -53,10 +58,12 @@ struct ServiceRowView: View {
             }
             .disabled(service.state.isActive)
 
+            // Enabled for .crashed too: stopping a crashed service clears a
+            // pending restart backoff and settles it at .stopped.
             Button("Stop") {
                 ServiceManager.shared.stop(service)
             }
-            .disabled(!service.state.isActive)
+            .disabled(service.state == .stopped)
 
             Button("Restart") {
                 ServiceManager.shared.restart(service)

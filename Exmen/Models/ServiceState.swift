@@ -26,6 +26,41 @@ enum ServiceState: Equatable {
         }
     }
 
+    /// Phrases in a hook-provided status that mean "this service is NOT up".
+    /// Checked before `upPhrases` because several of them contain an "up" phrase
+    /// as a substring — "not running" contains "running", "inactive" contains
+    /// "active". Matching positives first paints a dead service green.
+    private static let downPhrases = [
+        "not running", "not-running", "notrunning",
+        "not listening", "not available", "not started",
+        "stopped", "stopping", "crashed", "failed", "error",
+        "offline", "inactive", "dead", "down", "unavailable"
+    ]
+
+    /// Phrases in a hook-provided status that mean "this service is up".
+    private static let upPhrases = [
+        "running", "listening", "online", "active", "healthy", "started", "ready"
+    ]
+
+    /// Resolve the row's status dot color, letting a hook-provided status string
+    /// override the raw lifecycle state.
+    ///
+    /// A service whose `[hook.status_script]` reports "not running" must show a
+    /// red dot, not a green one — see `downPhrases` for why ordering matters.
+    /// A status string that matches neither list falls back to `state`.
+    static func dotColor(state: ServiceState, hookStatus: String?) -> Color {
+        guard let hookStatus else { return state.dotColor }
+
+        let normalized = hookStatus.lowercased()
+        if downPhrases.contains(where: normalized.contains) {
+            return .red
+        }
+        if upPhrases.contains(where: normalized.contains) {
+            return .green
+        }
+        return state.dotColor
+    }
+
     /// Human-readable display text, optionally including uptime when running
     static func displayText(state: ServiceState, startedAt: Date?) -> String {
         switch state {

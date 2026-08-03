@@ -18,7 +18,7 @@ class StatusPoller {
         for action in actionService.actions {
             if let hookConfig = action.hookConfig,
                let statusScript = hookConfig.statusScript {
-                startPolling(for: action, script: statusScript, interval: hookConfig.resolvedPollInterval)
+                startPolling(id: action.id, name: action.name, script: statusScript, interval: hookConfig.resolvedPollInterval)
             }
         }
 
@@ -31,29 +31,32 @@ class StatusPoller {
         for service in services {
             if let hookConfig = service.action.hookConfig,
                let statusScript = hookConfig.statusScript {
-                startPolling(for: service.action, script: statusScript, interval: hookConfig.resolvedPollInterval)
+                // Key on `service.id`, not `service.action.id`: Action.init(from:)
+                // mints a new UUID on every config parse, while ManagedService.id
+                // is the stable identity ServiceManager routes hook updates to.
+                startPolling(id: service.id, name: service.action.name, script: statusScript, interval: hookConfig.resolvedPollInterval)
             }
         }
     }
 
-    /// Start polling for a single action
-    private func startPolling(for action: Action, script: ScriptConfig, interval: Int) {
+    /// Start polling for a single action or service, keyed by its stable id
+    private func startPolling(id: UUID, name: String, script: ScriptConfig, interval: Int) {
         guard interval > 0 else { return }
 
         // Run immediately first
         Task {
-            await runStatusScript(for: action.id, script: script)
+            await runStatusScript(for: id, script: script)
         }
 
         // Then schedule periodic updates
         let timer = Timer.scheduledTimer(withTimeInterval: TimeInterval(interval), repeats: true) { [weak self] _ in
             Task { @MainActor in
-                await self?.runStatusScript(for: action.id, script: script)
+                await self?.runStatusScript(for: id, script: script)
             }
         }
 
-        timers[action.id] = timer
-        print("StatusPoller: Started polling for '\(action.name)' every \(interval)s")
+        timers[id] = timer
+        print("StatusPoller: Started polling for '\(name)' every \(interval)s")
     }
 
     /// Run the status script and update the action

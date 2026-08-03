@@ -32,9 +32,14 @@ struct ServiceConfig: Codable {
     /// Whether the service should continue running after Exmen quits (default: false)
     var resolvedKeepAlive: Bool { keep_alive ?? false }
 
-    /// Resolved working directory with tilde expansion
+    /// Resolved working directory with tilde expansion.
+    ///
+    /// Defaults to the user's home directory rather than inheriting Exmen's own
+    /// cwd, which is `/` for a bundled .app. Programs that keep state relative
+    /// to the working directory (`./.config`, `{cwd}/db.sqlite`, …) cannot write
+    /// under `/` and die on startup, which reads as an unexplained crash loop.
     var resolvedWorkingDir: String? {
-        guard let dir = working_dir else { return nil }
+        guard let dir = working_dir else { return NSHomeDirectory() }
         return NSString(string: dir).expandingTildeInPath
     }
 

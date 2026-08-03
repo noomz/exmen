@@ -35,7 +35,10 @@ class ServiceManager: ObservableObject {
 
         for action in serviceActions {
             if let existing = existingByName[action.name] {
-                // Config reload: preserve running service, don't restart it
+                // Config reload: preserve running service, don't restart it,
+                // but adopt the reparsed config so edits take effect on the
+                // next start rather than being silently dropped.
+                existing.updateConfig(from: action)
                 updated.append(existing)
                 existingByName.removeValue(forKey: action.name)
             } else {
@@ -66,7 +69,10 @@ class ServiceManager: ObservableObject {
 
     // MARK: - Lifecycle control
 
+    /// Start a service on the user's behalf. A manual start always gets a full
+    /// restart budget, so a service parked in `.crashed` can be retried.
     func start(_ service: ManagedService) {
+        service.resetRestartBudget()
         service.start()
     }
 
@@ -100,8 +106,11 @@ class ServiceManager: ObservableObject {
             guard let config = service.action.serviceConfig else { continue }
 
             if config.resolvedKeepAlive {
-                // Write PID file so we can reconnect on next launch
-                if let pid = service.pid {
+                // Write PID file so we can reconnect on next launch.
+                // Only a real PID: persisting 0 would make the reconnect path
+                // call kill(0, 0), which targets our own process group and
+                // always succeeds — resurrecting a dead service as .running.
+                if let pid = service.pid, pid > 0 {
                     writePIDFile(name: service.action.name, pid: pid)
                 }
                 // Do NOT terminate — let the process keep running
@@ -165,7 +174,9 @@ class ServiceManager: ObservableObject {
         let dir = pidDirectory()
         let path = (dir as NSString).appendingPathComponent("\(name).pid")
         guard let content = try? String(contentsOfFile: path, encoding: .utf8),
-              let pid = Int32(content.trimmingCharacters(in: .whitespacesAndNewlines)) else {
+              let pid = Int32(content.trimmingCharacters(in: .whitespacesAndNewlines)),
+              // Reject 0 and negatives: both address process groups in kill(2).
+              pid > 0 else {
             return nil
         }
         return pid
