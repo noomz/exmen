@@ -66,12 +66,17 @@ class SocketServer {
         }
 
         // Listen for connections
-        guard listen(serverSocket, 5) == 0 else {
+        guard listen(serverSocket, 64) == 0 else {
             print("SocketServer: Failed to listen: \(errno)")
             close(serverSocket)
             serverSocket = -1
             return
         }
+
+        // Non-blocking listener so the accept drain loop can terminate on
+        // EWOULDBLOCK rather than parking on an empty backlog.
+        let listenFlags = fcntl(serverSocket, F_GETFL, 0)
+        _ = fcntl(serverSocket, F_SETFL, listenFlags | O_NONBLOCK)
 
         // Capture socket for use in closures
         let socket = serverSocket
@@ -79,7 +84,7 @@ class SocketServer {
         // Set up dispatch source for accepting connections
         readSource = DispatchSource.makeReadSource(fileDescriptor: socket, queue: .global())
         readSource?.setEventHandler { [weak self] in
-            Self.acceptConnection(serverSocket: socket, server: self)
+            Self.acceptPendingConnections(serverSocket: socket, server: self)
         }
         readSource?.setCancelHandler {
             close(socket)
@@ -113,28 +118,48 @@ class SocketServer {
         print("SocketServer: Stopped")
     }
 
-    /// Accept incoming connection (runs on background queue)
-    private nonisolated static func acceptConnection(serverSocket: Int32, server: SocketServer?) {
-        var clientAddr = sockaddr_un()
-        var clientAddrLen = socklen_t(MemoryLayout<sockaddr_un>.size)
+    /// Drain every pending connection (runs on background queue).
+    ///
+    /// A read source fires on the *transition* to readable — a connection left
+    /// sitting in the backlog does not re-arm it. Accepting only one per event
+    /// therefore wedges the server as soon as two connections land close
+    /// together: the backlog fills, every later connect gets ECONNREFUSED, and
+    /// the server never recovers. Loop until accept reports the backlog empty.
+    private nonisolated static func acceptPendingConnections(serverSocket: Int32, server: SocketServer?) {
+        while true {
+            var clientAddr = sockaddr_un()
+            var clientAddrLen = socklen_t(MemoryLayout<sockaddr_un>.size)
 
-        let clientSocket = withUnsafeMutablePointer(to: &clientAddr) { addrPtr in
-            addrPtr.withMemoryRebound(to: sockaddr.self, capacity: 1) { sockaddrPtr in
-                accept(serverSocket, sockaddrPtr, &clientAddrLen)
+            let clientSocket = withUnsafeMutablePointer(to: &clientAddr) { addrPtr in
+                addrPtr.withMemoryRebound(to: sockaddr.self, capacity: 1) { sockaddrPtr in
+                    accept(serverSocket, sockaddrPtr, &clientAddrLen)
+                }
+            }
+
+            guard clientSocket >= 0 else {
+                // EWOULDBLOCK/EAGAIN: backlog drained, nothing left to accept.
+                if errno != EWOULDBLOCK && errno != EAGAIN && errno != EINTR {
+                    print("SocketServer: Failed to accept connection: \(errno)")
+                }
+                return
+            }
+
+            // Darwin propagates O_NONBLOCK from the listener to the accepted
+            // socket; handleClient does a blocking read, so clear it explicitly.
+            let clientFlags = fcntl(clientSocket, F_GETFL, 0)
+            _ = fcntl(clientSocket, F_SETFL, clientFlags & ~O_NONBLOCK)
+
+            DispatchQueue.main.async {
+                server?.clientSockets.append(clientSocket)
+            }
+
+            // Serve each client on its own queue. handleClient blocks waiting on
+            // the main thread for the command result — running it inline would
+            // stall this drain loop and the source's queue along with it.
+            DispatchQueue.global().async {
+                handleClient(clientSocket, server: server)
             }
         }
-
-        guard clientSocket >= 0 else {
-            print("SocketServer: Failed to accept connection: \(errno)")
-            return
-        }
-
-        DispatchQueue.main.async {
-            server?.clientSockets.append(clientSocket)
-        }
-
-        // Handle client in background
-        handleClient(clientSocket, server: server)
     }
 
     /// Handle a client connection (runs on background queue)

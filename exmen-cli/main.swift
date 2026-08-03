@@ -117,8 +117,9 @@ func printUsage() {
 
     Action Commands:
       list-actions          List all available actions
-      run <name>            Run an action by name
+      run <name> [--wait]   Run an action by name
       status <name>         Get status of an action
+      orchestration-status  Live state of the running subtask orchestration
 
     Service Commands:
       list-services         List all managed services
@@ -135,6 +136,8 @@ func printUsage() {
       exmen list-actions
       exmen list-actions --json
       exmen run "Generate Phone Number"
+      exmen run "Subtask Demo"           # starts and returns immediately
+      exmen run "Subtask Demo" --wait    # blocks until the orchestration finishes
       exmen status "System Status"
       exmen list-services
       exmen list-services --json
@@ -194,9 +197,9 @@ func handleListActions(json: Bool) {
     }
 }
 
-func handleRun(name: String) {
+func handleRun(name: String, wait: Bool = false) {
     let client = SocketClient()
-    let result = client.send(["command": "run", "name": name])
+    let result = client.send(["command": "run", "name": name, "wait": wait])
 
     switch result {
     case .success(let response):
@@ -207,6 +210,23 @@ func handleRun(name: String) {
             exit(1)
         }
 
+        // A subtask action answers with an orchestration payload rather than a
+        // plain output string: it starts and returns immediately, because the
+        // app runs the orchestrator on the main thread and cannot block on it.
+        if let orchestration = response["data"] as? [String: Any],
+           orchestration["isRunning"] != nil {
+            if let message = orchestration["message"] as? String {
+                print(message)
+                // Flush before the progress ticks below, which go to unbuffered
+                // stderr and would otherwise appear ahead of this line.
+                fflush(stdout)
+            }
+            if wait {
+                awaitOrchestration()
+            }
+            return
+        }
+
         if let output = response["data"] as? String {
             print(output)
         }
@@ -214,6 +234,79 @@ func handleRun(name: String) {
     case .failure(let error):
         fputs("Error: \(error.message)\n", stderr)
         exit(1)
+    }
+}
+
+func handleOrchestrationStatus(json: Bool) {
+    let client = SocketClient()
+    let result = client.send(["command": "orchestration-status"])
+
+    switch result {
+    case .success(let response):
+        guard let data = response["data"] as? [String: Any] else {
+            fputs("Error: Invalid response\n", stderr)
+            exit(1)
+        }
+
+        if json {
+            if let raw = try? JSONSerialization.data(withJSONObject: data, options: [.prettyPrinted]),
+               let text = String(data: raw, encoding: .utf8) {
+                print(text)
+            }
+            return
+        }
+
+        let isRunning = data["isRunning"] as? Bool ?? false
+        let completed = data["completed"] as? Int ?? 0
+        let total = data["total"] as? Int ?? 0
+
+        if isRunning {
+            print("running — \(completed)/\(total) subtasks complete (\(data["overallProgressPercent"] as? Int ?? 0)%)")
+        } else if let summary = data["summary"] as? String {
+            print("idle — last run: \(summary)")
+        } else {
+            print("idle — no orchestration has run yet")
+        }
+
+    case .failure(let error):
+        fputs("Error: \(error.message)\n", stderr)
+        exit(1)
+    }
+}
+
+/// Poll `orchestration-status` until the run finishes, then print the aggregated
+/// summary. Exits non-zero when any subtask failed, so `exmen run --wait` is
+/// usable in a shell pipeline.
+func awaitOrchestration() {
+    let client = SocketClient()
+    var lastCompleted = -1
+
+    while true {
+        Thread.sleep(forTimeInterval: 0.3)
+
+        guard case .success(let response) = client.send(["command": "orchestration-status"]),
+              let data = response["data"] as? [String: Any],
+              let isRunning = data["isRunning"] as? Bool else {
+            fputs("Error: lost contact with Exmen while waiting\n", stderr)
+            exit(1)
+        }
+
+        let completed = data["completed"] as? Int ?? 0
+        let total = data["total"] as? Int ?? 0
+        if completed != lastCompleted {
+            lastCompleted = completed
+            fputs("\r\(completed)/\(total) subtasks complete", stderr)
+        }
+
+        if !isRunning {
+            fputs("\n", stderr)
+            let summary = data["summary"] as? String ?? "completed"
+            print(summary)
+            if data["failed"] as? Bool == true {
+                exit(1)
+            }
+            return
+        }
     }
 }
 
@@ -413,11 +506,11 @@ case "list-actions":
 
 case "run":
     guard args.count >= 2 else {
-        fputs("Error: Missing action name\nUsage: exmen run <name>\n", stderr)
+        fputs("Error: Missing action name\nUsage: exmen run <name> [--wait]\n", stderr)
         exit(1)
     }
     let name = args[1]
-    handleRun(name: name)
+    handleRun(name: name, wait: args.contains("--wait"))
 
 case "status":
     guard args.count >= 2 else {
@@ -426,6 +519,9 @@ case "status":
     }
     let name = args[1]
     handleStatus(name: name)
+
+case "orchestration-status":
+    handleOrchestrationStatus(json: args.contains("--json"))
 
 case "list-services":
     let json = args.contains("--json")

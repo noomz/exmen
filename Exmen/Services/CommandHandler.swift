@@ -26,6 +26,11 @@ class CommandHandler {
     struct Request: Codable {
         let command: String
         let name: String?
+        /// Reserved for future synchronous variants. `run` is always non-blocking
+        /// for subtask actions — `handle` executes on the main thread, so waiting
+        /// here would deadlock the orchestration it is waiting on. The CLI's
+        /// `--wait` polls `orchestration-status` instead.
+        let wait: Bool?
     }
 
     struct Response: Codable {
@@ -46,6 +51,7 @@ class CommandHandler {
         case status(ActionStatus)
         case services([ServiceInfo])
         case serviceStatus(ServiceStatusInfo)
+        case orchestration(OrchestrationStatusInfo)
 
         func encode(to encoder: Encoder) throws {
             var container = encoder.singleValueContainer()
@@ -60,12 +66,18 @@ class CommandHandler {
                 try container.encode(services)
             case .serviceStatus(let status):
                 try container.encode(status)
+            case .orchestration(let status):
+                try container.encode(status)
             }
         }
 
         init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
-            if let serviceStatus = try? container.decode(ServiceStatusInfo.self) {
+            // Tried first: `isRunning` is unique to this payload, so it cannot
+            // shadow (or be shadowed by) the other status shapes.
+            if let orchestration = try? container.decode(OrchestrationStatusInfo.self) {
+                self = .orchestration(orchestration)
+            } else if let serviceStatus = try? container.decode(ServiceStatusInfo.self) {
                 self = .serviceStatus(serviceStatus)
             } else if let status = try? container.decode(ActionStatus.self) {
                 self = .status(status)
@@ -112,6 +124,40 @@ class CommandHandler {
         let keepAlive: Bool
     }
 
+    /// Live state of the shared SubtaskOrchestrator, so a CLI caller can poll a
+    /// fire-and-return `run` to completion (G-11-9).
+    struct OrchestrationStatusInfo: Codable {
+        let isRunning: Bool
+        let completed: Int
+        let total: Int
+        let overallProgressPercent: Int
+        /// Populated once a run has finished; nil before the first run.
+        let summary: String?
+        /// True when the finished run had at least one failed subtask (D-15).
+        let failed: Bool
+        /// Human-readable line for the triggering command ("Started: …",
+        /// "Already running: …"). Absent on plain status polls.
+        let message: String?
+
+        init(
+            isRunning: Bool,
+            completed: Int,
+            total: Int,
+            overallProgressPercent: Int,
+            summary: String?,
+            failed: Bool,
+            message: String? = nil
+        ) {
+            self.isRunning = isRunning
+            self.completed = completed
+            self.total = total
+            self.overallProgressPercent = overallProgressPercent
+            self.summary = summary
+            self.failed = failed
+            self.message = message
+        }
+    }
+
     // MARK: - Command Handling
 
     /// Handle incoming request data and return response string
@@ -141,6 +187,8 @@ class CommandHandler {
                 return Response(success: false, error: "Missing 'name' parameter")
             }
             return getStatus(name: name)
+        case "orchestration-status":
+            return getOrchestrationStatus()
         case "list-services":
             return listServices()
         case "start-service":
@@ -183,10 +231,104 @@ class CommandHandler {
         return Response(success: true, data: .actions(actions))
     }
 
+    /// Report live orchestration state so a CLI caller can poll a fire-and-return
+    /// `run` through to its summary (G-11-9).
+    private func getOrchestrationStatus() -> Response {
+        let orchestrator = SubtaskOrchestrator.shared
+        let states = orchestrator.subtaskStates
+        let summary = orchestrator.completionSummary
+
+        return Response(success: true, data: .orchestration(OrchestrationStatusInfo(
+            isRunning: orchestrator.isRunning,
+            completed: states.filter { $0.status.isTerminal }.count,
+            total: states.count,
+            overallProgressPercent: orchestrator.overallProgressPercent,
+            summary: summary?.summaryLine,
+            failed: summary?.verdictFailed ?? false
+        )))
+    }
+
+    /// Start an orchestrated (subtask) action and return immediately (G-11-9).
+    ///
+    /// Fire-and-return is the only safe shape here: `handle` runs on the main
+    /// thread (SocketServer dispatches it there), and `SubtaskOrchestrator.run`
+    /// hops to the main actor on every state update — blocking for completion
+    /// would deadlock the very orchestration being awaited. A caller that wants
+    /// the summary polls `orchestration-status`, which is what `exmen run --wait` does.
+    private func runSubtaskAction(_ action: Action, subtasks: [SubtaskConfig]) -> Response {
+        let orchestrator = SubtaskOrchestrator.shared
+
+        // Idempotent: a run already in flight is reported as success, not an
+        // error — the caller asked for these subtasks to be running, and they are.
+        // Starting a second run would corrupt the shared @Published state that
+        // the single progress window is bound to.
+        if orchestrator.isRunning {
+            let completed = orchestrator.subtaskStates.filter { $0.status.isTerminal }.count
+            let total = orchestrator.subtaskStates.count
+            // `total` is 0 in the brief window between pre-arming isRunning and
+            // `run` seeding the states — report plainly rather than "0/0".
+            let progress = total > 0 ? " (\(completed)/\(total) subtasks complete)" : ""
+            return Response(success: true, data: .orchestration(OrchestrationStatusInfo(
+                isRunning: true,
+                completed: completed,
+                total: total,
+                overallProgressPercent: orchestrator.overallProgressPercent,
+                summary: nil,
+                failed: false,
+                message: "Already running: \(action.name)\(progress)"
+            )))
+        }
+
+        SubtaskProgressWindow.present(orchestrator: orchestrator, title: "\(action.name) — Subtasks")
+
+        // Pre-arm on the main thread so an immediate `orchestration-status` poll
+        // cannot observe the gap before `run` flips the flag itself.
+        orchestrator.isRunning = true
+
+        Task { @MainActor in
+            do {
+                try await orchestrator.run(subtasks: subtasks)
+            } catch {
+                // `validate` rejects before `run` clears the flag — clear it here
+                // so the orchestrator does not stay wedged as permanently running.
+                orchestrator.isRunning = false
+            }
+            deliverSummary(for: action)
+        }
+
+        return Response(success: true, data: .orchestration(OrchestrationStatusInfo(
+            isRunning: true,
+            completed: 0,
+            total: subtasks.count,
+            overallProgressPercent: 0,
+            summary: nil,
+            failed: false,
+            message: "Started: \(action.name) (\(subtasks.count) subtasks)"
+        )))
+    }
+
+    /// Mirror the menu's completion feedback (ORCH-05/D-15) for CLI-triggered runs.
+    private func deliverSummary(for action: Action) {
+        guard let summary = SubtaskOrchestrator.shared.completionSummary else { return }
+        OutputService.shared.showNotification(
+            title: action.name,
+            body: summary.summaryLine,
+            isError: summary.verdictFailed
+        )
+    }
+
     /// Execute an action by name (async version for actual execution)
     private func runAction(name: String) -> Response {
         guard let action = findAction(name: name) else {
             return Response(success: false, error: "Action not found: \(name)")
+        }
+
+        // An action declaring [[subtasks]] runs on the orchestrator, mirroring
+        // MenuContentView.executeAction (D-01). Without this branch the IPC path
+        // fell through to the scriptConfig guard below and rejected a perfectly
+        // valid subtask action with "Action has no script" (G-11-9).
+        if let subtasks = action.subtasks, !subtasks.isEmpty {
+            return runSubtaskAction(action, subtasks: subtasks)
         }
 
         guard let scriptConfig = action.scriptConfig else {
