@@ -17,8 +17,8 @@ services with full PTY interaction and CLI control.
 
 ### 🚧 v1.2 Polish & Power (Phases 11-14)
 
-- [ ] Phase 11: Subtask Orchestration (6 plans) — declarative + dynamic parallel subtasks with live feedback
-- [ ] Phase 12: Global Summon — Palette + HUD (0 plans) — global hotkey, command palette, progress overlay
+- [x] Phase 11: Subtask Orchestration (6/6 plans, complete 2026-08-05) — declarative + dynamic parallel subtasks with live feedback
+- [ ] Phase 12: Global Summon — Palette + HUD (4 plans) — global hotkey, command palette, progress overlay
 - [ ] Phase 13: Menu Bar UI/UX Overhaul (0 plans) — search, grouping, inline progress, visual refresh
 - [ ] Phase 14: Raycast Integration (0 plans) — CLI `--json` + Raycast extension for actions/services
 
@@ -127,7 +127,7 @@ Full details: `.planning/milestones/v1.1-ROADMAP.md`
 | 8. Long-Running Services | v1.1 | 3/3 | Complete | 2026-03-11 |
 | 9. Service Context Menu | v1.1 | 0/0 | Complete | 2026-03-20 |
 | 10. CLI Service Manipulation | v1.1 | 1/1 | Complete | 2026-03-20 |
-| 11. Subtask Orchestration | v1.2 | 6/6 | Complete   | 2026-06-05 |
+| 11. Subtask Orchestration | v1.2 | 6/6 | Complete | 2026-08-05 |
 | 12. Global Summon — Palette + HUD | v1.2 | 0/0 | Not started | — |
 | 13. Menu Bar UI/UX Overhaul | v1.2 | 0/0 | Not started | — |
 | 14. Raycast Integration | v1.2 | 0/0 | Not started | — |
