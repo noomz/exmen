@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"pkill -f \\\".build/debug/exmen\\\" 2>/dev/null; pkill -f \\\".build/debug/Exmen\\\" 2>/dev/null; sleep 2; echo \\\"=== real exmen on PATH ===\\\"; which -a exmen 2>/dev/null || echo \\\"none on PATH\\\";...",
+  "error": "Exit code 1\n=== real exmen on PATH ===\n/Users/noomz/.local/bin/exmen\n/Users/noomz/.local/bin/exmen\n=== xcodeproj targets ===\nCommand line invocation:\n    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -list -project Exmen.xcodeproj\n\nResolve Package Graph\n\n\nResolved source packages:\n  swift-argument-parser: https://github.com/apple/swift-argument-parser @ 1.8.2\n  SwiftTerm: https://github.com/migueldeicaza/SwiftTerm @ 1.13.0\n  TOMLDecoder: https://github.com/dduan/TOMLDecoder @ 0.4...",
+  "timestamp": "2026-07-31T08:44:43.037Z",
+  "retry_count": 1
+}

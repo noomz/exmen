@@ -7,7 +7,7 @@
         "key": "No actions configured",
         "location": {
           "startingColumn": 22,
-          "startingLine": 42
+          "startingLine": 43
         }
       },
       {
@@ -15,7 +15,7 @@
         "key": "Exmen",
         "location": {
           "startingColumn": 22,
-          "startingLine": 14
+          "startingLine": 15
         }
       },
       {
@@ -23,7 +23,15 @@
         "key": "Reload actions",
         "location": {
           "startingColumn": 23,
-          "startingLine": 24
+          "startingLine": 25
+        }
+      },
+      {
+        "comment": "",
+        "key": "Services",
+        "location": {
+          "startingColumn": 38,
+          "startingLine": 64
         }
       },
       {
@@ -31,7 +39,7 @@
         "key": "v1.0",
         "location": {
           "startingColumn": 22,
-          "startingLine": 65
+          "startingLine": 86
         }
       },
       {
@@ -39,7 +47,7 @@
         "key": "Quit",
         "location": {
           "startingColumn": 24,
-          "startingLine": 69
+          "startingLine": 90
         }
       }
     ]

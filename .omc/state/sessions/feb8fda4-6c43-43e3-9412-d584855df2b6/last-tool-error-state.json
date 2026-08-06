@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"cd /Users/noomz/Projects/Opensources/exmen\\ngrep -n \\\"ServiceOutputWindow.swift\\\" Exmen.xcodeproj/project.pbxproj\\necho \\\"=== unused id check ===\\\"; rtk grep -c \\\"A100003A\\\" Exmen.xcodepro...",
+  "error": "Exit code 1\n51:\t\tA1000001233456780000026 /* ServiceOutputWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002233456780000026 /* ServiceOutputWindow.swift */; };\n80:\t\tA1000002233456780000026 /* ServiceOutputWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceOutputWindow.swift; sourceTree = \"<group>\"; };\n185:\t\t\t\tA1000002233456780000026 /* ServiceOutputWindow.swift */,\n361:\t\t\t\tA1000001233456780000026 /* ServiceOutputWindow.swift in Sources...",
+  "timestamp": "2026-06-05T10:48:14.731Z",
+  "retry_count": 1
+}

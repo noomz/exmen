@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"cd /Users/noomz/Projects/Opensources/exmen/.planning && rtk ls -la 2>/dev/null && echo \\\"---PHASES---\\\" && rtk ls -d phases/*/ 2>/dev/null && echo \\\"---PHASE11---\\\" && rtk ls -la phases/11...",
+  "error": "Exit code 1\nmilestones/\nphases/\nresearch/\nMILESTONES.md  2.1K\nPROJECT.md  5.9K\nREQUIREMENTS.md  3.6K\nROADMAP.md  7.5K\nSTATE.md  1.4K\nconfig.json  654B\n---PHASES---\nphases/01-foundation//\nphases/02-config-discovery//\nphases/03-script-execution//\nphases/04-hook-system//\nphases/05-auto-hide-menu//\nphases/06-ipc-server//\nphases/07-global-config//\nphases/07.1-ui-improvements//\nphases/08-new-feature-to-support-long-life-arbitrary-cli-programs-as-service//\nphases/09-add-context-menu-for-service-to-relo...",
+  "timestamp": "2026-06-05T07:42:46.585Z",
+  "retry_count": 1
+}

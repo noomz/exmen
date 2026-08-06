@@ -1,0 +1,53 @@
+{
+  "agents": [
+    {
+      "agent_id": "a935c47aeb5fd872c",
+      "agent_type": "gsd-phase-researcher",
+      "started_at": "2026-06-05T08:05:37.433Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-06-05T08:17:32.097Z",
+      "duration_ms": 714664
+    },
+    {
+      "agent_id": "a8998b2a2f491d478",
+      "agent_type": "gsd-pattern-mapper",
+      "started_at": "2026-06-05T08:19:01.038Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-06-05T08:21:44.523Z",
+      "duration_ms": 163485
+    },
+    {
+      "agent_id": "af3cc0a1153ec0a45",
+      "agent_type": "gsd-planner",
+      "started_at": "2026-06-05T09:31:42.496Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-06-05T09:36:14.973Z",
+      "duration_ms": 272477
+    },
+    {
+      "agent_id": "a91d38edc6587694b",
+      "agent_type": "gsd-plan-checker",
+      "started_at": "2026-06-05T08:39:15.204Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-06-05T08:39:56.306Z",
+      "duration_ms": 41102
+    },
+    {
+      "agent_id": "ae0c490de09634235",
+      "agent_type": "gsd-plan-checker",
+      "started_at": "2026-06-05T09:36:04.559Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-06-05T09:36:43.833Z",
+      "duration_ms": 39274
+    }
+  ],
+  "total_spawned": 7,
+  "total_completed": 63,
+  "total_failed": 0,
+  "last_updated": "2026-06-05T09:41:22.674Z"
+}

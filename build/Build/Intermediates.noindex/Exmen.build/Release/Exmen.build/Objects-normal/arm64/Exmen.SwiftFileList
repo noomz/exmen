@@ -16,4 +16,10 @@
 /Users/noomz/Projects/Opensources/exmen/Exmen/Services/SocketServer.swift
 /Users/noomz/Projects/Opensources/exmen/Exmen/Services/CommandHandler.swift
 /Users/noomz/Projects/Opensources/exmen/Exmen/Models/GlobalConfig.swift
+/Users/noomz/Projects/Opensources/exmen/Exmen/Models/ServiceConfig.swift
+/Users/noomz/Projects/Opensources/exmen/Exmen/Models/ServiceState.swift
+/Users/noomz/Projects/Opensources/exmen/Exmen/Services/ManagedService.swift
+/Users/noomz/Projects/Opensources/exmen/Exmen/Services/ServiceManager.swift
+/Users/noomz/Projects/Opensources/exmen/Exmen/Views/ServiceOutputWindow.swift
+/Users/noomz/Projects/Opensources/exmen/Exmen/Views/ServiceRowView.swift
 /Users/noomz/Projects/Opensources/exmen/build/Build/Intermediates.noindex/Exmen.build/Release/Exmen.build/DerivedSources/GeneratedAssetSymbols.swift

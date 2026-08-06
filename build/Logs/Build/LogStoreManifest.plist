@@ -3,10 +3,10 @@
 <plist version="1.0">
 <dict>
 	<key>logFormatVersion</key>
-	<integer>11</integer>
+	<integer>12</integer>
 	<key>logs</key>
 	<dict>
-		<key>AA3D2776-A0BB-41EB-8581-70F00037EA3C</key>
+		<key>88D31DD5-C013-40D4-A4AC-CA5DAAEFCF9C</key>
 		<dict>
 			<key>className</key>
 			<string>IDECommandLineBuildLog</string>
@@ -15,49 +15,7 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
 			<key>fileName</key>
-			<string>AA3D2776-A0BB-41EB-8581-70F00037EA3C.xcactivitylog</string>
-			<key>hasPrimaryLog</key>
-			<true/>
-			<key>primaryObservable</key>
-			<dict>
-				<key>highLevelStatus</key>
-				<string>S</string>
-				<key>totalNumberOfAnalyzerIssues</key>
-				<integer>0</integer>
-				<key>totalNumberOfErrors</key>
-				<integer>0</integer>
-				<key>totalNumberOfTestFailures</key>
-				<integer>0</integer>
-				<key>totalNumberOfWarnings</key>
-				<integer>0</integer>
-			</dict>
-			<key>schemeIdentifier-containerName</key>
-			<string>Exmen project</string>
-			<key>schemeIdentifier-schemeName</key>
-			<string>Exmen</string>
-			<key>schemeIdentifier-sharedScheme</key>
-			<integer>1</integer>
-			<key>signature</key>
-			<string>Cleaning project Exmen with scheme Exmen and configuration Release</string>
-			<key>timeStartedRecording</key>
-			<real>790674489.73547804</real>
-			<key>timeStoppedRecording</key>
-			<real>790674490.18104994</real>
-			<key>title</key>
-			<string>Cleaning project Exmen with scheme Exmen and configuration Release</string>
-			<key>uniqueIdentifier</key>
-			<string>AA3D2776-A0BB-41EB-8581-70F00037EA3C</string>
-		</dict>
-		<key>E603188A-89D6-47A5-B82B-DD3090F080C6</key>
-		<dict>
-			<key>className</key>
-			<string>IDECommandLineBuildLog</string>
-			<key>documentTypeString</key>
-			<string>&lt;nil&gt;</string>
-			<key>domainType</key>
-			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
-			<key>fileName</key>
-			<string>E603188A-89D6-47A5-B82B-DD3090F080C6.xcactivitylog</string>
+			<string>88D31DD5-C013-40D4-A4AC-CA5DAAEFCF9C.xcactivitylog</string>
 			<key>hasPrimaryLog</key>
 			<true/>
 			<key>primaryObservable</key>
@@ -71,7 +29,7 @@
 				<key>totalNumberOfTestFailures</key>
 				<integer>0</integer>
 				<key>totalNumberOfWarnings</key>
-				<integer>2</integer>
+				<integer>4</integer>
 			</dict>
 			<key>schemeIdentifier-containerName</key>
 			<string>Exmen project</string>
@@ -82,13 +40,55 @@
 			<key>signature</key>
 			<string>Building project Exmen with scheme Exmen and configuration Release</string>
 			<key>timeStartedRecording</key>
-			<real>790674490.18346596</real>
+			<real>794809068.89651299</real>
 			<key>timeStoppedRecording</key>
-			<real>790674510.19955599</real>
+			<real>794809085.21881294</real>
 			<key>title</key>
 			<string>Building project Exmen with scheme Exmen and configuration Release</string>
 			<key>uniqueIdentifier</key>
-			<string>E603188A-89D6-47A5-B82B-DD3090F080C6</string>
+			<string>88D31DD5-C013-40D4-A4AC-CA5DAAEFCF9C</string>
+		</dict>
+		<key>D286FE64-5C99-4EF9-9B1B-B247C05999BD</key>
+		<dict>
+			<key>className</key>
+			<string>IDECommandLineBuildLog</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>D286FE64-5C99-4EF9-9B1B-B247C05999BD.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+				<key>totalNumberOfAnalyzerIssues</key>
+				<integer>0</integer>
+				<key>totalNumberOfErrors</key>
+				<integer>0</integer>
+				<key>totalNumberOfTestFailures</key>
+				<integer>0</integer>
+				<key>totalNumberOfWarnings</key>
+				<integer>6</integer>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Exmen project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Exmen</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Building project Exmen with scheme Exmen and configuration Release</string>
+			<key>timeStartedRecording</key>
+			<real>794914273.22559094</real>
+			<key>timeStoppedRecording</key>
+			<real>794914315.35539198</real>
+			<key>title</key>
+			<string>Building project Exmen with scheme Exmen and configuration Release</string>
+			<key>uniqueIdentifier</key>
+			<string>D286FE64-5C99-4EF9-9B1B-B247C05999BD</string>
 		</dict>
 	</dict>
 </dict>

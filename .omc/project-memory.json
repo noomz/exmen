@@ -1,0 +1,363 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1785728054303,
+  "projectRoot": "/Users/noomz/Projects/Opensources/exmen",
+  "techStack": {
+    "languages": [],
+    "frameworks": [],
+    "packageManager": null,
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": null,
+    "testCommand": null,
+    "lintCommand": null,
+    "devCommand": null,
+    "scripts": {}
+  },
+  "conventions": {
+    "namingStyle": null,
+    "importStyle": null,
+    "testPattern": null,
+    "fileOrganization": null
+  },
+  "structure": {
+    "isMonorepo": false,
+    "workspaces": [],
+    "mainDirectories": [
+      "assets",
+      "examples"
+    ],
+    "gitBranches": null
+  },
+  "customNotes": [],
+  "directoryMap": {
+    "Exmen": {
+      "path": "Exmen",
+      "purpose": null,
+      "fileCount": 3,
+      "lastAccessed": 1785728054269,
+      "keyFiles": [
+        "ExmenApp.swift",
+        "Info.plist",
+        "TOMLDecoderReexport.swift"
+      ]
+    },
+    "Exmen.xcodeproj": {
+      "path": "Exmen.xcodeproj",
+      "purpose": null,
+      "fileCount": 1,
+      "lastAccessed": 1785728054274,
+      "keyFiles": [
+        "project.pbxproj"
+      ]
+    },
+    "Tests": {
+      "path": "Tests",
+      "purpose": "Test files",
+      "fileCount": 0,
+      "lastAccessed": 1785728054284,
+      "keyFiles": []
+    },
+    "assets": {
+      "path": "assets",
+      "purpose": "Static assets",
+      "fileCount": 2,
+      "lastAccessed": 1785728054285,
+      "keyFiles": [
+        "app-icon.png",
+        "screenshot-menu.png"
+      ]
+    },
+    "build": {
+      "path": "build",
+      "purpose": "Build output",
+      "fileCount": 1,
+      "lastAccessed": 1785728054286,
+      "keyFiles": [
+        "info.plist"
+      ]
+    },
+    "examples": {
+      "path": "examples",
+      "purpose": "Example code",
+      "fileCount": 0,
+      "lastAccessed": 1785728054287,
+      "keyFiles": []
+    },
+    "exmen-cli": {
+      "path": "exmen-cli",
+      "purpose": null,
+      "fileCount": 1,
+      "lastAccessed": 1785728054287,
+      "keyFiles": [
+        "main.swift"
+      ]
+    },
+    "Exmen/Models": {
+      "path": "Exmen/Models",
+      "purpose": "Data models",
+      "fileCount": 9,
+      "lastAccessed": 1785728054289,
+      "keyFiles": [
+        "Action.swift",
+        "ActionConfig.swift",
+        "GlobalConfig.swift"
+      ]
+    },
+    "Exmen/Services": {
+      "path": "Exmen/Services",
+      "purpose": "Business logic services",
+      "fileCount": 14,
+      "lastAccessed": 1785728054290,
+      "keyFiles": [
+        "ActionService.swift",
+        "CommandHandler.swift",
+        "ConfigLoader.swift"
+      ]
+    },
+    "Exmen/Views": {
+      "path": "Exmen/Views",
+      "purpose": "View templates",
+      "fileCount": 6,
+      "lastAccessed": 1785728054290,
+      "keyFiles": [
+        "ActionRowView.swift",
+        "MenuContentView.swift",
+        "PopupResultView.swift"
+      ]
+    },
+    "build/Build": {
+      "path": "build/Build",
+      "purpose": "Build output",
+      "fileCount": 0,
+      "lastAccessed": 1785728054290,
+      "keyFiles": []
+    }
+  },
+  "hotPaths": [
+    {
+      "path": "Exmen/Services/CommandHandler.swift",
+      "accessCount": 21,
+      "lastAccessed": 1785731250296,
+      "type": "file"
+    },
+    {
+      "path": ".planning/phases/11-subtask-orchestration/11-UAT.md",
+      "accessCount": 19,
+      "lastAccessed": 1785727247391,
+      "type": "file"
+    },
+    {
+      "path": "Exmen/Services/ManagedService.swift",
+      "accessCount": 15,
+      "lastAccessed": 1785730665461,
+      "type": "file"
+    },
+    {
+      "path": "exmen-cli/main.swift",
+      "accessCount": 13,
+      "lastAccessed": 1785731255477,
+      "type": "file"
+    },
+    {
+      "path": "Exmen/Services/ServiceManager.swift",
+      "accessCount": 7,
+      "lastAccessed": 1785729907779,
+      "type": "file"
+    },
+    {
+      "path": "Exmen/Views/ServiceRowView.swift",
+      "accessCount": 5,
+      "lastAccessed": 1785729923358,
+      "type": "file"
+    },
+    {
+      "path": "Exmen/Services/StatusPoller.swift",
+      "accessCount": 5,
+      "lastAccessed": 1785729942529,
+      "type": "file"
+    },
+    {
+      "path": "Exmen/Services/SocketServer.swift",
+      "accessCount": 4,
+      "lastAccessed": 1785728126797,
+      "type": "file"
+    },
+    {
+      "path": "Exmen/Views/MenuContentView.swift",
+      "accessCount": 4,
+      "lastAccessed": 1785729494378,
+      "type": "file"
+    },
+    {
+      "path": "Exmen.xcodeproj/project.pbxproj",
+      "accessCount": 4,
+      "lastAccessed": 1785730049461,
+      "type": "file"
+    },
+    {
+      "path": "Exmen/Services/SubtaskOrchestrator.swift",
+      "accessCount": 3,
+      "lastAccessed": 1785728181131,
+      "type": "file"
+    },
+    {
+      "path": "Exmen/Models/Action.swift",
+      "accessCount": 3,
+      "lastAccessed": 1785729493035,
+      "type": "file"
+    },
+    {
+      "path": "Exmen/Services/ActionService.swift",
+      "accessCount": 3,
+      "lastAccessed": 1785729493772,
+      "type": "file"
+    },
+    {
+      "path": "Exmen/ExmenApp.swift",
+      "accessCount": 3,
+      "lastAccessed": 1785729645643,
+      "type": "file"
+    },
+    {
+      "path": "Exmen/Models/ServiceState.swift",
+      "accessCount": 3,
+      "lastAccessed": 1785729776480,
+      "type": "file"
+    },
+    {
+      "path": "CLAUDE.md",
+      "accessCount": 3,
+      "lastAccessed": 1785731038697,
+      "type": "file"
+    },
+    {
+      "path": "Exmen/Models/ActionConfig.swift",
+      "accessCount": 2,
+      "lastAccessed": 1785474286430,
+      "type": "file"
+    },
+    {
+      "path": "Exmen/Services/ConfigLoader.swift",
+      "accessCount": 2,
+      "lastAccessed": 1785474287449,
+      "type": "file"
+    },
+    {
+      "path": "Exmen/Views/SubtaskProgressWindow.swift",
+      "accessCount": 2,
+      "lastAccessed": 1785483278300,
+      "type": "file"
+    },
+    {
+      "path": "Package.swift",
+      "accessCount": 2,
+      "lastAccessed": 1785728119968,
+      "type": "file"
+    },
+    {
+      "path": "Exmen/Views/ServiceOutputWindow.swift",
+      "accessCount": 2,
+      "lastAccessed": 1785729494736,
+      "type": "file"
+    },
+    {
+      "path": "Exmen/Models/ServiceConfig.swift",
+      "accessCount": 2,
+      "lastAccessed": 1785730397816,
+      "type": "file"
+    },
+    {
+      "path": "Exmen/Services/ScriptRunner.swift",
+      "accessCount": 2,
+      "lastAccessed": 1785730402756,
+      "type": "file"
+    },
+    {
+      "path": "Tests/ExmenTests/ServiceLifecycleTests.swift",
+      "accessCount": 2,
+      "lastAccessed": 1785730450679,
+      "type": "file"
+    },
+    {
+      "path": "Exmen/Views/ActionRowView.swift",
+      "accessCount": 1,
+      "lastAccessed": 1785398899488,
+      "type": "file"
+    },
+    {
+      "path": "Exmen/Services/SubtaskRunner.swift",
+      "accessCount": 1,
+      "lastAccessed": 1785398926975,
+      "type": "file"
+    },
+    {
+      "path": ".planning/ROADMAP.md",
+      "accessCount": 1,
+      "lastAccessed": 1785474293092,
+      "type": "file"
+    },
+    {
+      "path": "Exmen/Models/GlobalConfig.swift",
+      "accessCount": 1,
+      "lastAccessed": 1785474293609,
+      "type": "file"
+    },
+    {
+      "path": ".planning/STATE.md",
+      "accessCount": 1,
+      "lastAccessed": 1785474294015,
+      "type": "file"
+    },
+    {
+      "path": ".planning/REQUIREMENTS.md",
+      "accessCount": 1,
+      "lastAccessed": 1785474466037,
+      "type": "file"
+    },
+    {
+      "path": ".planning/phases/11-subtask-orchestration/11-RESUME.md",
+      "accessCount": 1,
+      "lastAccessed": 1785727283389,
+      "type": "file"
+    },
+    {
+      "path": "README.md",
+      "accessCount": 1,
+      "lastAccessed": 1785728119614,
+      "type": "file"
+    },
+    {
+      "path": "Exmen/Services/DirectoryWatcher.swift",
+      "accessCount": 1,
+      "lastAccessed": 1785729528452,
+      "type": "file"
+    },
+    {
+      "path": "Exmen/Services/HookParser.swift",
+      "accessCount": 1,
+      "lastAccessed": 1785729638546,
+      "type": "file"
+    },
+    {
+      "path": "Tests/ExmenTests/SubtaskStateTests.swift",
+      "accessCount": 1,
+      "lastAccessed": 1785729691016,
+      "type": "file"
+    },
+    {
+      "path": "Exmen/Services/OutputHandler.swift",
+      "accessCount": 1,
+      "lastAccessed": 1785729764011,
+      "type": "file"
+    },
+    {
+      "path": "Exmen/Models/HookUpdate.swift",
+      "accessCount": 1,
+      "lastAccessed": 1785730016454,
+      "type": "file"
+    }
+  ],
+  "userDirectives": []
+}

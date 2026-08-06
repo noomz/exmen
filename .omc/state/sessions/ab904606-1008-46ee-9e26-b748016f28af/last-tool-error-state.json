@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"rtk ls .config/exmen/actions/ 2>/dev/null; echo \\\"--- any headroom example ---\\\"; rtk grep -rl \\\"headroom\\\" .config/ 2>/dev/null\",\"description\":\"Check repo-local example configs\"}",
+  "error": "Exit code 1\ncheck-disk-space.toml  265B\nsystem-status.toml  431B\nupdate-homebrew.toml  227B\n--- any headroom example ---",
+  "timestamp": "2026-08-03T04:08:34.550Z",
+  "retry_count": 1
+}

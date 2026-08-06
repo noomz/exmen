@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"cd /Users/noomz/Projects/Opensources/exmen\\ngit push origin main && rtk git push origin v1.1.0 && echo \\\"PUSHED OK\\\"\",\"description\":\"Push main and v1.1.0 tag\"}",
+  "error": "Exit code 1\nTo github.com:noomz/exmen.git\n   c2ad718..0e50373  main -> main\nTo github.com:noomz/exmen.git\n ! [rejected]        v1.1.0 -> v1.1.0 (already exists)\nerror: failed to push some refs to 'github.com:noomz/exmen.git'\nhint: Updates were rejected because the tag already exists in the remote.",
+  "timestamp": "2026-06-05T04:43:17.284Z",
+  "retry_count": 1
+}

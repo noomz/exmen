@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"rtk grep -c \\\"exmen-cli\\\\|exmen_cli\\\\|CLI\\\" Exmen.xcodeproj/project.pbxproj\",\"description\":\"Search pbxproj for CLI target references\"}",
+  "error": "Exit code 1\n0",
+  "timestamp": "2026-08-03T03:36:54.562Z",
+  "retry_count": 1
+}

@@ -10,10 +10,11 @@ Zero-friction execution — click menu, run action, done. As fast as possible wi
 
 ## Current State
 
-**Shipped:** v1.1 (2026-03-20, tag v1.1.0)
+**In progress:** v1.2 Polish & Power (Phase 11 complete 2026-08-05; Phase 12 next)
 
 - v1.0 MVP: menu bar app, TOML actions, folder discovery, script execution, output handlers, hook system, auto-hide menu, Unix socket IPC + CLI, global config (Phases 1-7.1)
 - v1.1 Services & CLI: managed long-running services via SwiftTerm PTY, lifecycle with restart policies + keep-alive, dedicated menu UI with output window, CLI service commands (Phases 8-10)
+- v1.2 Phase 11: declarative and dynamic subtask orchestration, live progress window, aggregate output summary, timeout/process-group cleanup, IPC status + `run --wait`
 
 Codebase: ~2,991 LOC Swift across Exmen app + exmen-cli. Tech stack: Swift/SwiftUI, AppKit, SwiftTerm 1.11.2 (PTY), TOMLDecoder, Unix domain sockets.
 
@@ -47,10 +48,10 @@ Codebase: ~2,991 LOC Swift across Exmen app + exmen-cli. Tech stack: Swift/Swift
 - ✓ Long-running CLI services with PTY interaction — v1.1
 - ✓ Service lifecycle (start/stop/restart, restart policies, keep-alive) — v1.1
 - ✓ CLI service control (list/start/stop/restart/status) — v1.1
+- ✓ Parallel subtask orchestration with live feedback — v1.2 Phase 11 (2026-08-05)
 
 ### Active (v1.2)
 
-- [ ] Parallel subtask orchestration (declarative + dynamic) with live feedback — ORCH-*
 - [ ] On-screen summon: global hotkey + command palette + HUD overlay — SUMMON-*
 - [ ] Raycast integration via CLI — RAYCAST-*
 - [ ] Menu bar UI/UX overhaul (search, grouping, inline progress, visuals) — UIUX-*
@@ -59,7 +60,7 @@ Codebase: ~2,991 LOC Swift across Exmen app + exmen-cli. Tech stack: Swift/Swift
 
 - Cloud sync — local-only, no cross-device syncing
 - Plugin marketplace — no community sharing platform or plugin system
-- Keyboard shortcuts — no global hotkeys to trigger actions
+- Arbitrary per-action global hotkeys — only Phase 12 summon shortcut is global
 
 ## Context
 
@@ -110,4 +111,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-06-05 — started milestone v1.2 Polish & Power*
+*Last updated: 2026-08-05 — Phase 11 complete; Phase 12 next*

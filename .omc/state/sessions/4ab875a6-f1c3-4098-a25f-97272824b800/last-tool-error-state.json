@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"PATCHES_DIR=\\\"$HOME/.claude/gsd-local-patches\\\"; CONFIG_DIR=\\\"$HOME/.claude\\\"\\nfor f in skills/gsd-config/SKILL.md skills/gsd-help/SKILL.md skills/gsd-plan-phase/SKILL.md; do\\n  echo \\\"===...",
+  "error": "Exit code 1\n===================== skills/gsd-config/SKILL.md\n30c30\n< | --profile &lt;name&gt; | Switch model profile without interactive prompt | gsd-sdk config-set-model-profile |\n---\n> | --profile &lt;name&gt; | Switch model profile without interactive prompt | gsd-tools query config-set-model-profile |\n35,37c35,37\n< @$HOME/.ccs/instances/personal/get-shit-done/workflows/settings.md\n< @$HOME/.ccs/instances/personal/get-shit-done/workflows/settings-advanced.md\n< @$HOME/.ccs/instances/personal/g...",
+  "timestamp": "2026-06-05T07:41:01.409Z",
+  "retry_count": 3
+}

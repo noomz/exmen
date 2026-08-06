@@ -6,12 +6,12 @@ Scoped requirements for milestone v1.2. REQ-IDs continue per category.
 
 ### Subtask Orchestration (ORCH)
 
-- [ ] **ORCH-01**: User can define an action with multiple subtasks in TOML (`[[subtasks]]` with id, name, cmd, optional timeout)
-- [ ] **ORCH-02**: User can set a run mode (parallel/sequential) and `depends_on` per subtask; Exmen schedules waves and runs independent subtasks concurrently
-- [ ] **ORCH-03**: User sees live per-subtask status (pending/running/succeeded/failed) while an orchestration runs
-- [ ] **ORCH-04**: A parent script can spawn subtasks dynamically at runtime via the hook protocol (`EXMEN:subtask=…`)
-- [ ] **ORCH-05**: User gets an aggregated pass/fail summary via output handlers (popup + notification) when orchestration completes
-- [ ] **ORCH-06**: Orchestration honors a concurrency cap and per-subtask timeout, and cancels child processes cleanly (no zombies)
+- [x] **ORCH-01**: User can define an action with multiple subtasks in TOML (`[[subtasks]]` with id, name, cmd, optional timeout)
+- [x] **ORCH-02**: User can set a run mode (parallel/sequential) and `depends_on` per subtask; Exmen schedules waves and runs independent subtasks concurrently
+- [x] **ORCH-03**: User sees live per-subtask status (pending/running/succeeded/failed) while an orchestration runs
+- [x] **ORCH-04**: A parent script can spawn subtasks dynamically at runtime via the hook protocol (`EXMEN:subtask=…`)
+- [x] **ORCH-05**: User gets an aggregated pass/fail summary via output handlers (popup + notification) when orchestration completes
+- [x] **ORCH-06**: Orchestration honors a concurrency cap and per-subtask timeout, and cancels child processes cleanly (no zombies)
 
 ### On-Screen Summon (SUMMON)
 
@@ -52,12 +52,12 @@ Scoped requirements for milestone v1.2. REQ-IDs continue per category.
 
 | REQ-ID | Phase | Status |
 |--------|-------|--------|
-| ORCH-01 | 11 | Pending |
-| ORCH-02 | 11 | Pending |
-| ORCH-03 | 11 | Pending |
-| ORCH-04 | 11 | Pending |
-| ORCH-05 | 11 | Pending |
-| ORCH-06 | 11 | Pending |
+| ORCH-01 | 11 | Complete |
+| ORCH-02 | 11 | Complete |
+| ORCH-03 | 11 | Complete |
+| ORCH-04 | 11 | Complete |
+| ORCH-05 | 11 | Complete |
+| ORCH-06 | 11 | Complete |
 | SUMMON-01 | 12 | Pending |
 | SUMMON-02 | 12 | Pending |
 | SUMMON-03 | 12 | Pending |

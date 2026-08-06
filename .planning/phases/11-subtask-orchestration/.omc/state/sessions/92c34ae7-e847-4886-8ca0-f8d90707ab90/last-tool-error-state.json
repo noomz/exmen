@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"cd .planning/phases/11-subtask-orchestration && for f in 11-04 11-05 11-06; do echo \\\"########## $f\\\"; rtk read $f-SUMMARY.md; done\",\"description\":\"Read summaries 04-06\"}",
+  "error": "Exit code 1\n(eval):cd:1: no such file or directory: .planning/phases/11-subtask-orchestration",
+  "timestamp": "2026-07-31T05:10:44.858Z",
+  "retry_count": 1
+}

@@ -1,0 +1,13 @@
+{
+  "active": true,
+  "started_at": "2026-08-03T03:48:40.661Z",
+  "current_phase": "executing",
+  "original_prompt": "/ultragoal make headroom(or any) service menu usable. it must start/stop/restart correctly without performance issues, eg. infinite loop. inspectable via output window. status on menu item be shown correctly. no silently errors.",
+  "session_id": "9e83ccad-7804-4c67-af86-d07c8fd6cb2d",
+  "project_path": "/Users/noomz/Projects/Opensources/exmen",
+  "reinforcement_count": 2,
+  "max_reinforcements": 50,
+  "awaiting_confirmation": true,
+  "awaiting_confirmation_set_at": "2026-08-03T03:48:40.661Z",
+  "last_checked_at": "2026-08-03T03:55:53.667Z"
+}

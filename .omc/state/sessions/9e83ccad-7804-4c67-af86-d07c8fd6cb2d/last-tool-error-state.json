@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"rtk find /Users/noomz/Projects/Opensources/exmen/Exmen -iname \\\"*ManagedService*\\\" -o -iname \\\"*ServiceManager*\\\"\"}",
+  "error": "Exit code 1\nrtk: rtk find does not support compound predicates or actions (e.g. -not, -exec). Use `find` directly.",
+  "timestamp": "2026-08-03T03:40:18.869Z",
+  "retry_count": 1
+}

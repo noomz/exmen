@@ -1,0 +1,328 @@
+{
+  "version": 1,
+  "jobId": "38ffde5a-39d8-4992-b583-da76f25ee316",
+  "sessionId": "b1c3e433-9400-495a-a0ed-715127dee643",
+  "scopeKey": "39bd779cfa8da8808d7e127264d356e962f134c1d9e8f95d78237f551896e484",
+  "revision": 41,
+  "createdAt": "2026-07-31T05:02:54.319Z",
+  "updatedAt": "2026-07-31T05:02:55.670Z",
+  "producerGraceExpiresAt": "2026-07-31T05:03:24.320Z",
+  "bestEffortDeadlineAt": "2026-07-31T05:04:15.320Z",
+  "producers": {
+    "core": {
+      "state": "sealed",
+      "intentKey": "cd84946122432cada655591ab29c60f42a1b816589baffea16e50fb2f92816cc",
+      "payloadDigest": "cd84946122432cada655591ab29c60f42a1b816589baffea16e50fb2f92816cc",
+      "sealedAt": "2026-07-31T05:02:54.407Z",
+      "sealedBy": "foreground"
+    },
+    "wiki": {
+      "state": "no-op",
+      "sealedAt": "2026-07-31T05:02:54.319Z",
+      "sealedBy": "wiki-producer"
+    }
+  },
+  "actions": {
+    "foreground-cleanup": {
+      "class": "required",
+      "phase": "deferred-required",
+      "status": "completed",
+      "attempts": 0,
+      "idempotencyKey": "febf6dba2f2536433960a07f7cedce72e946b43ced0896570df80f017b8914d2",
+      "payload": {
+        "transcriptPath": "/Users/noomz/.ccs/instances/personal/projects/-Users-noomz-Projects-Opensources-exmen/b1c3e433-9400-495a-a0ed-715127dee643.jsonl",
+        "cwd": "/Users/noomz/Projects/Opensources/exmen",
+        "reason": "clear",
+        "input": {
+          "session_id": "b1c3e433-9400-495a-a0ed-715127dee643",
+          "transcript_path": "/Users/noomz/.ccs/instances/personal/projects/-Users-noomz-Projects-Opensources-exmen/b1c3e433-9400-495a-a0ed-715127dee643.jsonl",
+          "cwd": "/Users/noomz/Projects/Opensources/exmen",
+          "prompt_id": "6af4013f-94fa-4538-bb67-b81abaa8fab1",
+          "hook_event_name": "SessionEnd",
+          "reason": "clear"
+        },
+        "metrics": {
+          "session_id": "b1c3e433-9400-495a-a0ed-715127dee643",
+          "ended_at": "2026-07-31T05:02:54.315Z",
+          "reason": "clear",
+          "agents_spawned": 0,
+          "agents_completed": 0,
+          "modes_used": []
+        },
+        "initialTeamNames": [],
+        "openClawEnabled": false,
+        "openClawRouting": {},
+        "foregroundResult": {
+          "removedTransientFiles": 3,
+          "completedAt": "2026-07-31T05:02:54.407Z"
+        }
+      },
+      "budgetMs": 9000,
+      "completedAt": "2026-07-31T05:02:54.407Z",
+      "lastOutcomeCode": "completed"
+    },
+    "wiki-capture": {
+      "class": "required",
+      "phase": "deferred-required",
+      "status": "completed",
+      "attempts": 0,
+      "idempotencyKey": "1719cd1ef5b51e0269b78c4cb8c9308c9c1f7b82fd1c067fc034c060f23863f5",
+      "payload": {},
+      "budgetMs": 9000,
+      "completedAt": "2026-07-31T05:02:54.319Z"
+    },
+    "team-cleanup": {
+      "class": "required",
+      "phase": "deferred-required",
+      "status": "completed",
+      "attempts": 1,
+      "idempotencyKey": "cee6ac31df545408e1e822247ac249b3f8182a98a5fe8e448ae3b251e55bdee1",
+      "payload": {
+        "transcriptPath": "/Users/noomz/.ccs/instances/personal/projects/-Users-noomz-Projects-Opensources-exmen/b1c3e433-9400-495a-a0ed-715127dee643.jsonl",
+        "cwd": "/Users/noomz/Projects/Opensources/exmen",
+        "reason": "clear",
+        "input": {
+          "session_id": "b1c3e433-9400-495a-a0ed-715127dee643",
+          "transcript_path": "/Users/noomz/.ccs/instances/personal/projects/-Users-noomz-Projects-Opensources-exmen/b1c3e433-9400-495a-a0ed-715127dee643.jsonl",
+          "cwd": "/Users/noomz/Projects/Opensources/exmen",
+          "prompt_id": "6af4013f-94fa-4538-bb67-b81abaa8fab1",
+          "hook_event_name": "SessionEnd",
+          "reason": "clear"
+        },
+        "metrics": {
+          "session_id": "b1c3e433-9400-495a-a0ed-715127dee643",
+          "ended_at": "2026-07-31T05:02:54.315Z",
+          "reason": "clear",
+          "agents_spawned": 0,
+          "agents_completed": 0,
+          "modes_used": []
+        },
+        "initialTeamNames": [],
+        "openClawEnabled": false,
+        "openClawRouting": {}
+      },
+      "budgetMs": 9000,
+      "claimedAt": "2026-07-31T05:02:54.520Z",
+      "runner": {
+        "attempt": 1,
+        "runnerNonce": "6f4c9a66-b2a4-4814-80db-27a2bbd58460",
+        "phase": "terminal",
+        "deadlineAt": "2026-07-31T05:03:04.436Z"
+      },
+      "lastOutcomeCode": "completed",
+      "completedAt": "2026-07-31T05:02:54.711Z"
+    },
+    "python-cleanup": {
+      "class": "required",
+      "phase": "deferred-required",
+      "status": "completed",
+      "attempts": 1,
+      "idempotencyKey": "1f1370c4ac056606059d517e2f106b602d8cbcb04587b3fcc5f3b9f89e649cd0",
+      "payload": {
+        "transcriptPath": "/Users/noomz/.ccs/instances/personal/projects/-Users-noomz-Projects-Opensources-exmen/b1c3e433-9400-495a-a0ed-715127dee643.jsonl",
+        "cwd": "/Users/noomz/Projects/Opensources/exmen",
+        "reason": "clear",
+        "input": {
+          "session_id": "b1c3e433-9400-495a-a0ed-715127dee643",
+          "transcript_path": "/Users/noomz/.ccs/instances/personal/projects/-Users-noomz-Projects-Opensources-exmen/b1c3e433-9400-495a-a0ed-715127dee643.jsonl",
+          "cwd": "/Users/noomz/Projects/Opensources/exmen",
+          "prompt_id": "6af4013f-94fa-4538-bb67-b81abaa8fab1",
+          "hook_event_name": "SessionEnd",
+          "reason": "clear"
+        },
+        "metrics": {
+          "session_id": "b1c3e433-9400-495a-a0ed-715127dee643",
+          "ended_at": "2026-07-31T05:02:54.315Z",
+          "reason": "clear",
+          "agents_spawned": 0,
+          "agents_completed": 0,
+          "modes_used": []
+        },
+        "initialTeamNames": [],
+        "openClawEnabled": false,
+        "openClawRouting": {}
+      },
+      "budgetMs": 9000,
+      "claimedAt": "2026-07-31T05:02:54.736Z",
+      "runner": {
+        "attempt": 1,
+        "runnerNonce": "80ca703a-8c7d-4cff-b720-53d25d626f4b",
+        "phase": "terminal",
+        "deadlineAt": "2026-07-31T05:03:04.436Z"
+      },
+      "lastOutcomeCode": "completed",
+      "completedAt": "2026-07-31T05:02:54.919Z"
+    },
+    "reply-cleanup": {
+      "class": "required",
+      "phase": "deferred-required",
+      "status": "completed",
+      "attempts": 1,
+      "idempotencyKey": "0b3a8b47c28b26d56aca004d4f572b96c118f16819c0d35162418816f9a5420a",
+      "payload": {
+        "transcriptPath": "/Users/noomz/.ccs/instances/personal/projects/-Users-noomz-Projects-Opensources-exmen/b1c3e433-9400-495a-a0ed-715127dee643.jsonl",
+        "cwd": "/Users/noomz/Projects/Opensources/exmen",
+        "reason": "clear",
+        "input": {
+          "session_id": "b1c3e433-9400-495a-a0ed-715127dee643",
+          "transcript_path": "/Users/noomz/.ccs/instances/personal/projects/-Users-noomz-Projects-Opensources-exmen/b1c3e433-9400-495a-a0ed-715127dee643.jsonl",
+          "cwd": "/Users/noomz/Projects/Opensources/exmen",
+          "prompt_id": "6af4013f-94fa-4538-bb67-b81abaa8fab1",
+          "hook_event_name": "SessionEnd",
+          "reason": "clear"
+        },
+        "metrics": {
+          "session_id": "b1c3e433-9400-495a-a0ed-715127dee643",
+          "ended_at": "2026-07-31T05:02:54.315Z",
+          "reason": "clear",
+          "agents_spawned": 0,
+          "agents_completed": 0,
+          "modes_used": []
+        },
+        "initialTeamNames": [],
+        "openClawEnabled": false,
+        "openClawRouting": {}
+      },
+      "budgetMs": 9000,
+      "claimedAt": "2026-07-31T05:02:54.940Z",
+      "runner": {
+        "attempt": 1,
+        "runnerNonce": "4b6812c9-7bae-40d2-80aa-67b85b05c3c8",
+        "phase": "terminal",
+        "deadlineAt": "2026-07-31T05:03:04.436Z"
+      },
+      "lastOutcomeCode": "completed",
+      "completedAt": "2026-07-31T05:02:55.114Z"
+    },
+    "callback": {
+      "class": "best-effort",
+      "phase": "deferred-best-effort",
+      "status": "completed",
+      "attempts": 1,
+      "idempotencyKey": "d068ede2655bf89e0c0950e087d0603d7dcf45538e94f20a654d08c6f4841895",
+      "payload": {
+        "transcriptPath": "/Users/noomz/.ccs/instances/personal/projects/-Users-noomz-Projects-Opensources-exmen/b1c3e433-9400-495a-a0ed-715127dee643.jsonl",
+        "cwd": "/Users/noomz/Projects/Opensources/exmen",
+        "reason": "clear",
+        "input": {
+          "session_id": "b1c3e433-9400-495a-a0ed-715127dee643",
+          "transcript_path": "/Users/noomz/.ccs/instances/personal/projects/-Users-noomz-Projects-Opensources-exmen/b1c3e433-9400-495a-a0ed-715127dee643.jsonl",
+          "cwd": "/Users/noomz/Projects/Opensources/exmen",
+          "prompt_id": "6af4013f-94fa-4538-bb67-b81abaa8fab1",
+          "hook_event_name": "SessionEnd",
+          "reason": "clear"
+        },
+        "metrics": {
+          "session_id": "b1c3e433-9400-495a-a0ed-715127dee643",
+          "ended_at": "2026-07-31T05:02:54.315Z",
+          "reason": "clear",
+          "agents_spawned": 0,
+          "agents_completed": 0,
+          "modes_used": []
+        },
+        "initialTeamNames": [],
+        "openClawEnabled": false,
+        "openClawRouting": {}
+      },
+      "budgetMs": 2000,
+      "claimedAt": "2026-07-31T05:02:55.135Z",
+      "runner": {
+        "attempt": 1,
+        "runnerNonce": "0ce48382-3b76-49d9-b328-23d4fa54b637",
+        "phase": "terminal",
+        "deadlineAt": "2026-07-31T05:03:04.436Z"
+      },
+      "lastOutcomeCode": "completed",
+      "completedAt": "2026-07-31T05:02:55.296Z"
+    },
+    "notification": {
+      "class": "best-effort",
+      "phase": "deferred-best-effort",
+      "status": "completed",
+      "attempts": 1,
+      "idempotencyKey": "89c0438ff63097ce04beb60efb87292ff68a7af350a0ee331f3de9dbf42d62fc",
+      "payload": {
+        "transcriptPath": "/Users/noomz/.ccs/instances/personal/projects/-Users-noomz-Projects-Opensources-exmen/b1c3e433-9400-495a-a0ed-715127dee643.jsonl",
+        "cwd": "/Users/noomz/Projects/Opensources/exmen",
+        "reason": "clear",
+        "input": {
+          "session_id": "b1c3e433-9400-495a-a0ed-715127dee643",
+          "transcript_path": "/Users/noomz/.ccs/instances/personal/projects/-Users-noomz-Projects-Opensources-exmen/b1c3e433-9400-495a-a0ed-715127dee643.jsonl",
+          "cwd": "/Users/noomz/Projects/Opensources/exmen",
+          "prompt_id": "6af4013f-94fa-4538-bb67-b81abaa8fab1",
+          "hook_event_name": "SessionEnd",
+          "reason": "clear"
+        },
+        "metrics": {
+          "session_id": "b1c3e433-9400-495a-a0ed-715127dee643",
+          "ended_at": "2026-07-31T05:02:54.315Z",
+          "reason": "clear",
+          "agents_spawned": 0,
+          "agents_completed": 0,
+          "modes_used": []
+        },
+        "initialTeamNames": [],
+        "openClawEnabled": false,
+        "openClawRouting": {}
+      },
+      "budgetMs": 2000,
+      "claimedAt": "2026-07-31T05:02:55.318Z",
+      "runner": {
+        "attempt": 1,
+        "runnerNonce": "61cf5062-d480-4d37-97ea-b5035e421ef0",
+        "phase": "terminal",
+        "deadlineAt": "2026-07-31T05:03:04.436Z"
+      },
+      "lastOutcomeCode": "completed",
+      "completedAt": "2026-07-31T05:02:55.459Z"
+    },
+    "openclaw": {
+      "class": "best-effort",
+      "phase": "deferred-best-effort",
+      "status": "completed",
+      "attempts": 1,
+      "idempotencyKey": "31fe8f6e1cf204e27006de511df257326fdd98655122ca437013e8779ffc735b",
+      "payload": {
+        "transcriptPath": "/Users/noomz/.ccs/instances/personal/projects/-Users-noomz-Projects-Opensources-exmen/b1c3e433-9400-495a-a0ed-715127dee643.jsonl",
+        "cwd": "/Users/noomz/Projects/Opensources/exmen",
+        "reason": "clear",
+        "input": {
+          "session_id": "b1c3e433-9400-495a-a0ed-715127dee643",
+          "transcript_path": "/Users/noomz/.ccs/instances/personal/projects/-Users-noomz-Projects-Opensources-exmen/b1c3e433-9400-495a-a0ed-715127dee643.jsonl",
+          "cwd": "/Users/noomz/Projects/Opensources/exmen",
+          "prompt_id": "6af4013f-94fa-4538-bb67-b81abaa8fab1",
+          "hook_event_name": "SessionEnd",
+          "reason": "clear"
+        },
+        "metrics": {
+          "session_id": "b1c3e433-9400-495a-a0ed-715127dee643",
+          "ended_at": "2026-07-31T05:02:54.315Z",
+          "reason": "clear",
+          "agents_spawned": 0,
+          "agents_completed": 0,
+          "modes_used": []
+        },
+        "initialTeamNames": [],
+        "openClawEnabled": false,
+        "openClawRouting": {}
+      },
+      "budgetMs": 2000,
+      "claimedAt": "2026-07-31T05:02:55.481Z",
+      "runner": {
+        "attempt": 1,
+        "runnerNonce": "fa7ae4a4-f809-4922-91a9-5ad2c0e31c65",
+        "phase": "terminal",
+        "deadlineAt": "2026-07-31T05:03:04.436Z"
+      },
+      "lastOutcomeCode": "completed",
+      "completedAt": "2026-07-31T05:02:55.626Z"
+    }
+  },
+  "owner": null,
+  "phase": "complete",
+  "completion": {
+    "completedAt": "2026-07-31T05:02:55.648Z",
+    "terminalDigest": "0d24d8396a7454b8863cc4350182628052cf62767d406f06f526527ae697359a",
+    "terminalRevision": 40
+  }
+}
