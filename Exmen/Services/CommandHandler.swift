@@ -98,6 +98,7 @@ class CommandHandler {
         let icon: String
         let description: String
         let status: String?
+        let hidden: Bool
     }
 
     struct ActionStatus: Codable {
@@ -113,6 +114,7 @@ class CommandHandler {
         let state: String
         let pid: Int32?
         let statusText: String
+        let hidden: Bool
     }
 
     struct ServiceStatusInfo: Codable {
@@ -228,7 +230,8 @@ class CommandHandler {
                 name: action.name,
                 icon: action.displayIcon,
                 description: action.description,
-                status: action.dynamicStatus
+                status: action.dynamicStatus,
+                hidden: action.isHidden
             )
         }
         return Response(success: true, data: .actions(actions))
@@ -405,7 +408,8 @@ class CommandHandler {
                 name: svc.action.name,
                 state: svc.state.rawStringValue,
                 pid: svc.pid,
-                statusText: ServiceState.displayText(state: svc.state, startedAt: svc.startedAt)
+                statusText: ServiceState.displayText(state: svc.state, startedAt: svc.startedAt),
+                hidden: svc.action.isHidden
             )
         }
         return Response(success: true, data: .services(infos))

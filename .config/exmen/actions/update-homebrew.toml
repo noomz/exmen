@@ -3,6 +3,9 @@ icon = "arrow.clockwise"
 description = "Run brew update && upgrade"
 hide_on_click = false
 
+[when]
+command = "brew"
+
 [script]
 type = "inline"
 content = """

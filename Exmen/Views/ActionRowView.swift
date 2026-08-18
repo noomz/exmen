@@ -51,6 +51,13 @@ struct ActionRowView: View {
                             .foregroundColor(.secondary)
                             .lineLimit(1)
                     }
+
+                    if action.isHidden, let reason = action.hiddenReason {
+                        Text(reason)
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+                            .lineLimit(1)
+                    }
                 }
 
                 Spacer()
@@ -67,6 +74,7 @@ struct ActionRowView: View {
             .cornerRadius(4)
         }
         .buttonStyle(.plain)
+        .opacity(action.isHidden ? 0.45 : 1)
         .disabled(isExecuting)
         .onHover { hovering in
             isHovered = hovering

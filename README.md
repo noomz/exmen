@@ -38,6 +38,7 @@ Exmen lives in your menu bar and lets you run scripts without switching to Termi
 - **Status Polling** — Periodic status updates for monitoring actions
 - **CLI Tool** — Integrate with external tools via `exmen` command
 - **Global Config** — Control action ordering and enable/disable
+- **Conditional Visibility** — Hide an action or service unless a CLI, file, or env var is present; reveal them with **Show hidden**
 
 ## Installation
 
@@ -204,6 +205,30 @@ Restarts use exponential backoff (1s, 2s, 4s, ... up to 30s) and stop after `max
 
 When `keep_alive = true`, the service process continues running after Exmen quits. On next launch, Exmen reconnects to the running process and resumes monitoring its status.
 
+## Conditional Visibility
+
+Hide an action or service unless the machine has what it needs. All specified checks must pass (AND). Omit `[when]` to always show the item.
+
+```toml
+name = "Kubectl Context"
+icon = "terminal"
+
+[when]
+command = "kubectl"          # hide unless this binary is on PATH
+file = "~/.kube/config"      # hide unless this path exists (`~` is expanded)
+env = "KUBECONFIG"           # hide unless this env var is set and non-empty
+
+[script]
+type = "inline"
+content = "kubectl config current-context"
+```
+
+The same `[when]` table works on `type = "service"` entries. Hidden services stay registered (so `keep_alive` and CLI `start-service` still work) — only the menu row is hidden.
+
+Use **Show hidden** at the bottom of the menu to reveal dimmed items and see why they were hidden. The toggle is remembered across launches. `disabled` in `config.toml` still removes an item entirely; `[when]` is visibility only.
+
+`exmen list-actions` and `exmen list-services` include hidden items and mark them `[hidden]`. JSON output adds `"hidden": true`.
+
 ## CLI Tool
 
 Exmen includes a command-line interface for integration with external tools (like sketchybar, scripts, etc.):
@@ -257,6 +282,9 @@ disabled = [
 | `icon` | string | No | SF Symbol name (default: "terminal") |
 | `description` | string | No | Shown below the name |
 | `hide_on_click` | bool | No | Close menu after clicking (default: true) |
+| `when.command` | string | No | Hide unless this CLI is on PATH (or is an existing executable path) |
+| `when.file` | string | No | Hide unless this file or directory exists (`~` expanded) |
+| `when.env` | string | No | Hide unless this environment variable is set and non-empty |
 
 ### Script Configuration
 

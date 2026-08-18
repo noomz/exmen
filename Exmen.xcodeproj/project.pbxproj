@@ -18,6 +18,7 @@
 		A1000011233456780000002 /* WaveSchedulerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000012233456780000002 /* WaveSchedulerTests.swift */; };
 		A1000011233456780000003 /* SubtaskStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000012233456780000003 /* SubtaskStateTests.swift */; };
 		A10000112334567800000A1 /* ServiceLifecycleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000122334567800000A1 /* ServiceLifecycleTests.swift */; };
+		A10000112334567800000B1 /* WhenConfigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000122334567800000B1 /* WhenConfigTests.swift */; };
 		A1000011233456780000004 /* DynamicSpawnTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000012233456780000004 /* DynamicSpawnTests.swift */; };
 		A1000011233456780000005 /* SummaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000012233456780000005 /* SummaryTests.swift */; };
 		A1000011233456780000006 /* CascadeSkipTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000012233456780000006 /* CascadeSkipTests.swift */; };
@@ -95,6 +96,7 @@
 		A1000012233456780000002 /* WaveSchedulerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveSchedulerTests.swift; sourceTree = "<group>"; };
 		A1000012233456780000003 /* SubtaskStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtaskStateTests.swift; sourceTree = "<group>"; };
 		A10000122334567800000A1 /* ServiceLifecycleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceLifecycleTests.swift; sourceTree = "<group>"; };
+		A10000122334567800000B1 /* WhenConfigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhenConfigTests.swift; sourceTree = "<group>"; };
 		A1000012233456780000004 /* DynamicSpawnTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicSpawnTests.swift; sourceTree = "<group>"; };
 		A1000012233456780000005 /* SummaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryTests.swift; sourceTree = "<group>"; };
 		A1000012233456780000006 /* CascadeSkipTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CascadeSkipTests.swift; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 				A1000012233456780000008 /* TimeoutTests.swift */,
 				A1000012233456780000009 /* ProgressModelTests.swift */,
 				A10000122334567800000A1 /* ServiceLifecycleTests.swift */,
+				A10000122334567800000B1 /* WhenConfigTests.swift */,
 			);
 			path = ExmenTests;
 			sourceTree = "<group>";
@@ -394,6 +397,7 @@
 				A1000011233456780000008 /* TimeoutTests.swift in Sources */,
 				A1000011233456780000009 /* ProgressModelTests.swift in Sources */,
 				A10000112334567800000A1 /* ServiceLifecycleTests.swift in Sources */,
+				A10000112334567800000B1 /* WhenConfigTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -177,12 +177,16 @@ func handleListActions(json: Bool) {
                 let desc = action["description"] as? String ?? ""
                 let status = action["status"] as? String
 
+                let hidden = action["hidden"] as? Bool ?? false
                 var output = "\(name)"
                 if !icon.isEmpty {
                     output = "[\(icon)] \(output)"
                 }
                 if let status = status {
                     output += " (\(status))"
+                }
+                if hidden {
+                    output += " [hidden]"
                 }
                 if !desc.isEmpty {
                     output += "\n    \(desc)"
@@ -378,9 +382,13 @@ func handleListServices(json: Bool) {
                 let state = svc["state"] as? String ?? "unknown"
                 let statusText = svc["statusText"] as? String ?? state
                 let pid = svc["pid"] as? Int
+                let hidden = svc["hidden"] as? Bool ?? false
                 var line = "\(name)  \(statusText)"
                 if let pid = pid {
                     line += "  (pid: \(pid))"
+                }
+                if hidden {
+                    line += "  [hidden]"
                 }
                 print(line)
             }

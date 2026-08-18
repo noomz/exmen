@@ -4,6 +4,24 @@ struct MenuContentView: View {
     @ObservedObject private var actionService = ActionService.shared
     @ObservedObject private var serviceManager = ServiceManager.shared
     @State private var executingActionId: UUID?
+    @AppStorage("exmen.showHiddenItems") private var showHiddenItems = false
+
+    private var displayedActions: [Action] {
+        showHiddenItems
+            ? actionService.actions
+            : actionService.actions.filter { !$0.isHidden }
+    }
+
+    private var displayedServices: [ManagedService] {
+        showHiddenItems
+            ? serviceManager.services
+            : serviceManager.services.filter { !$0.action.isHidden }
+    }
+
+    private var hiddenCount: Int {
+        actionService.actions.filter(\.isHidden).count
+            + serviceManager.services.filter { $0.action.isHidden }.count
+    }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -31,15 +49,15 @@ struct MenuContentView: View {
             if actionService.isLoading {
                 ProgressView()
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-            } else if actionService.actions.isEmpty && serviceManager.services.isEmpty {
-                Text("No actions configured")
+            } else if displayedActions.isEmpty && displayedServices.isEmpty {
+                Text(hiddenCount > 0 ? "No visible actions" : "No actions configured")
                     .foregroundColor(.secondary)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else {
                 ScrollView {
                     LazyVStack(spacing: 2) {
                         // Actions section — regular (non-service) actions
-                        ForEach(actionService.actions) { action in
+                        ForEach(displayedActions) { action in
                             ActionRowView(
                                 action: action,
                                 isExecuting: executingActionId == action.id,
@@ -48,7 +66,7 @@ struct MenuContentView: View {
                         }
 
                         // Services section — shown below actions when services are configured
-                        if !serviceManager.services.isEmpty {
+                        if !displayedServices.isEmpty {
                             Divider()
                                 .padding(.vertical, 4)
 
@@ -61,7 +79,7 @@ struct MenuContentView: View {
                             .padding(.horizontal, 8)
                             .padding(.top, 4)
 
-                            ForEach(serviceManager.services) { service in
+                            ForEach(displayedServices) { service in
                                 ServiceRowView(service: service)
                             }
                         }
@@ -70,6 +88,19 @@ struct MenuContentView: View {
                     .padding(.horizontal, 8)
                 }
             }
+
+            Divider()
+
+            HStack {
+                Toggle(isOn: $showHiddenItems) {
+                    Text(hiddenCount > 0 ? "Show hidden (\(hiddenCount))" : "Show hidden")
+                        .font(.caption)
+                }
+                .toggleStyle(.checkbox)
+                .help("Reveal actions and services hidden by [when] conditions")
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 6)
 
             Divider()
 

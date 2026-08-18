@@ -41,6 +41,13 @@ struct ServiceRowView: View {
                         .fixedSize(horizontal: false, vertical: true)
                         .help(error)
                 }
+
+                if service.action.isHidden, let reason = service.action.hiddenReason {
+                    Text(reason)
+                        .font(.caption2)
+                        .foregroundColor(.secondary)
+                        .lineLimit(1)
+                }
             }
 
             Spacer()
@@ -49,6 +56,7 @@ struct ServiceRowView: View {
         .padding(.horizontal, 8)
         .background(isHovered ? Color.accentColor.opacity(0.1) : Color.clear)
         .cornerRadius(4)
+        .opacity(service.action.isHidden ? 0.45 : 1)
         .onHover { hovering in
             isHovered = hovering
         }

@@ -14,6 +14,12 @@ struct Action: Identifiable {
     /// Optional orchestrated subtasks (Phase 11, D-01). Non-empty → executeAction
     /// branches onto SubtaskOrchestrator instead of ScriptRunner.
     let subtasks: [SubtaskConfig]?
+    /// Visibility conditions from `[when]`. Nil means always shown.
+    let when: WhenConfig?
+    /// True when `[when]` is present and at least one check failed.
+    let isHidden: Bool
+    /// Human-readable reason the item is hidden (shown when revealing hidden items).
+    let hiddenReason: String?
 
     // Dynamic state (can be updated by hooks)
     var dynamicTitle: String?
@@ -42,7 +48,10 @@ struct Action: Identifiable {
         hideOnClick: Bool = true,
         serviceConfig: ServiceConfig? = nil,
         isService: Bool = false,
-        subtasks: [SubtaskConfig]? = nil
+        subtasks: [SubtaskConfig]? = nil,
+        when: WhenConfig? = nil,
+        isHidden: Bool = false,
+        hiddenReason: String? = nil
     ) {
         self.id = id
         self.name = name
@@ -55,6 +64,9 @@ struct Action: Identifiable {
         self.serviceConfig = serviceConfig
         self.isService = isService
         self.subtasks = subtasks
+        self.when = when
+        self.isHidden = isHidden
+        self.hiddenReason = hiddenReason
     }
 
     /// Initialize from ActionConfig (loaded from TOML)
@@ -70,6 +82,10 @@ struct Action: Identifiable {
         self.serviceConfig = config.service
         self.isService = config.isService
         self.subtasks = config.subtasks
+        self.when = config.when
+        let evaluation = config.when?.evaluate() ?? .satisfied
+        self.isHidden = !evaluation.isSatisfied
+        self.hiddenReason = evaluation.reasons.isEmpty ? nil : evaluation.reasonCaption
     }
 
     /// Apply hook updates to this action
