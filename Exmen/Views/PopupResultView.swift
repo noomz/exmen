@@ -2,32 +2,12 @@ import SwiftUI
 
 /// View for displaying script result in a popup
 struct PopupResultView: View {
-    let actionName: String
     let result: ScriptResult
     let cleanOutput: String
     let onDismiss: () -> Void
 
     var body: some View {
         VStack(spacing: 0) {
-            // Header
-            HStack {
-                Image(systemName: result.isSuccess ? "checkmark.circle.fill" : "xmark.circle.fill")
-                    .foregroundColor(result.isSuccess ? .green : .red)
-                Text(actionName)
-                    .font(.subheadline)
-                    .fontWeight(.semibold)
-                Spacer()
-                Button(action: onDismiss) {
-                    Image(systemName: "xmark")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                }
-                .buttonStyle(.plain)
-            }
-            .padding(10)
-
-            Divider()
-
             // Output content
             ScrollView {
                 VStack(alignment: .leading, spacing: 6) {
@@ -60,6 +40,9 @@ struct PopupResultView: View {
 
             // Footer
             HStack {
+                Image(systemName: result.isSuccess ? "checkmark.circle.fill" : "xmark.circle.fill")
+                    .foregroundColor(result.isSuccess ? .green : .red)
+                    .font(.caption)
                 Text("Exit: \(result.exitCode)")
                     .font(.caption2)
                     .foregroundColor(.secondary)
@@ -84,6 +67,6 @@ struct PopupResultView: View {
             }
             .padding(8)
         }
-        .frame(width: 450, height: 400)
+        .frame(minWidth: 420, idealWidth: 450, minHeight: 240, idealHeight: 320)
     }
 }

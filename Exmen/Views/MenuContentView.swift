@@ -4,7 +4,6 @@ struct MenuContentView: View {
     @ObservedObject private var actionService = ActionService.shared
     @ObservedObject private var serviceManager = ServiceManager.shared
     @State private var executingActionId: UUID?
-    @State private var popupResult: (action: Action, result: ScriptResult, cleanOutput: String)?
 
     var body: some View {
         VStack(spacing: 0) {
@@ -28,15 +27,8 @@ struct MenuContentView: View {
 
             Divider()
 
-            // Actions list or popup
-            if let popup = popupResult {
-                PopupResultView(
-                    actionName: popup.action.name,
-                    result: popup.result,
-                    cleanOutput: popup.cleanOutput,
-                    onDismiss: { popupResult = nil }
-                )
-            } else if actionService.isLoading {
+            // Actions list
+            if actionService.isLoading {
                 ProgressView()
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else if actionService.actions.isEmpty && serviceManager.services.isEmpty {
@@ -83,7 +75,7 @@ struct MenuContentView: View {
 
             // Footer
             HStack {
-                Text("v1.0")
+                Text("v1.2")
                     .font(.caption)
                     .foregroundColor(.secondary)
                 Spacer()
@@ -94,10 +86,15 @@ struct MenuContentView: View {
             }
             .padding(12)
         }
-        .frame(width: popupResult != nil ? 450 : 280, height: popupResult != nil ? 400 : 400)
+        .frame(width: 280, height: 400)
     }
 
     private func executeAction(_ action: Action) {
+        // Results are shown in ActionResultWindow, so the extra can close now.
+        if action.hideOnClick {
+            dismissMenuExtraWindow()
+        }
+
         // Phase 11: actions declaring [[subtasks]] run through the orchestrator (D-01),
         // not ScriptRunner. The single-action path below is unchanged.
         if let subtasks = action.subtasks, !subtasks.isEmpty {
@@ -111,11 +108,6 @@ struct MenuContentView: View {
         }
 
         executingActionId = action.id
-
-        // Hide menu on click if enabled and not showing popup
-        if action.hideOnClick && action.outputConfig.handler != .popup {
-            NSApp.keyWindow?.close()
-        }
 
         Task {
             do {
@@ -169,7 +161,11 @@ struct MenuContentView: View {
             exitCode: summary.verdictFailed ? 1 : 0,
             duration: 0
         )
-        popupResult = (action, result, summary.summaryLine)
+        ActionResultWindow.present(
+            title: action.name,
+            result: result,
+            cleanOutput: summary.summaryLine
+        )
     }
 
     private func handleResult(_ result: ScriptResult, for action: Action) {
@@ -193,7 +189,42 @@ struct MenuContentView: View {
                 isError: !result.isSuccess
             )
         case .popup:
-            popupResult = (action, result, cleanOutput)
+            ActionResultWindow.present(
+                title: action.name,
+                result: result,
+                cleanOutput: cleanOutput
+            )
+        }
+    }
+
+    /// Close the MenuBarExtra panel only. Standalone result/progress/output
+    /// windows are regular NSWindows and must stay open.
+    private func dismissMenuExtraWindow() {
+        let standalone: [NSWindow] = [
+            ActionResultWindow.current?.window,
+            SubtaskProgressWindow.current?.window
+        ].compactMap { $0 } + ServiceManager.shared.services.compactMap { $0.outputWindow?.window }
+
+        func isStandalone(_ window: NSWindow) -> Bool {
+            standalone.contains { $0 === window }
+        }
+
+        if let key = NSApp.keyWindow, !isStandalone(key) {
+            key.close()
+            return
+        }
+
+        for window in NSApp.windows where window.isVisible && !isStandalone(window) {
+            let className = String(describing: type(of: window))
+            let looksLikeMenuExtra =
+                window is NSPanel
+                || window.styleMask.contains(.nonactivatingPanel)
+                || className.contains("StatusBar")
+                || className.contains("MenuBarExtra")
+            if looksLikeMenuExtra {
+                window.close()
+                return
+            }
         }
     }
 }
