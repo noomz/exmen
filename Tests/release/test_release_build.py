@@ -41,6 +41,11 @@ class ReleaseBuildTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 checker.highest_published('owner/repo')
 
+    def test_release_candidate_does_not_pipe_codesign_into_grep(self):
+        text = (MODULE.parent / 'release-candidate.sh').read_text()
+        self.assertNotIn('codesign -dv --verbose=2 "$app" 2>&1 | grep', text)
+        self.assertIn('sig=$(codesign -dv --verbose=2 "$app" 2>&1)', text)
+
     def test_release_candidate_requires_notary_profile(self):
         env = os.environ.copy()
         env.update(RELEASE_VERSION='1.2.2', RELEASE_BUILD='6',
@@ -50,6 +55,49 @@ class ReleaseBuildTests(unittest.TestCase):
                                 env=env, text=True, capture_output=True)
         self.assertNotEqual(result.returncode, 0)
         self.assertIn('NOTARY_PROFILE', result.stderr)
+
+    def test_production_candidate_rejects_isolated_feed_host(self):
+        env = os.environ.copy()
+        env.update(RELEASE_VERSION='1.2.3', RELEASE_BUILD='6',
+                   SPARKLE_FEED_URL='https://192.168.64.1:8443/appcast.xml',
+                   NOTARY_PROFILE='exmen-notary')
+        env.pop('EXMEN_ISOLATED_CHANNEL', None)
+        result = subprocess.run(['bash', str(MODULE.parent / 'release-candidate.sh')],
+                                env=env, text=True, capture_output=True)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('isolated feed requires EXMEN_ISOLATED_CHANNEL=1', result.stderr)
+
+    def test_isolated_channel_skips_github_history(self):
+        directory = tempfile.TemporaryDirectory()
+        self.addCleanup(directory.cleanup)
+        root = Path(directory.name)
+        binary = root / 'bin'
+        binary.mkdir()
+        fake = '''#!/bin/bash
+name=${0##*/}
+printf '%s %s\n' "$name" "$*" >> "$CALL_LOG"
+if [ "$name" = xcrun ] && [ "$1" = notarytool ]; then printf '{}\n'; exit 0; fi
+if [ "$name" = security ]; then printf '  1) Developer ID Application: Siriwat Uamngamsup (W6P9Y44LWU)\n'; exit 0; fi
+if [ "$name" = curl ]; then exit 0; fi
+if [ "$name" = xcodebuild ]; then exit 1; fi
+exit 1
+'''
+        for name in ('security', 'xcrun', 'curl', 'xcodebuild'):
+            path = binary / name
+            path.write_text(fake)
+            path.chmod(0o755)
+        env = os.environ.copy()
+        env.update(PATH=f'{binary}:{env["PATH"]}', CALL_LOG=str(root / 'calls'),
+                   RELEASE_VERSION='1.2.3', RELEASE_BUILD='6',
+                   SPARKLE_FEED_URL='https://192.168.64.1:8443/appcast.xml',
+                   NOTARY_PROFILE='exmen-notary', EXMEN_ISOLATED_CHANNEL='1')
+        result = subprocess.run(['bash', str(MODULE.parent / 'release-candidate.sh')],
+                                env=env, text=True, capture_output=True)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('isolated channel: skipping GitHub build history', result.stderr)
+        calls = (root / 'calls').read_text()
+        self.assertIn('xcodebuild archive', calls)
+        self.assertNotIn('check_release_build', calls)
 
     def run_notarization_fixture(self, failure=''):
         directory = tempfile.TemporaryDirectory()

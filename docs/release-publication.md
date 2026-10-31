@@ -49,7 +49,7 @@ APPCAST_DIR=/path/to/gh-pages \
 bash scripts/publish-release.sh
 ```
 
-Isolated tests use `BACKEND=local`, `STORE`, and `BASE_URL` against a fixture directory. They never call GitHub.
+Isolated tests use `BACKEND=local`, `STORE`, and `BASE_URL` against a fixture directory. They never call GitHub. The private two-build channel, production feed gap, and first-install migration notes live in `docs/isolated-upgrade.md`.
 
 ## Recover a lost or rotated Sparkle key
 
