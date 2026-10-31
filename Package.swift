@@ -6,14 +6,16 @@ let package = Package(
     platforms: [.macOS(.v13)],
     dependencies: [
         .package(url: "https://github.com/dduan/TOMLDecoder", from: "0.4.0"),
-        .package(url: "https://github.com/migueldeicaza/SwiftTerm", from: "1.11.2")
+        .package(url: "https://github.com/migueldeicaza/SwiftTerm", from: "1.11.2"),
+        .package(url: "https://github.com/sparkle-project/Sparkle", exact: "2.9.2")
     ],
     targets: [
         .executableTarget(
             name: "Exmen",
             dependencies: [
                 "TOMLDecoder",
-                .product(name: "SwiftTerm", package: "SwiftTerm")
+                .product(name: "SwiftTerm", package: "SwiftTerm"),
+                .product(name: "Sparkle", package: "Sparkle")
             ],
             path: "Exmen"
         )

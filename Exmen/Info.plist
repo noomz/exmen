@@ -20,6 +20,14 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
+	<key>SUFeedURL</key>
+	<string>$(SPARKLE_FEED_URL)</string>
+	<key>SUPublicEDKey</key>
+	<string>u2Qi0V797BF+t7DyxOiHu90S7NLbhIx8S1SlFLvaHiA=</string>
+	<key>SUEnableAutomaticChecks</key>
+	<true/>
+	<key>SUAllowsAutomaticUpdates</key>
+	<false/>
 	<key>LSUIElement</key>
 	<true/>
 	<key>NSSupportsAutomaticTermination</key>

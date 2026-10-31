@@ -1,5 +1,6 @@
 import AppKit
 import ServiceManagement
+import Sparkle
 import SwiftUI
 
 struct AppVersion {
@@ -54,9 +55,55 @@ final class LoginItemSettings: ObservableObject {
     }
 }
 
+struct UpdateConfiguration {
+    static func isValid(feed: String?, publicKey: String?) -> Bool {
+        guard let feed, let url = URL(string: feed), let host = url.host,
+              let publicKey, let keyData = Data(base64Encoded: publicKey), keyData.count == 32 else {
+            return false
+        }
+        if url.scheme?.lowercased() == "https" { return true }
+        #if DEBUG && SPARKLE_TEST_FEED
+        return url.scheme?.lowercased() == "http" && (host == "localhost" || host == "127.0.0.1")
+        #else
+        return false
+        #endif
+    }
+}
+
+@MainActor
+final class UpdateSettings: ObservableObject {
+    static let shared = UpdateSettings()
+
+    let controller: SPUStandardUpdaterController?
+    private var observations: [NSKeyValueObservation] = []
+
+    private init() {
+        guard UpdateConfiguration.isValid(
+            feed: Bundle.main.object(forInfoDictionaryKey: "SUFeedURL") as? String,
+            publicKey: Bundle.main.object(forInfoDictionaryKey: "SUPublicEDKey") as? String
+        ) else {
+            controller = nil
+            return
+        }
+        let controller = SPUStandardUpdaterController(
+            startingUpdater: true, updaterDelegate: nil, userDriverDelegate: nil
+        )
+        self.controller = controller
+        observations = [
+            controller.updater.observe(\.canCheckForUpdates, options: [.new]) { [weak self] _, _ in
+                DispatchQueue.main.async { self?.objectWillChange.send() }
+            },
+            controller.updater.observe(\.automaticallyChecksForUpdates, options: [.new]) { [weak self] _, _ in
+                DispatchQueue.main.async { self?.objectWillChange.send() }
+            }
+        ]
+    }
+}
+
 struct SettingsView: View {
     private let version = AppVersion()
     @StateObject private var loginItem = LoginItemSettings()
+    @ObservedObject private var updates = UpdateSettings.shared
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -76,6 +123,18 @@ struct SettingsView: View {
                 }
             }
             Divider()
+            if let controller = updates.controller {
+                Toggle("Check for updates automatically", isOn: Binding(
+                    get: { controller.updater.automaticallyChecksForUpdates },
+                    set: { controller.updater.automaticallyChecksForUpdates = $0 }
+                ))
+                Button("Check for Updates…") { controller.checkForUpdates(nil) }
+                    .disabled(!controller.updater.canCheckForUpdates)
+            } else {
+                Text("Updates are unavailable in this build.")
+                    .foregroundStyle(.secondary)
+            }
+            Divider()
             HStack(spacing: 12) {
                 Image(nsImage: NSApp.applicationIconImage)
                     .resizable()
@@ -89,7 +148,7 @@ struct SettingsView: View {
             }
         }
         .padding(24)
-        .frame(width: 400, height: 220, alignment: .topLeading)
+        .frame(width: 400, height: 310, alignment: .topLeading)
         .onAppear { loginItem.refresh() }
         .onReceive(NotificationCenter.default.publisher(for: NSWindow.didBecomeKeyNotification)) { notification in
             if notification.object as? NSWindow === SettingsWindow.existing?.window {
@@ -109,7 +168,7 @@ final class SettingsWindow: NSWindowController {
 
     private init() {
         let window = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 400, height: 220),
+            contentRect: NSRect(x: 0, y: 0, width: 400, height: 310),
             styleMask: [.titled, .closable, .miniaturizable],
             backing: .buffered,
             defer: false
@@ -157,6 +216,13 @@ struct ExmenApp: App {
 
         // Start the IPC socket server
         SocketServer.shared.start()
+
+        _ = UpdateSettings.shared
+        #if DEBUG && SPARKLE_TEST_FEED
+        if ProcessInfo.processInfo.arguments.contains("-exmen-test-open-settings") {
+            DispatchQueue.main.async { SettingsWindow.shared.present() }
+        }
+        #endif
     }
 
     var body: some Scene {

@@ -9,6 +9,21 @@ final class SettingsWindowTests: XCTestCase {
         XCTAssertEqual(version.build, Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String)
     }
 
+    func testUpdateConfigurationRequiresHTTPSAndEd25519PublicKey() {
+        let validKey = Data(repeating: 42, count: 32).base64EncodedString()
+        XCTAssertTrue(UpdateConfiguration.isValid(feed: "https://example.invalid/appcast.xml", publicKey: validKey))
+        XCTAssertFalse(UpdateConfiguration.isValid(feed: nil, publicKey: validKey))
+        XCTAssertFalse(UpdateConfiguration.isValid(feed: "http://example.invalid/appcast.xml", publicKey: validKey))
+        XCTAssertFalse(UpdateConfiguration.isValid(feed: "https://example.invalid/appcast.xml", publicKey: nil))
+        XCTAssertFalse(UpdateConfiguration.isValid(feed: "https://example.invalid/appcast.xml", publicKey: "not-a-key"))
+        XCTAssertFalse(UpdateConfiguration.isValid(feed: "https://example.invalid/appcast.xml", publicKey: Data(repeating: 1, count: 31).base64EncodedString()))
+    }
+
+    func testUpdatePolicyDefaultsToChecksWithoutAutomaticInstallation() {
+        XCTAssertEqual(Bundle.main.object(forInfoDictionaryKey: "SUEnableAutomaticChecks") as? Bool, true)
+        XCTAssertEqual(Bundle.main.object(forInfoDictionaryKey: "SUAllowsAutomaticUpdates") as? Bool, false)
+    }
+
     @MainActor
     func testLoginItemUsesSystemStatusAndRefreshesAfterChanges() async {
         var systemStatus = SMAppService.Status.notRegistered

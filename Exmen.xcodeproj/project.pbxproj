@@ -48,6 +48,7 @@
 		A1000001233456780000021 /* ServiceConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002233456780000021 /* ServiceConfig.swift */; };
 		A1000001233456780000022 /* ServiceState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002233456780000022 /* ServiceState.swift */; };
 		A1000001233456780000023 /* SwiftTerm in Frameworks */ = {isa = PBXBuildFile; productRef = A100000E233456780000001 /* SwiftTerm */; };
+		A1000041233456780000001 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = A1000041233456780000002 /* Sparkle */; };
 		A1000001233456780000024 /* ManagedService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002233456780000024 /* ManagedService.swift */; };
 		A1000001233456780000025 /* ServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002233456780000025 /* ServiceManager.swift */; };
 		A1000001233456780000026 /* ServiceOutputWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002233456780000026 /* ServiceOutputWindow.swift */; };
@@ -123,6 +124,7 @@
 			files = (
 				A1000001233456780000006 /* TOMLDecoder in Frameworks */,
 				A1000001233456780000023 /* SwiftTerm in Frameworks */,
+				A1000041233456780000001 /* Sparkle in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,6 +267,7 @@
 			packageProductDependencies = (
 				A100000C233456780000001 /* TOMLDecoder */,
 				A100000E233456780000001 /* SwiftTerm */,
+				A1000041233456780000002 /* Sparkle */,
 			);
 			productName = Exmen;
 			productReference = A1000003233456780000001 /* Exmen.app */;
@@ -321,6 +324,7 @@
 			packageReferences = (
 				A100000D233456780000001 /* XCRemoteSwiftPackageReference "TOMLDecoder" */,
 				A100000F233456780000001 /* XCRemoteSwiftPackageReference "SwiftTerm" */,
+				A1000041233456780000003 /* XCRemoteSwiftPackageReference "Sparkle" */,
 			);
 			productRefGroup = A1000005233456780000005 /* Products */;
 			projectDirPath = "";
@@ -665,6 +669,11 @@
 				minimumVersion = 1.11.2;
 			};
 		};
+		A1000041233456780000003 /* XCRemoteSwiftPackageReference "Sparkle" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparkle-project/Sparkle";
+			requirement = { kind = exactVersion; version = 2.9.2; };
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -682,6 +691,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A100000F233456780000001 /* XCRemoteSwiftPackageReference "SwiftTerm" */;
 			productName = SwiftTerm;
+		};
+		A1000041233456780000002 /* Sparkle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A1000041233456780000003 /* XCRemoteSwiftPackageReference "Sparkle" */;
+			productName = Sparkle;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
