@@ -1,0 +1,81 @@
+#!/bin/bash
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+
+fail() { printf 'release candidate blocked: %s\n' "$*" >&2; exit 1; }
+: "${RELEASE_VERSION:?Set RELEASE_VERSION}"
+: "${RELEASE_BUILD:?Set RELEASE_BUILD}"
+: "${SPARKLE_FEED_URL:?Set SPARKLE_FEED_URL to the production HTTPS appcast}"
+: "${NOTARY_PROFILE:?Set NOTARY_PROFILE to an existing notarytool keychain profile}"
+
+IDENTITY='Developer ID Application: Siriwat Uamngamsup (W6P9Y44LWU)'
+TEAM='W6P9Y44LWU'
+PUBLIC_KEY='u2Qi0V797BF+t7DyxOiHu90S7NLbhIx8S1SlFLvaHiA='
+[[ "$RELEASE_VERSION" =~ ^[0-9]+(\.[0-9]+){1,2}$ ]] || fail 'invalid version'
+[[ "$RELEASE_BUILD" =~ ^[1-9][0-9]*$ ]] || fail 'invalid build'
+python3 - "$SPARKLE_FEED_URL" <<'PY'
+import sys
+from urllib.parse import urlsplit
+u = urlsplit(sys.argv[1])
+if u.scheme != 'https' or not u.hostname or u.username or u.password or u.hostname.endswith('.invalid'):
+    raise SystemExit('release candidate blocked: invalid production feed URL')
+PY
+security find-identity -v -p codesigning | grep -Fq "$IDENTITY" || fail 'Developer ID identity unavailable'
+xcrun notarytool history --keychain-profile "$NOTARY_PROFILE" --output-format json --no-progress >/dev/null || fail 'notary profile unavailable'
+curl --fail --silent --show-error --max-time 20 "$SPARKLE_FEED_URL" >/dev/null || fail 'production feed unavailable'
+python3 scripts/check_release_build.py "$RELEASE_BUILD"
+
+work=$(mktemp -d "${TMPDIR:-/tmp}/exmen-release-candidate.XXXXXXXX")
+archive="$work/Exmen.xcarchive"
+export="$work/export"
+output="$work/Exmen-$RELEASE_VERSION.dmg"
+cat >"$work/ExportOptions.plist" <<PLIST
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict><key>method</key><string>developer-id</string><key>signingStyle</key><string>manual</string><key>signingCertificate</key><string>Developer ID Application</string><key>teamID</key><string>$TEAM</string><key>hardenedRuntime</key><true/></dict></plist>
+PLIST
+xcodebuild archive -project Exmen.xcodeproj -scheme Exmen -configuration Release \
+  -destination 'generic/platform=macOS' -archivePath "$archive" \
+  CODE_SIGN_STYLE=Manual "CODE_SIGN_IDENTITY=$IDENTITY" "DEVELOPMENT_TEAM=$TEAM" \
+  "CURRENT_PROJECT_VERSION=$RELEASE_BUILD" "MARKETING_VERSION=$RELEASE_VERSION" \
+  "SPARKLE_FEED_URL=$SPARKLE_FEED_URL"
+xcodebuild -exportArchive -archivePath "$archive" -exportPath "$export" -exportOptionsPlist "$work/ExportOptions.plist"
+app="$export/Exmen.app"
+test "$(/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' "$app/Contents/Info.plist")" = "$RELEASE_BUILD" || fail 'build metadata mismatch'
+test "$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$app/Contents/Info.plist")" = "$RELEASE_VERSION" || fail 'version metadata mismatch'
+test "$(/usr/libexec/PlistBuddy -c 'Print :SUFeedURL' "$app/Contents/Info.plist")" = "$SPARKLE_FEED_URL" || fail 'feed mismatch'
+test "$(/usr/libexec/PlistBuddy -c 'Print :SUPublicEDKey' "$app/Contents/Info.plist")" = "$PUBLIC_KEY" || fail 'production public key mismatch'
+codesign --verify --deep --strict --verbose=2 "$app"
+codesign -dv --verbose=2 "$app" 2>&1 | grep -Fq "TeamIdentifier=$TEAM" || fail 'wrong signing team'
+codesign -dv --verbose=2 "$app" 2>&1 | grep -q 'runtime' || fail 'hardened runtime missing'
+for helper in "$app/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate" \
+              "$app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app" \
+              "$app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc" \
+              "$app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc"; do
+  codesign --verify --strict --verbose=2 "$helper"
+  codesign -dv --verbose=2 "$helper" 2>&1 | grep -Fq "TeamIdentifier=$TEAM" || fail "wrong signing team: $helper"
+done
+hdiutil create -volname Exmen -srcfolder "$app" -format UDZO "$output"
+codesign --force --timestamp --sign "$IDENTITY" "$output"
+xcrun notarytool submit "$output" --keychain-profile "$NOTARY_PROFILE" --wait --no-progress --output-format json > "$work/notarization.json"
+python3 - "$work/notarization.json" <<'PY'
+import json, sys
+with open(sys.argv[1]) as result:
+    if json.load(result).get('status') != 'Accepted':
+        raise SystemExit('release candidate blocked: notarization not accepted')
+PY
+xcrun stapler staple "$output"
+xcrun stapler validate "$output"
+codesign --verify --strict --verbose=2 "$output"
+spctl -a -vvv -t open --context context:primary-signature "$output"
+mount="$work/mount"
+mkdir "$mount"
+hdiutil attach -readonly -nobrowse -mountpoint "$mount" "$output" >/dev/null
+trap 'hdiutil detach "$mount" >/dev/null' EXIT
+codesign --verify --deep --strict --verbose=2 "$mount/Exmen.app"
+spctl -a -vvv "$mount/Exmen.app"
+hdiutil detach "$mount" >/dev/null
+trap - EXIT
+printf 'Private candidate verified: %s\n' "$output"
+printf 'Publication requires separate approval and verification of downloaded bytes.\n'
