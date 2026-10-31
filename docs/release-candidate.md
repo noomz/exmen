@@ -6,7 +6,7 @@ Set `RELEASE_VERSION`, `RELEASE_BUILD`, `SPARKLE_FEED_URL`, and `NOTARY_PROFILE`
 
 The script downloads each published release's ZIP and DMG assets to inspect their app build numbers. It stops if any published release lacks an inspectable app, history cannot be read, or the requested build does not exceed the maximum. It then archives and exports through Xcode, verifies signatures and the production Sparkle key, notarizes a ZIP of the app, and staples the app. It packages that stapled app into a DMG, notarizes and staples the DMG, then validates both tickets and checks the mounted app with Gatekeeper. The resulting private artifact path is printed on success.
 
-The check is a preflight, not a publication lock. Before publishing, recheck release history and verify the exact downloaded bytes under the publication procedure in T5. Publication requires separate approval. Never substitute an ad-hoc artifact if signing or notarization fails.
+The check is a preflight, not a publication lock. Before publishing, recheck release history and verify the exact downloaded bytes with `scripts/publish-release.sh` as described in `docs/release-publication.md`. Publication requires separate approval. Never substitute an ad-hoc artifact if signing or notarization fails.
 
 `ReleaseVersion.xcconfig` holds the default Xcode marketing and build versions. The candidate script supplies the requested version and build as Xcode overrides and verifies both in the exported app.
 
