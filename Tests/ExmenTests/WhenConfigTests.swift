@@ -1,4 +1,5 @@
 import XCTest
+import ServiceManagement
 @testable import Exmen
 
 final class SettingsWindowTests: XCTestCase {
@@ -6,6 +7,85 @@ final class SettingsWindowTests: XCTestCase {
         let version = AppVersion()
         XCTAssertEqual(version.version, Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String)
         XCTAssertEqual(version.build, Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String)
+    }
+
+    @MainActor
+    func testLoginItemUsesSystemStatusAndRefreshesAfterChanges() async {
+        var systemStatus = SMAppService.Status.notRegistered
+        let settings = LoginItemSettings(
+            readStatus: { systemStatus },
+            register: { systemStatus = .enabled },
+            unregister: { systemStatus = .notRegistered }
+        )
+        XCTAssertEqual(settings.status, .notRegistered)
+        await settings.setEnabled(true)
+        XCTAssertEqual(settings.status, .enabled)
+        await settings.setEnabled(false)
+        XCTAssertEqual(settings.status, .notRegistered)
+        systemStatus = .requiresApproval
+        settings.refresh()
+        XCTAssertEqual(settings.status, .requiresApproval)
+        systemStatus = .notFound
+        settings.refresh()
+        XCTAssertEqual(settings.status, .notFound)
+    }
+
+    @MainActor
+    func testLoginItemFailurePreservesSystemStatusAndShowsError() async {
+        let settings = LoginItemSettings(
+            readStatus: { .notRegistered },
+            register: { throw NSError(domain: "LoginTest", code: 1) },
+            unregister: { }
+        )
+        await settings.setEnabled(true)
+        XCTAssertEqual(settings.status, .notRegistered)
+        XCTAssertNotNil(settings.errorMessage)
+    }
+
+    @MainActor
+    func testLoginItemRefreshDoesNotChangeRegistration() {
+        var changes = 0
+        let settings = LoginItemSettings(
+            readStatus: { .requiresApproval },
+            register: { changes += 1 },
+            unregister: { changes += 1 }
+        )
+        settings.refresh()
+        XCTAssertEqual(settings.status, .requiresApproval)
+        XCTAssertEqual(changes, 0)
+    }
+
+    @MainActor
+    func testLoginItemReportsApprovalAndClearsPreviousErrorOnRetry() async {
+        var status = SMAppService.Status.notRegistered
+        var shouldFail = true
+        let settings = LoginItemSettings(
+            readStatus: { status },
+            register: {
+                if shouldFail { throw NSError(domain: "LoginTest", code: 1) }
+                status = .requiresApproval
+            },
+            unregister: { }
+        )
+        await settings.setEnabled(true)
+        XCTAssertNotNil(settings.errorMessage)
+        shouldFail = false
+        await settings.setEnabled(true)
+        XCTAssertEqual(settings.status, .requiresApproval)
+        XCTAssertNil(settings.errorMessage)
+    }
+
+    @MainActor
+    func testLoginItemUnregisterFailurePreservesEnabledStatus() async {
+        let settings = LoginItemSettings(
+            readStatus: { .enabled },
+            register: { },
+            unregister: { throw NSError(domain: "LoginTest", code: 2) }
+        )
+        await settings.setEnabled(false)
+        XCTAssertEqual(settings.status, .enabled)
+        XCTAssertNotNil(settings.errorMessage)
+        XCTAssertFalse(settings.isChanging)
     }
 
     @MainActor
