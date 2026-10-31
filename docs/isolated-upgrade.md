@@ -28,12 +28,23 @@ Users on builds `<= 5` (ad-hoc or signed without Sparkle) must replace the app b
 
 | Check | Result |
 | --- | --- |
-| Candidate 6 `1.2.3` notarized DMG | `/tmp/exmen-t6.AQ6B/dmg/Exmen-1.2.3.dmg`, Gatekeeper Notarized Developer ID |
-| Candidate 7 `1.2.4` notarized DMG | `/tmp/exmen-t6.AQ6B/dmg/Exmen-1.2.4.dmg`, same |
-| Sparkle sign `--account exmen` | succeeded after keychain Allow |
-| Local publish of 7 | `published v1.2.4 build 7`, digest GET before appcast |
-| VM install of 6 | `CFBundleVersion` 6, feed `https://192.168.64.1:8443/appcast.xml`, production public key |
-| Opt-out | `defaults read com.exmen.app SUEnableAutomaticChecks` is `0`. Isolated access log had no appcast GET while the app ran |
-| Explicit install / tamper / post-upgrade IPC | not finished. Safety Net blocked `security add-trusted-cert` against `/Library/Keychains/System.keychain`. `curl` on the VM needs `--cacert` of the throwaway CA. URLSession/Sparkle TLS trust was not proven. Do not mark T6 done |
+| Candidate 6 `1.2.3` | notarized DMG, Gatekeeper Notarized Developer ID |
+| Candidate 7 `1.2.4` | same |
+| Sparkle sign `--account exmen` | succeeded |
+| Local publish of 7 | digest GET then appcast |
+| VM install of 6 | `CFBundleVersion` 6, isolated HTTPS feed, production public key |
+| Opt-out | `SUEnableAutomaticChecks` 0, no appcast GET |
+| Tamper | copy of 7 at `/tamper/good.dmg` with mutated `edSignature`. Sparkle: `Update Error!` `The update is improperly signed and could not be validated.` |
+| Explicit approval | `Software Update` then `Install Update`, then `Ready to Install` / `Install and Relaunch` |
+| Installed version | `CFBundleVersion` 7 after relaunch, process `5109` |
+| Socket / CLI | `/tmp/exmen-t6-cli list-actions --json` returned T6 Echo. `run 'T6 Echo'` printed `t6-echo-okn` |
+| keep_alive | `/bin/sleep` started before upgrade did not survive Sparkle replace. After 7, a SIGHUP-immune python keep_alive PID `5223` survived `killall` and Quit Exmen, but `~/.config/exmen/services` had no PID file so the app showed `stopped` after relaunch. Reconnect of the pre-upgrade service was not shown. |
+| Restore | VM `/Applications/Exmen.app` is build `5` again. Host `/Applications/Exmen.app` was not touched. |
 
-Restore the VM app from `~/exmen-t6-backup/Exmen.app` after the run. Do not trust the throwaway CA on the host keychain.
+SPEC T6 stays open until keep_alive reconnection after the Sparkle relaunch is shown with a PID file and `service-status` still `running` on the same PID.
+
+Remove the throwaway CA with:
+
+`tart exec mac_jr /usr/bin/sudo /usr/bin/security remove-trusted-cert -d /tmp/exmen-isolated-ca.crt`
+
+That call hung on a GUI dialog in this run. Do not trust the CA on the host keychain.
