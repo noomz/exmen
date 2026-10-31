@@ -38,10 +38,13 @@ Users on builds `<= 5` (ad-hoc or signed without Sparkle) must replace the app b
 | Explicit approval | `Software Update` then `Install Update`, then `Ready to Install` / `Install and Relaunch` |
 | Installed version | `CFBundleVersion` 7 after relaunch, process `5109` |
 | Socket / CLI | `/tmp/exmen-t6-cli list-actions --json` returned T6 Echo. `run 'T6 Echo'` printed `t6-echo-okn` |
-| keep_alive | `/bin/sleep` started before upgrade did not survive Sparkle replace. After 7, a SIGHUP-immune python keep_alive PID `5223` survived `killall` and Quit Exmen, but `~/.config/exmen/services` had no PID file so the app showed `stopped` after relaunch. Reconnect of the pre-upgrade service was not shown. |
-| Restore | VM `/Applications/Exmen.app` is build `5` again. Host `/Applications/Exmen.app` was not touched. |
+| keep_alive (first attempt, invalid) | `/bin/sleep` dies on SIGHUP when the PTY closes, so it did not survive. On relaunch `reconnectKeepAliveServices` found the PID dead and deleted the PID file. The later python probe was ended with `killall` (SIGTERM), which skips `willTerminate`, so no PID file was written. |
+| keep_alive (retest) | Service `command = "/usr/bin/nohup"`, `args = ["/bin/sleep", "3600"]`, `keep_alive = true`, PID `5345` on build 6. Graceful quit (`osascript ... to quit`) wrote `T6 Keepalive.pid` = `5345`; relaunch showed `running`, PID `5345`. Then Sparkle auto-check showed `Software Update`, `Install Update`, then `Install and Relaunch`. After relaunch: `CFBundleVersion` 7, Exmen PID `5427`, `service-status` `running` on PID `5345`, `list-services` `T6 Keepalive running (pid: 5345)`, `run 'T6 Echo'` printed `t6-echo-okn`. |
+| Restore | VM `/Applications/Exmen.app` is build `5` again (build 7 moved to `~/exmen-t6-backup/Exmen-build7.app`). T6 test actions, PID file, and probe process removed. Feed server stopped. Host `/Applications/Exmen.app` was not touched. |
 
-SPEC T6 stays open until keep_alive reconnection after the Sparkle relaunch is shown with a PID file and `service-status` still `running` on the same PID.
+keep_alive services must survive SIGHUP, because Exmen runs services on a PTY and the child gets SIGHUP when the app exits. Run them in the foreground with SIGHUP ignored (for example `nohup`) or use a daemon that ignores SIGHUP. Reconnection relies on the PID file written on `NSApplication.willTerminate`; a SIGTERM or `killall` of Exmen skips it.
+
+Known issue found during T6, not caused by it: `stop-service` on a reconnected keep_alive service reports `stopped` but leaves the process running. `ManagedService.stop()` only signals processes it started through `terminalView`; a reconnected service has none, so `stop()` never signals the stored `pid`.
 
 Remove the throwaway CA with:
 
