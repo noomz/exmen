@@ -106,10 +106,14 @@ struct MenuContentView: View {
 
             // Footer
             HStack {
-                Text("v1.2")
+                Text("v\(AppVersion().version)")
                     .font(.caption)
                     .foregroundColor(.secondary)
                 Spacer()
+                Button("Settings…") {
+                    dismissMenuExtraWindow()
+                    SettingsWindow.shared.present()
+                }
                 Button("Quit") {
                     NSApp.terminate(nil)
                 }
@@ -233,7 +237,8 @@ struct MenuContentView: View {
     private func dismissMenuExtraWindow() {
         let standalone: [NSWindow] = [
             ActionResultWindow.current?.window,
-            SubtaskProgressWindow.current?.window
+            SubtaskProgressWindow.current?.window,
+            SettingsWindow.existing?.window
         ].compactMap { $0 } + ServiceManager.shared.services.compactMap { $0.outputWindow?.window }
 
         func isStandalone(_ window: NSWindow) -> Bool {

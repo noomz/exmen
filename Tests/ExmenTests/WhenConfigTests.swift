@@ -1,6 +1,30 @@
 import XCTest
 @testable import Exmen
 
+final class SettingsWindowTests: XCTestCase {
+    func testVersionMatchesApplicationBundle() {
+        let version = AppVersion()
+        XCTAssertEqual(version.version, Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String)
+        XCTAssertEqual(version.build, Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String)
+    }
+
+    @MainActor
+    func testSettingsWindowCanBeClosedAndReopened() throws {
+        let controller = SettingsWindow.shared
+        controller.present()
+        let window = try XCTUnwrap(controller.window)
+        XCTAssertTrue(window.isVisible)
+        controller.present()
+        XCTAssertTrue(controller.window === window)
+        window.close()
+        XCTAssertFalse(window.isVisible)
+        controller.present()
+        XCTAssertTrue(window.isVisible)
+        XCTAssertTrue(controller.window === window)
+        window.close()
+    }
+}
+
 /// Optional `[when]` on actions/services: hide unless every specified
 /// command / file / env check passes. Unspecified fields are ignored.
 final class WhenConfigTests: XCTestCase {
