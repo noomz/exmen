@@ -51,6 +51,54 @@ class ReleaseBuildTests(unittest.TestCase):
         self.assertNotEqual(result.returncode, 0)
         self.assertIn('NOTARY_PROFILE', result.stderr)
 
+    def run_notarization_fixture(self, failure=''):
+        directory = tempfile.TemporaryDirectory()
+        self.addCleanup(directory.cleanup)
+        root = Path(directory.name)
+        binary = root / 'bin'
+        binary.mkdir()
+        fake = '''#!/bin/bash
+name=${0##*/}
+printf '%s %s\\n' "$name" "$*" >> "$CALL_LOG"
+if [ "$name" = xcrun ] && [ "$1" = stapler ] && [ "$2" = validate ] && [ "$3" = "$FAIL_VALIDATE" ]; then exit 1; fi
+if [ "$name" = xcrun ] && [ "$1" = notarytool ]; then printf '{"status":"Accepted"}\\n'; fi
+'''
+        for name in ('ditto', 'xcrun', 'hdiutil', 'codesign', 'spctl'):
+            path = binary / name
+            path.write_text(fake)
+            path.chmod(0o755)
+        env = os.environ.copy()
+        env.update(PATH=f'{binary}:{env["PATH"]}', CALL_LOG=str(root / 'calls'),
+                   FAIL_VALIDATE=failure.replace('{work}', str(root)))
+        result = subprocess.run(['bash', str(MODULE.parent / 'notarize-candidate.sh'),
+                                 str(root / 'Exmen.app'), str(root / 'Exmen.dmg'),
+                                 'profile', 'identity', str(root)], env=env, capture_output=True, text=True)
+        return root, result, (root / 'calls').read_text().splitlines()
+
+    def test_staples_app_before_packaging_and_validates_both_final_tickets(self):
+        root, result, calls = self.run_notarization_fixture()
+        self.assertEqual(result.returncode, 0, result.stderr)
+        app_submit = calls.index(f'xcrun notarytool submit {root}/Exmen-notary.zip --keychain-profile profile --wait --no-progress --output-format json')
+        app_staple = calls.index(f'xcrun stapler staple {root}/Exmen.app')
+        create = calls.index(f'hdiutil create -volname Exmen -srcfolder {root}/Exmen.app -format UDZO {root}/Exmen.dmg')
+        dmg_submit = calls.index(f'xcrun notarytool submit {root}/Exmen.dmg --keychain-profile profile --wait --no-progress --output-format json')
+        dmg_staple = calls.index(f'xcrun stapler staple {root}/Exmen.dmg')
+        dmg_validate = calls.index(f'xcrun stapler validate {root}/Exmen.dmg')
+        inner_validate = calls.index(f'xcrun stapler validate {root}/mount/Exmen.app')
+        self.assertLess(app_submit, app_staple)
+        self.assertLess(app_staple, create)
+        self.assertLess(create, dmg_submit)
+        self.assertLess(dmg_submit, dmg_staple)
+        self.assertLess(dmg_staple, dmg_validate)
+        self.assertLess(dmg_validate, inner_validate)
+
+    def test_rejects_missing_ticket_on_final_dmg_or_inner_app(self):
+        for path in ('{work}/Exmen.dmg', '{work}/mount/Exmen.app'):
+            with self.subTest(path=path):
+                root, result, calls = self.run_notarization_fixture(path)
+                self.assertNotEqual(result.returncode, 0)
+                self.assertIn(f'xcrun stapler validate {path.replace("{work}", str(root))}', calls)
+
     def test_rejects_non_increasing_build(self):
         with patch.object(checker, 'highest_published', return_value=5):
             with patch('sys.argv', ['check_release_build.py', '5']):

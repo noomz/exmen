@@ -56,26 +56,6 @@ for helper in "$app/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate"
   codesign --verify --strict --verbose=2 "$helper"
   codesign -dv --verbose=2 "$helper" 2>&1 | grep -Fq "TeamIdentifier=$TEAM" || fail "wrong signing team: $helper"
 done
-hdiutil create -volname Exmen -srcfolder "$app" -format UDZO "$output"
-codesign --force --timestamp --sign "$IDENTITY" "$output"
-xcrun notarytool submit "$output" --keychain-profile "$NOTARY_PROFILE" --wait --no-progress --output-format json > "$work/notarization.json"
-python3 - "$work/notarization.json" <<'PY'
-import json, sys
-with open(sys.argv[1]) as result:
-    if json.load(result).get('status') != 'Accepted':
-        raise SystemExit('release candidate blocked: notarization not accepted')
-PY
-xcrun stapler staple "$output"
-xcrun stapler validate "$output"
-codesign --verify --strict --verbose=2 "$output"
-spctl -a -vvv -t open --context context:primary-signature "$output"
-mount="$work/mount"
-mkdir "$mount"
-hdiutil attach -readonly -nobrowse -mountpoint "$mount" "$output" >/dev/null
-trap 'hdiutil detach "$mount" >/dev/null' EXIT
-codesign --verify --deep --strict --verbose=2 "$mount/Exmen.app"
-spctl -a -vvv "$mount/Exmen.app"
-hdiutil detach "$mount" >/dev/null
-trap - EXIT
+bash scripts/notarize-candidate.sh "$app" "$output" "$NOTARY_PROFILE" "$IDENTITY" "$work"
 printf 'Private candidate verified: %s\n' "$output"
 printf 'Publication requires separate approval and verification of downloaded bytes.\n'
