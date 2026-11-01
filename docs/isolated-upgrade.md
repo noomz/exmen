@@ -44,7 +44,7 @@ Users on builds `<= 5` (ad-hoc or signed without Sparkle) must replace the app b
 
 keep_alive services must survive SIGHUP, because Exmen runs services on a PTY and the child gets SIGHUP when the app exits. Run them in the foreground with SIGHUP ignored (for example `nohup`) or use a daemon that ignores SIGHUP. Reconnection relies on the PID file written on `NSApplication.willTerminate`; a SIGTERM or `killall` of Exmen skips it.
 
-Known issue found during T6, not caused by it: `stop-service` on a reconnected keep_alive service reports `stopped` but leaves the process running. `ManagedService.stop()` only signals processes it started through `terminalView`; a reconnected service has none, so `stop()` never signals the stored `pid`.
+The T6 issue with stopping or restarting a reconnected keep_alive service is fixed.
 
 Remove the throwaway CA with:
 

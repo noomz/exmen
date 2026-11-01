@@ -65,6 +65,7 @@ class ManagedService: ObservableObject, Identifiable {
     /// processTerminated never fires. This timer polls kill(pid, 0) to detect
     /// when the external process dies and updates state accordingly.
     private var livenessTimer: Timer?
+    private var detachedStopTask: Task<Void, Never>?
 
     init(action: Action) {
         self.id = action.id
@@ -217,6 +218,8 @@ class ManagedService: ObservableObject, Identifiable {
         }
 
         stopLivenessMonitor()
+        detachedStopTask?.cancel()
+        detachedStopTask = nil
         restartBackoffTask?.cancel()
         restartBackoffTask = nil
         healthyUptimeTask?.cancel()
@@ -290,7 +293,11 @@ class ManagedService: ObservableObject, Identifiable {
 
         // Nothing alive to signal (crashed, or waiting out a restart backoff).
         guard let tv = terminalView, tv.process.running else {
-            finishStop()
+            if let pid, pid > 0, kill(pid, 0) == 0 {
+                terminateDetachedProcess(pid)
+            } else {
+                finishStop()
+            }
             return
         }
 
@@ -321,9 +328,33 @@ class ManagedService: ObservableObject, Identifiable {
         }
     }
 
+    private func terminateDetachedProcess(_ processID: Int32) {
+        detachedStopTask?.cancel()
+        kill(processID, SIGTERM)
+        detachedStopTask = Task { [weak self] in
+            for attempt in 0... {
+                guard !Task.isCancelled, let self, self.pid == processID else { return }
+                if kill(processID, 0) != 0 {
+                    self.detachedStopTask = nil
+                    if self.manuallyStoppping {
+                        self.finishStop()
+                    } else if self.state == .restarting {
+                        self.pid = nil
+                        self.start()
+                    }
+                    return
+                }
+                if attempt == 50 { kill(processID, SIGKILL) }
+                try? await Task.sleep(nanoseconds: 100_000_000)
+            }
+        }
+    }
+
     /// Settle into `.stopped`. Leaves `terminalView` in place so the output
     /// window keeps showing the exited process's scrollback.
     private func finishStop() {
+        detachedStopTask?.cancel()
+        detachedStopTask = nil
         if let exitedPid = pid {
             reapChild(pid: exitedPid)
         }
@@ -375,8 +406,11 @@ class ManagedService: ObservableObject, Identifiable {
             manuallyStoppping = false
 
             guard let tv = terminalView, tv.process.running else {
-                // Nothing alive to wait for — go straight to a fresh start.
-                start()
+                if let pid, pid > 0, kill(pid, 0) == 0 {
+                    terminateDetachedProcess(pid)
+                } else {
+                    start()
+                }
                 return
             }
             tv.terminate()

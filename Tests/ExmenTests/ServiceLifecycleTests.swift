@@ -110,11 +110,48 @@ final class ServiceLifecycleTests: XCTestCase {
     func testStopClearsPid() {
         let service = ManagedService(action: makeServiceAction())
         service.state = .crashed
-        service.pid = 12345
+        service.pid = Int32.max
 
         service.stop()
 
         XCTAssertNil(service.pid)
+    }
+
+    func testStopReconnectedProcess() async throws {
+        let process = Process()
+        process.executableURL = URL(fileURLWithPath: "/bin/sleep")
+        process.arguments = ["60"]
+        try process.run()
+        defer { if process.isRunning { process.terminate() } }
+
+        let service = ManagedService(action: makeServiceAction())
+        service.pid = process.processIdentifier
+        service.state = .running
+        service.stop()
+
+        let stopped = await waitForState(service, timeout: 10) { $0 == .stopped }
+        XCTAssertTrue(stopped)
+        XCTAssertFalse(process.isRunning)
+        XCTAssertNil(service.pid)
+    }
+
+    func testRestartReconnectedProcess() async throws {
+        let process = Process()
+        process.executableURL = URL(fileURLWithPath: "/bin/sleep")
+        process.arguments = ["60"]
+        try process.run()
+        defer { if process.isRunning { process.terminate() } }
+
+        let service = ManagedService(action: makeServiceAction(command: "/bin/sleep", args: ["60"]))
+        service.pid = process.processIdentifier
+        service.state = .running
+        service.restart()
+
+        let restarted = await waitForState(service, timeout: 10) { $0 == .running }
+        XCTAssertTrue(restarted)
+        XCTAssertFalse(process.isRunning)
+        XCTAssertNotNil(service.terminalView)
+        service.stop()
     }
 
     // MARK: - Missing / invalid configuration fails loudly
