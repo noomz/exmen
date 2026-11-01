@@ -12,7 +12,7 @@ Build with `EXMEN_ISOLATED_CHANNEL=1`. That skips GitHub history, still requires
 
 ## Production feed
 
-Production `SUFeedURL` must be the HTTPS GitHub Pages URL that will serve `appcast.xml` from `gh-pages`. It is not configured yet. The first updater-enabled production build must embed that URL and the production public key. Staging candidates in this channel use a different `SUFeedURL`, so they are not byte-identical to a production artifact.
+Production `SUFeedURL` is `https://noomz.github.io/exmen/appcast.xml`, served by GitHub Pages from the root of the `gh-pages` branch (local worktree `../exmen-gh-pages`). The first updater-enabled production build is `1.3.0` build `8` (2026-11-01), which embeds that URL and the production public key. The next release must use a build number above `8`. Staging candidates in this channel use a different `SUFeedURL`, so they are not byte-identical to a production artifact.
 
 ## First-install migration
 
